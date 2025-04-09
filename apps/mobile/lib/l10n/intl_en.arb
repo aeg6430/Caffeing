@@ -1,0 +1,19 @@
+{
+    "@@locale":"en",  
+    "guest":"Guest",
+    "checkUpdate": "Check for Updates",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "english":"English",
+    "chineseTraditional": "Chinese Traditional",
+    "japanese":"Japanese",
+    "korean":"Korean",
+    "cancel":"Cancel",
+    "confirm":"Confirm",
+    "logout":"Logout",
+    "map":"Map",
+    "settings":"Settings"
+  }
+  

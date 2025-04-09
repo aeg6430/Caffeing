@@ -1,0 +1,140 @@
+# Global ignores
+*.class
+*.lock
+*.log
+*.pyc
+*.swp
+*.tmp
+*.DS_Store
+*.sw?
+
+# Common build/output folders
+build/
+dist/
+tmp/
+out/
+.cache/
+.idea/
+.vscode/
+node_modules/
+.packages
+.dart_tool/
+*.iml
+
+# Root-level ignores
+.history
+.buildlog/
+version
+analysis_benchmark.json
+
+# Symbol files
+app.*.symbols
+
+# Coverage
+coverage/
+
+# -----------------------------
+# FLUTTER (apps/mobile)
+# -----------------------------
+apps/mobile/.dart_tool/
+apps/mobile/.flutter-plugins
+apps/mobile/.flutter-plugins-dependencies
+apps/mobile/.packages
+apps/mobile/.pub/
+apps/mobile/.pub-preload-cache/
+apps/mobile/build/
+apps/mobile/coverage/
+apps/mobile/flutter_*.png
+apps/mobile/linked_*.ds
+apps/mobile/unlinked.ds
+apps/mobile/unlinked_spec.ds
+apps/mobile/**/*.g.dart
+apps/mobile/**/generated_plugin_registrant.dart
+apps/mobile/.env
+# iOS
+apps/mobile/ios/Flutter/App.framework
+apps/mobile/ios/Flutter/Flutter.framework
+apps/mobile/ios/Flutter/Flutter.podspec
+apps/mobile/ios/Flutter/Generated.xcconfig
+apps/mobile/ios/Flutter/ephemeral
+apps/mobile/ios/Flutter/flutter_assets/
+apps/mobile/ios/Flutter/app.flx
+apps/mobile/ios/Flutter/app.zip
+apps/mobile/ios/Flutter/.last_build_id
+apps/mobile/ios/Runner/GeneratedPluginRegistrant.*
+apps/mobile/ios/Pods/
+apps/mobile/ios/xcuserdata/
+apps/mobile/ios/DerivedData/
+apps/mobile/ios/ServiceDefinitions.json
+apps/mobile/ios/flutter_export_environment.sh
+apps/mobile/ios/.generated/
+
+# Android
+apps/mobile/android/.gradle/
+apps/mobile/android/captures/
+apps/mobile/android/local.properties
+apps/mobile/android/key.properties
+apps/mobile/android/**/GeneratedPluginRegistrant.java
+apps/mobile/android/gradlew
+apps/mobile/android/gradlew.bat
+apps/mobile/android/**/gradle-wrapper.jar
+
+# macOS
+apps/mobile/macos/Flutter/GeneratedPluginRegistrant.swift
+apps/mobile/macos/Flutter/ephemeral
+apps/mobile/macos/Pods/
+apps/mobile/macos/xcuserdata/
+
+# Linux
+apps/mobile/linux/flutter/generated_plugin_registrant.cc
+apps/mobile/linux/flutter/generated_plugin_registrant.h
+apps/mobile/linux/flutter/generated_plugins.cmake
+
+# Windows
+apps/mobile/windows/flutter/generated_plugin_registrant.cc
+apps/mobile/windows/flutter/generated_plugin_registrant.h
+apps/mobile/windows/flutter/generated_plugins.cmake
+
+# Exceptions (retain specific files)
+!apps/mobile/ios/**/default.mode1v3
+!apps/mobile/ios/**/default.mode2v3
+!apps/mobile/ios/**/default.pbxuser
+!apps/mobile/ios/**/default.perspectivev3
+
+# -----------------------------
+# C# (apps/backend)
+# -----------------------------
+# Build results
+apps/backend/bin/
+apps/backend/obj/
+apps/backend/.vs/
+apps/backend/*.user
+apps/backend/*.suo
+apps/backend/*.userosscache
+apps/backend/*.sln.docstates
+
+# Rider
+apps/backend/.idea/
+
+# ASP.NET
+apps/backend/wwwroot/
+apps/backend/App_Data/
+apps/backend/App_Code/
+
+# NuGet
+apps/backend/packages/
+*.nupkg
+*.snupkg
+*.nuspec
+
+# Logs
+apps/backend/logs/
+
+# Publish outputs
+apps/backend/publish/
+apps/backend/**/*.Publish.xml
+
+# Secrets
+apps/backend/secrets.json
+apps/backend/appsettings.Development.json
+

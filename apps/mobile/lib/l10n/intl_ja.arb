@@ -1,0 +1,18 @@
+{
+    "@@locale":"ja", 
+    "guest":"ゲスト",
+    "checkUpdate": "アップデートを確認",
+    "lightMode": "ライトモード",
+    "darkMode": "ダークモード",
+    "language": "言語",
+    "selectLanguage": "言語を選択",
+    "japanese":"日本語",
+    "english":"英語",
+    "chineseTraditional": "中国語（繁体字）",
+    "korean":"韓国语",
+    "cancel":"キャンセル",
+    "confirm":"確認",
+    "logout":"ログアウト",
+    "map":"地図",
+    "settings":"設定"
+}

@@ -1,0 +1,18 @@
+{
+    "@@locale":"ko",
+    "guest":"손님", 
+    "checkUpdate": "업데이트 확인",
+    "lightMode": "라이트 모드",
+    "darkMode": "다크 모드",
+    "language": "언어",
+    "selectLanguage": "언어 선택",
+    "korean":"한국어",
+    "chineseTraditional": "중국어 번체",
+    "english":"영어",
+    "japanese":"일본어",
+    "cancel":"취소",
+    "confirm":"확인",
+    "logout":"로그아웃",
+    "map":"지도",
+    "settings":"설정"
+}
