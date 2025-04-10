@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:Kafein/l10n/generated/l10n.dart';
 import 'package:Kafein/provider/localeProvider.dart';
 import 'package:Kafein/res/style/style.dart';
+import 'package:Kafein/view/components/bottom_sheet.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MapScreen extends StatefulWidget {
@@ -16,17 +17,26 @@ class _MapScreenState extends State<MapScreen> {
     return Consumer<LocaleProvider>(
       builder: (context, localeProvider, _) {
         return Scaffold(
-          appBar: AppBar(title: Center(child: Text(S.of(context).map))),
-          body: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppStyles.getHorizontalPadding(context, 0.01),
-            ),
-            child: ListTile(
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Center(child: Text("MAP HERE"))],
+          body: Stack(
+            children: [
+              Center(
+                child: Image.network(
+                  'https://fakeimg.pl/600x600/?text=Hello',
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
+              DraggableScrollableSheet(
+                initialChildSize: 0.25,
+                minChildSize: 0.1,
+                maxChildSize: 0.8,
+                builder: (
+                  BuildContext context,
+                  ScrollController scrollController,
+                ) {
+                  return CustomBottomSheet(scrollController: scrollController);
+                },
+              ),
+            ],
           ),
         );
       },
