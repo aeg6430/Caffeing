@@ -1,8 +1,6 @@
-import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/provider/localeProvider.dart';
-import 'package:caffeing/res/style/style.dart';
-import 'package:caffeing/view/components/bottom_sheet.dart';
 import 'package:caffeing/view/components/custom_bottom_sheet.dart';
+import 'package:caffeing/view/components/map_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,12 +18,7 @@ class _MapScreenState extends State<MapScreen> {
         return Scaffold(
           body: Stack(
             children: [
-              Center(
-                child: Image.network(
-                  'https://fakeimg.pl/600x600/?text=Hello',
-                  fit: BoxFit.fill,
-                ),
-              ),
+              Center(child: MapContent(latitude: 25.0330, longitude: 121.5654)),
               DraggableScrollableSheet(
                 initialChildSize: 0.25,
                 minChildSize: 0.1,

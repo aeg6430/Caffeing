@@ -78,6 +78,7 @@ apps/mobile/android/**/GeneratedPluginRegistrant.java
 apps/mobile/android/gradlew
 apps/mobile/android/gradlew.bat
 apps/mobile/android/**/gradle-wrapper.jar
+apps/mobile/android/app/src/main/res/values/strings.xml
 
 # macOS
 apps/mobile/macos/Flutter/GeneratedPluginRegistrant.swift
