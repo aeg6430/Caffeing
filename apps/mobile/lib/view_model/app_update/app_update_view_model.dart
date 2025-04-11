@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:Kafein/data/network/network_utils.dart';
-import 'package:Kafein/models/request/app_update/app_update_request_model.dart';
-import 'package:Kafein/models/response/app_update/app_update_response_model.dart';
-import 'package:Kafein/models/response/app_update/app_update_token_response.dart';
-import 'package:Kafein/repository/app_update/app_update_repository.dart';
+import 'package:caffeing/data/network/network_utils.dart';
+import 'package:caffeing/models/request/app_update/app_update_request_model.dart';
+import 'package:caffeing/models/response/app_update/app_update_response_model.dart';
+import 'package:caffeing/models/response/app_update/app_update_token_response.dart';
+import 'package:caffeing/repository/app_update/app_update_repository.dart';
 
 enum AppUpdateStatus {
   idle,

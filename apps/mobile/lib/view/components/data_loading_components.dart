@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:Kafein/res/style/style.dart';
+import 'package:caffeing/res/style/style.dart';
 
 class DataLoadingComponents extends StatefulWidget {
   @override

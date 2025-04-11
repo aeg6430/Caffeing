@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:Kafein/l10n/generated/l10n.dart';
-import 'package:Kafein/provider/localeProvider.dart';
-import 'package:Kafein/res/style/style.dart';
-import 'package:Kafein/utils/localization_dialog_helper.dart';
-import 'package:Kafein/utils/version_updater_utils.dart';
-import 'package:Kafein/view_model/auth/auth_view_model.dart';
+import 'package:caffeing/l10n/generated/l10n.dart';
+import 'package:caffeing/provider/localeProvider.dart';
+import 'package:caffeing/res/style/style.dart';
+import 'package:caffeing/utils/localization_dialog_helper.dart';
+import 'package:caffeing/utils/version_updater_utils.dart';
+import 'package:caffeing/view_model/auth/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {

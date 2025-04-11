@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Kafein/models/response/navigation_bar/navigation_bar_response_model.dart';
-import 'package:Kafein/view_model/navigation_bar/navigation_bar_result.dart';
+import 'package:caffeing/models/response/navigation_bar/navigation_bar_response_model.dart';
+import 'package:caffeing/view_model/navigation_bar/navigation_bar_result.dart';
 
 enum NavigationBarStatus {
   idle,

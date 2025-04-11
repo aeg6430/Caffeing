@@ -1,5 +1,5 @@
-import 'package:Kafein/data/network/api_service.dart';
-import 'package:Kafein/models/request/app_update/app_update_request_model.dart';
+import 'package:caffeing/data/network/api_service.dart';
+import 'package:caffeing/models/request/app_update/app_update_request_model.dart';
 
 class AppUpdateRepository {
   final ApiService apiService;

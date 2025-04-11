@@ -1,5 +1,5 @@
-name: Kafein
-description: "Kafein"
+name: caffeing
+description: "Caffeing"
 publish_to: "none"
 authors:
   - "Kyle Chang"
@@ -63,4 +63,3 @@ flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/icon/app_icon.png"
-

@@ -5,12 +5,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:Kafein/data/network/api_service.dart';
-import 'package:Kafein/models/request/app_update/app_update_request_model.dart';
-import 'package:Kafein/repository/app_update/app_update_repository.dart';
-import 'package:Kafein/utils/apk_installer.dart';
-import 'package:Kafein/view/components/dialog_components.dart';
-import 'package:Kafein/view_model/app_update/app_update_view_model.dart';
+import 'package:caffeing/data/network/api_service.dart';
+import 'package:caffeing/models/request/app_update/app_update_request_model.dart';
+import 'package:caffeing/repository/app_update/app_update_repository.dart';
+import 'package:caffeing/utils/apk_installer.dart';
+import 'package:caffeing/view/components/dialog_components.dart';
+import 'package:caffeing/view_model/app_update/app_update_view_model.dart';
 
 class VersionUpdater {
   static late AppUpdateViewModel appUpdateViewModel;

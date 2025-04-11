@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:Kafein/data/network/network_utils.dart';
-import 'package:Kafein/models/request/user/user_request_model.dart';
-import 'package:Kafein/models/response/user/user_response_model.dart';
-import 'package:Kafein/repository/auth/auth_repository.dart';
-import 'package:Kafein/utils/token_utils.dart';
+import 'package:caffeing/data/network/network_utils.dart';
+import 'package:caffeing/models/request/user/user_request_model.dart';
+import 'package:caffeing/models/response/user/user_response_model.dart';
+import 'package:caffeing/repository/auth/auth_repository.dart';
+import 'package:caffeing/utils/token_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum LoginStatus {

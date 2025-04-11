@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:Kafein/data/network/network_utils.dart';
-import 'package:Kafein/models/request/app_update/app_update_request_model.dart';
-import 'package:Kafein/models/request/user/user_request_model.dart';
-import 'package:Kafein/models/response/user/user_response_model.dart';
+import 'package:caffeing/data/network/network_utils.dart';
+import 'package:caffeing/models/request/app_update/app_update_request_model.dart';
+import 'package:caffeing/models/request/user/user_request_model.dart';
+import 'package:caffeing/models/response/user/user_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {

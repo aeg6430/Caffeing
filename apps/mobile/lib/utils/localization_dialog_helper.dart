@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:Kafein/l10n/generated/l10n.dart';
-import 'package:Kafein/provider/localeProvider.dart';
-import 'package:Kafein/view/components/dialog_components.dart';
+import 'package:caffeing/l10n/generated/l10n.dart';
+import 'package:caffeing/provider/localeProvider.dart';
+import 'package:caffeing/view/components/dialog_components.dart';
 
 class LocalizationDialogHelper {
   static Future<void> show(BuildContext context) async {

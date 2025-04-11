@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:Kafein/data/local/data_handler.dart';
-import 'package:Kafein/l10n/generated/l10n.dart';
-import 'package:Kafein/localization/AppLocalizations.dart';
-import 'package:Kafein/provider/localeProvider.dart';
-import 'package:Kafein/provider/pageProvider.dart';
-import 'package:Kafein/res/style/style.dart';
-import 'package:Kafein/routes/routes.dart';
-import 'package:Kafein/utils/auth_wrapper.dart';
-import 'package:Kafein/utils/env.dart';
+import 'package:caffeing/data/local/data_handler.dart';
+import 'package:caffeing/l10n/generated/l10n.dart';
+import 'package:caffeing/localization/AppLocalizations.dart';
+import 'package:caffeing/provider/localeProvider.dart';
+import 'package:caffeing/provider/pageProvider.dart';
+import 'package:caffeing/res/style/style.dart';
+import 'package:caffeing/routes/routes.dart';
+import 'package:caffeing/utils/auth_wrapper.dart';
+import 'package:caffeing/utils/env.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

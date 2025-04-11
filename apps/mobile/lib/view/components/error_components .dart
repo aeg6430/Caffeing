@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:Kafein/res/style/style.dart';
+import 'package:caffeing/res/style/style.dart';
 
 class ErrorComponents extends StatelessWidget {
   final IconData icon;

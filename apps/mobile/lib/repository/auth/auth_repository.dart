@@ -1,7 +1,7 @@
-import 'package:Kafein/data/network/api_service.dart';
-import 'package:Kafein/models/request/user/user_request_model.dart';
-import 'package:Kafein/models/response/user/user_response_model.dart';
-import 'package:Kafein/utils/token_utils.dart';
+import 'package:caffeing/data/network/api_service.dart';
+import 'package:caffeing/models/request/user/user_request_model.dart';
+import 'package:caffeing/models/response/user/user_response_model.dart';
+import 'package:caffeing/utils/token_utils.dart';
 
 class AuthRepository {
   final ApiService apiService;

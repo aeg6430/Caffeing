@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:Kafein/provider/bottomNavigationProvider.dart';
-import 'package:Kafein/utils/permission_utils.dart';
-import 'package:Kafein/view/screens/auth_screen/auth_screen.dart';
-import 'package:Kafein/view/screens/home_screen/home_screen.dart';
-import 'package:Kafein/view_model/auth/auth_view_model.dart';
-import 'package:Kafein/view_model/navigation_bar/navigation_bar_view_model.dart';
+import 'package:caffeing/provider/bottomNavigationProvider.dart';
+import 'package:caffeing/utils/permission_utils.dart';
+import 'package:caffeing/view/screens/auth_screen/auth_screen.dart';
+import 'package:caffeing/view/screens/home_screen/home_screen.dart';
+import 'package:caffeing/view_model/auth/auth_view_model.dart';
+import 'package:caffeing/view_model/navigation_bar/navigation_bar_view_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 

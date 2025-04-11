@@ -1,7 +1,8 @@
-import 'package:Kafein/l10n/generated/l10n.dart';
-import 'package:Kafein/provider/localeProvider.dart';
-import 'package:Kafein/res/style/style.dart';
-import 'package:Kafein/view/components/bottom_sheet.dart';
+import 'package:caffeing/l10n/generated/l10n.dart';
+import 'package:caffeing/provider/localeProvider.dart';
+import 'package:caffeing/res/style/style.dart';
+import 'package:caffeing/view/components/bottom_sheet.dart';
+import 'package:caffeing/view/components/custom_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

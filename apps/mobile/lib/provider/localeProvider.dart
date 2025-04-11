@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:Kafein/localization/AppLocalizations.dart';
+import 'package:caffeing/localization/AppLocalizations.dart';
 import 'package:provider/provider.dart';
 
 class LocaleProvider extends ChangeNotifier {

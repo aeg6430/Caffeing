@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Kafein/res/style/style.dart';
+import 'package:caffeing/res/style/style.dart';
 
 class DialogUtils {
   static Widget showCustomDialog({

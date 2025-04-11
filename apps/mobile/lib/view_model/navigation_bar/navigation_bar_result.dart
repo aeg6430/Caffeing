@@ -1,4 +1,4 @@
-import 'package:Kafein/models/response/navigation_bar/navigation_bar_response_model.dart';
+import 'package:caffeing/models/response/navigation_bar/navigation_bar_response_model.dart';
 
 class NavigationBarResult {
   final List<NavigationBarResponseModel>? navigation_bar;

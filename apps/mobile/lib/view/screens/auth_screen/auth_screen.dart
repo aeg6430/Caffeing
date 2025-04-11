@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Kafein/models/request/user/user_request_model.dart';
-import 'package:Kafein/res/style/style.dart';
-import 'package:Kafein/view_model/auth/auth_view_model.dart';
+import 'package:caffeing/models/request/user/user_request_model.dart';
+import 'package:caffeing/res/style/style.dart';
+import 'package:caffeing/view_model/auth/auth_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

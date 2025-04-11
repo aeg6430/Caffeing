@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:Kafein/provider/bottomNavigationProvider.dart';
-import 'package:Kafein/view/screens/auth_screen/auth_screen.dart';
-import 'package:Kafein/view/screens/home_screen/home_screen.dart';
-import 'package:Kafein/view/screens/settings_screen/settings_screen.dart';
+import 'package:caffeing/provider/bottomNavigationProvider.dart';
+import 'package:caffeing/view/screens/auth_screen/auth_screen.dart';
+import 'package:caffeing/view/screens/home_screen/home_screen.dart';
+import 'package:caffeing/view/screens/settings_screen/settings_screen.dart';
 
 class Routes {
   static const String auth = '/auth';

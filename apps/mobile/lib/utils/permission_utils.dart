@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:Kafein/view/components/dialog_components.dart';
+import 'package:caffeing/view/components/dialog_components.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionUtils {

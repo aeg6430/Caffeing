@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:Kafein/utils/env.dart';
+import 'package:caffeing/utils/env.dart';
 
 class NetworkUtils {
   static String? get baseApiUrl => "${Env.apiUrl}/api";
