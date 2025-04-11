@@ -11,6 +11,12 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  double latitude = 25.05291553866105;
+  double longitude =
+      121.52035694040113; // Default location (Zhongshan_District,_Taipei inital position)
+
+  TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LocaleProvider>(
@@ -18,7 +24,35 @@ class _MapScreenState extends State<MapScreen> {
         return Scaffold(
           body: Stack(
             children: [
-              Center(child: MapContent(latitude: 25.0330, longitude: 121.5654)),
+              Center(
+                child: MapContent(latitude: latitude, longitude: longitude),
+              ),
+              Positioned(
+                top: 20.0,
+                left: 20.0,
+                right: 20.0,
+                child: Column(
+                  children: [
+                    // Search TextField
+                    TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        labelText: 'Enter Location',
+                        border: OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.search),
+                          onPressed: _onSearchPressed,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: _onSearchPressed,
+                      child: Text('Set Sample Location'),
+                    ),
+                  ],
+                ),
+              ),
               DraggableScrollableSheet(
                 initialChildSize: 0.25,
                 minChildSize: 0.1,
@@ -35,5 +69,15 @@ class _MapScreenState extends State<MapScreen> {
         );
       },
     );
+  }
+
+  void _onSearchPressed() {
+    double sampleLat = 25.054307690427787; // Sample latitude
+    double sampleLng = 121.50936894776244; // Sample longitude
+    print('New coordinates: Latitude = $sampleLat, Longitude = $sampleLng');
+    setState(() {
+      latitude = sampleLat;
+      longitude = sampleLng;
+    });
   }
 }
