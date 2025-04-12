@@ -5,6 +5,7 @@ using Caffeing.Infrastructure.Entities.Stores;
 using Caffeing.Infrastructure.IRepositories;
 using Dapper;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -72,7 +73,7 @@ namespace Caffeing.Infrastructure.Repositories
                 {
                     Stores = result.ToList(),
                     TotalStoresCount = result.Count(),
-                    IsFiltered = !string.IsNullOrEmpty(searchRequest.Query) || (searchRequest.KeywordIds?.Length > 0),
+                    IsMatched = result.Count()>0,
                     PageNumber = searchRequest.PageNumber,
                     PageSize = searchRequest.PageSize
                 };

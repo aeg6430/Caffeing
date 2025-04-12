@@ -10,7 +10,7 @@ namespace Caffeing.Infrastructure.Entities.Search
     public class SearchResponse
     {
         public List<StoresQueryResponse> Stores { get; set; }
-        public bool IsFiltered { get; set; }
+        public bool IsMatched { get; set; }
         public int TotalStoresCount { get; set; }
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
