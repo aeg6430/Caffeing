@@ -5,9 +5,3 @@ class AppUpdateResult {
 
   AppUpdateResult({this.appUpdate});
 }
-
-class APPUpdateResult {
-  final AppUpdateResponseModel? result;
-
-  APPUpdateResult({this.result});
-}
