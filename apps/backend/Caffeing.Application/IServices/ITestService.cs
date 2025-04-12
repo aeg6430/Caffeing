@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Caffeing.Application.Test.IServices
+namespace Caffeing.Application.IServices
 {
-    namespace Caffeing.Application.Test.Services
+    namespace Caffeing.Application.Services
     {
         public interface ITestService
         {

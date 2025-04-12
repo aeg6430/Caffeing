@@ -1,8 +1,8 @@
-﻿using Caffeing.Application.Test.IServices.Caffeing.Application.Test.Services;
-using Caffeing.Application.Test.Services;
+﻿using Caffeing.Application.IServices.Caffeing.Application.Services;
+using Caffeing.Application.Services;
 using Caffeing.Infrastructure.Contexts;
-using Caffeing.Infrastructure.Test.IRepositories;
-using Caffeing.Infrastructure.Test.Repositories;
+using Caffeing.Infrastructure.IRepositories;
+using Caffeing.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
