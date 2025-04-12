@@ -106,36 +106,41 @@ apps/mobile/windows/flutter/generated_plugins.cmake
 # C# (apps/backend)
 # -----------------------------
 # Build results
-apps/backend/bin/
-apps/backend/obj/
-apps/backend/.vs/
-apps/backend/*.user
-apps/backend/*.suo
-apps/backend/*.userosscache
-apps/backend/*.sln.docstates
+apps/backend/**/bin/
+apps/backend/**/obj/
+apps/backend/**/.vs/
+apps/backend/**/*.user
+apps/backend/**/*.suo
+apps/backend/**/*.userosscache
+apps/backend/**/*.sln.docstates
 
 # Rider
-apps/backend/.idea/
+apps/backend/**/.idea/
 
 # ASP.NET
-apps/backend/wwwroot/
-apps/backend/App_Data/
-apps/backend/App_Code/
+apps/backend/**/wwwroot/
+apps/backend/**/App_Data/
+apps/backend/**/App_Code/
 
 # NuGet
-apps/backend/packages/
-*.nupkg
-*.snupkg
-*.nuspec
+apps/backend/**/packages/
+apps/backend/**/*.nupkg
+apps/backend/**/*.snupkg
+apps/backend/**/*.nuspec
 
 # Logs
-apps/backend/logs/
+apps/backend/**/logs/
 
 # Publish outputs
-apps/backend/publish/
+apps/backend/**/publish/
 apps/backend/**/*.Publish.xml
 
 # Secrets
-apps/backend/secrets.json
-apps/backend/appsettings.Development.json
+apps/backend/**/secrets.json
+apps/backend/**/appsettings.Development.json
+
+# Ignore all appsettings files EXCEPT example
+apps/backend/**/appsettings*.json
+!apps/backend/**/appsettings.example.json
+
 
