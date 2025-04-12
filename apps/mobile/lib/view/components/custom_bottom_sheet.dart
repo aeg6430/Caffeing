@@ -9,10 +9,7 @@ class CustomBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color:
-          Theme.of(context).brightness == Brightness.dark
-              ? Colors.grey[900]
-              : Colors.white,
+      color: Theme.of(context).colorScheme.surfaceContainerHigh,
       child: SingleChildScrollView(
         controller: scrollController,
         child: Padding(
