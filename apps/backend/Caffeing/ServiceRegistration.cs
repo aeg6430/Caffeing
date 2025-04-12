@@ -23,6 +23,9 @@ namespace Caffeing.WebAPI
 
             services.AddScoped<ISearchRepository, SearchRepository>();
             services.AddScoped<ISearchService, SearchService>();
+
+            services.AddScoped<IKeywordRepository, KeywordRepository>();
+            services.AddScoped<IKeywordService, KeywordService>();
         }
     }
 }
