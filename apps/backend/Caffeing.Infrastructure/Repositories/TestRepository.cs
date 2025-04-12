@@ -1,13 +1,13 @@
 ﻿using Caffeing.Infrastructure.Contexts;
 using Caffeing.Infrastructure.Entities;
-using Caffeing.Infrastructure.Test.IRepositories;
+using Caffeing.Infrastructure.IRepositories;
 using Dapper;
 using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Caffeing.Infrastructure.Test.Repositories
+namespace Caffeing.Infrastructure.Repositories
 {
     public class TestRepository : ITestRepository
     {

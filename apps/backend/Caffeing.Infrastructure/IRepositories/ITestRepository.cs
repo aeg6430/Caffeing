@@ -1,6 +1,6 @@
 ﻿using Caffeing.Infrastructure.Entities;
 using System.Threading.Tasks;
-namespace Caffeing.Infrastructure.Test.IRepositories
+namespace Caffeing.Infrastructure.IRepositories
 {
     public interface ITestRepository
     {
