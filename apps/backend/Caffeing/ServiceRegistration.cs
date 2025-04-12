@@ -17,8 +17,12 @@ namespace Caffeing.WebAPI
         public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<DapperContext>();
+
             services.AddScoped<ITestRepository, TestRepository>();
-            services.AddScoped<ITestService, TestService>();       
+            services.AddScoped<ITestService, TestService>();
+
+            services.AddScoped<ISearchRepository, SearchRepository>();
+            services.AddScoped<ISearchService, SearchService>();
         }
     }
 }
