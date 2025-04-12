@@ -1,3 +1,5 @@
+import 'package:caffeing/repository/search/search_repository.dart';
+import 'package:caffeing/view_model/search/search_view_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:caffeing/data/network/api_service.dart';
 import 'package:caffeing/repository/auth/auth_repository.dart';
@@ -22,6 +24,12 @@ class PageProvider {
         ),
         ChangeNotifierProvider<NavigationBarViewModel>(
           create: (context) => NavigationBarViewModel(),
+        ),
+        ChangeNotifierProvider<SearchViewModel>(
+          create:
+              (context) => SearchViewModel(
+                searchRepository: SearchRepository(apiService: ApiService()),
+              ),
         ),
       ],
       child: child,

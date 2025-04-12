@@ -1,6 +1,9 @@
+import 'package:caffeing/models/request/search/search_request_model.dart';
 import 'package:caffeing/provider/localeProvider.dart';
 import 'package:caffeing/view/components/custom_bottom_sheet.dart';
 import 'package:caffeing/view/components/map_content.dart';
+import 'package:caffeing/view/components/search_bar_widget.dart';
+import 'package:caffeing/view_model/search/search_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,68 +19,58 @@ class _MapScreenState extends State<MapScreen> {
       121.52035694040113; // Default location (Zhongshan_District,_Taipei inital position)
 
   TextEditingController _searchController = TextEditingController();
+  late SearchViewModel searchViewModel;
+  @override
+  void initState() {
+    super.initState();
+    searchViewModel = Provider.of<SearchViewModel>(context, listen: false);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<LocaleProvider>(
       builder: (context, localeProvider, _) {
         return Scaffold(
-          body: Stack(
-            children: [
+          body: SafeArea(
+            child: Stack(
+              children: [
+                /*
               Center(
                 child: MapContent(latitude: latitude, longitude: longitude),
-              ),
-              Positioned(
-                top: 20.0,
-                left: 20.0,
-                right: 20.0,
-                child: Column(
-                  children: [
-                    // Search TextField
-                    TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        labelText: 'Enter Location',
-                        border: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.search),
-                          onPressed: _onSearchPressed,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: _onSearchPressed,
-                      child: Text('Set Sample Location'),
-                    ),
-                  ],
+              ),*/
+                Align(
+                  alignment: Alignment.topRight,
+                  child: SearchBarWidget(
+                    searchViewModel: searchViewModel,
+                    onSelected: (store) {
+                      print(
+                        "Selected: ${store.name}, lat: ${store.latitude}, lng: ${store.longitude}",
+                      );
+                      setState(() {
+                        latitude = store.latitude ?? latitude;
+                        longitude = store.longitude ?? longitude;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              DraggableScrollableSheet(
-                initialChildSize: 0.25,
-                minChildSize: 0.1,
-                maxChildSize: 0.8,
-                builder: (
-                  BuildContext context,
-                  ScrollController scrollController,
-                ) {
-                  return CustomBottomSheet(scrollController: scrollController);
-                },
-              ),
-            ],
+                DraggableScrollableSheet(
+                  initialChildSize: 0.25,
+                  minChildSize: 0.1,
+                  maxChildSize: 0.8,
+                  builder: (
+                    BuildContext context,
+                    ScrollController scrollController,
+                  ) {
+                    return CustomBottomSheet(
+                      scrollController: scrollController,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         );
       },
     );
-  }
-
-  void _onSearchPressed() {
-    double sampleLat = 25.054307690427787; // Sample latitude
-    double sampleLng = 121.50936894776244; // Sample longitude
-    print('New coordinates: Latitude = $sampleLat, Longitude = $sampleLng');
-    setState(() {
-      latitude = sampleLat;
-      longitude = sampleLng;
-    });
   }
 }
