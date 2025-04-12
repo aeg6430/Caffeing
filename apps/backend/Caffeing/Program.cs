@@ -1,12 +1,44 @@
+using Serilog;
 using Caffeing;
 using System.Reflection;
 
-var builder = WebApplication.CreateBuilder(args);
-var startup = new Startup(builder.Configuration);
-startup.ConfigureServices(builder.Services);
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables()
+    .Build();
 
-var app = builder.Build();
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .Enrich.FromLogContext()
+    .Enrich.WithEnvironmentName()
+    .Enrich.WithThreadId()
+    .Enrich.WithProcessId()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day) // for dev
+    .CreateLogger();
 
-startup.Configure(app, app.Environment);
+try
+{
+    Log.Information("Starting up");
 
-app.Run();
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Host.UseSerilog();
+
+    var startup = new Startup(builder.Configuration);
+    startup.ConfigureServices(builder.Services);
+
+    var app = builder.Build();
+
+    startup.Configure(app, app.Environment);
+
+    app.Run();
+}
+catch (Exception e)
+{
+    Log.Fatal(e, "Application start-up failed");
+}
+finally
+{
+    Log.CloseAndFlush();
+}

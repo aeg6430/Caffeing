@@ -2,6 +2,7 @@
 using Caffeing.Infrastructure.Entities;
 using Caffeing.Infrastructure.Test.IRepositories;
 using Dapper;
+using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,15 @@ namespace Caffeing.Infrastructure.Test.Repositories
 {
     public class TestRepository : ITestRepository
     {
+        private readonly ILogger<TestRepository> _logger;
         private readonly DapperContext _context;
-        public TestRepository(DapperContext context)
+
+        public TestRepository(
+            ILogger<TestRepository> logger,
+            DapperContext context
+        )
         {
+            _logger = logger;
             _context = context;
         }
 
