@@ -1,4 +1,5 @@
 ﻿using Caffeing.Infrastructure.Entities.Search;
+using Caffeing.Infrastructure.Entities.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Caffeing.Infrastructure.IRepositories
 {
     public interface ISearchRepository
     {
-        Task<SearchResponse> SearchStores(SearchRequest searchRequest);
+        Task<IEnumerable<StoreRow>> GetSearchResult(SearchCriteria searchCriteria);
     }
 }

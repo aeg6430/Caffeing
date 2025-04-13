@@ -1,5 +1,5 @@
-﻿using Caffeing.Infrastructure.Entities;
-using Caffeing.Infrastructure.Entities.Search;
+﻿using Caffeing.Application.Contracts.Search;
+using Caffeing.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Caffeing.Application.IServices
     {
         public interface ISearchService
         {
-            Task<SearchResponse> SearchStoresAsync(SearchRequest searchRequest);
+            Task<SearchResponse> GetSearchResultAsync(SearchRequest searchRequest);
         }
     }
 }

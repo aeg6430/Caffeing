@@ -1,14 +1,15 @@
 ﻿using Caffeing.Infrastructure.Entities.Keywords;
+using Caffeing.Infrastructure.Entities.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Caffeing.Infrastructure.IRepositories
+namespace Caffeing.Application.DTOs
 {
-    public interface IKeywordRepository
+    public class StoreDTO
     {
-        Task<IEnumerable<KeywordEntity>> GetKeywords();
+        public StoreEntity Store { get; set; }
     }
 }

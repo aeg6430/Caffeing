@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Caffeing.Infrastructure.Entities.Stores
 {
-    public class StoreKeywordsResponse
+    public class StoreRow
     {
         public Guid StoreID { get; set; }
-        public List<String> StoreKeywords { get; set; }
+        public string Name { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
+
     }
 }
+
+

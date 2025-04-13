@@ -1,15 +1,9 @@
 ﻿using Caffeing.Infrastructure.Contexts;
-using Caffeing.Infrastructure.Entities;
 using Caffeing.Infrastructure.Entities.Search;
 using Caffeing.Infrastructure.Entities.Stores;
 using Caffeing.Infrastructure.IRepositories;
 using Dapper;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace Caffeing.Infrastructure.Repositories
 {
     public class SearchRepository : ISearchRepository
@@ -26,16 +20,16 @@ namespace Caffeing.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<SearchResponse> SearchStores(SearchRequest searchRequest)
+
+
+        public async Task<IEnumerable<StoreRow>> GetSearchResult (SearchCriteria searchCriteria)
         {
 
             string query = @"
                 SELECT s.store_id AS storeid,
                        s.name, 
                        s.latitude, 
-                       s.longitude,
-                       s.tags, 
-                       ARRAY_AGG(k.keyword_id) AS keyword_ids
+                       s.longitude
                 FROM stores s
                 LEFT JOIN store_keywords k 
                   ON s.store_id = k.store_id
@@ -52,33 +46,21 @@ namespace Caffeing.Infrastructure.Repositories
                 LIMIT @PageSize OFFSET @Offset
             ";
 
-            var parameters = new SearchRequest{
-                Query = string.IsNullOrEmpty(searchRequest.Query) ? null : $"%{searchRequest.Query}%",
-                KeywordIds = searchRequest.KeywordIds != null && searchRequest.KeywordIds.Length > 0
-                ? searchRequest.KeywordIds
+            var parameters = new SearchCriteria
+            {
+                Query = string.IsNullOrEmpty(searchCriteria.Query) ? null : $"%{searchCriteria.Query}%",
+                KeywordIds = searchCriteria.KeywordIds != null && searchCriteria.KeywordIds.Length > 0
+                ? searchCriteria.KeywordIds
                 : new Guid[] { },
-                PageSize = searchRequest.PageSize,
-                Offset = (searchRequest.PageNumber - 1) * searchRequest.PageSize,
+                PageSize = searchCriteria.PageSize,
+                Offset = searchCriteria.Offset
             };
 
             using (var connection = _context.CreateConnection())
             {
-                var result = await connection.QueryAsync<StoresQueryResponse>(
-                    query,
-                    parameters,
-                    commandType: CommandType.Text
-                );
+                var result = await connection.QueryAsync<StoreRow>(query, parameters);
 
-                var response = new SearchResponse
-                {
-                    Stores = result.ToList(),
-                    TotalStoresCount = result.Count(),
-                    IsMatched = result.Count()>0,
-                    PageNumber = searchRequest.PageNumber,
-                    PageSize = searchRequest.PageSize
-                };
-
-                return response;
+                return result;
             }
         }
     }

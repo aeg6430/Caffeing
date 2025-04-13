@@ -1,5 +1,5 @@
-﻿using Caffeing.Application.IServices.Caffeing.Application.Services;
-using Caffeing.Infrastructure.Entities.Search;
+﻿using Caffeing.Application.Contracts.Search;
+using Caffeing.Application.IServices.Caffeing.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
@@ -27,7 +27,7 @@ namespace Caffeing.WebAPI.Controllers
         {
             try
             {
-                var result = await _searchService.SearchStoresAsync(searchRequest);
+                var result = await _searchService.GetSearchResultAsync(searchRequest);
 
                 if (result == null)
                 {

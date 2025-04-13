@@ -20,7 +20,7 @@ namespace Caffeing.Application.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<KeywordResponse>> GetKeywordsAsync()
+        public async Task<IEnumerable<KeywordEntity>> GetKeywordsAsync()
         {
             return await _repository.GetKeywords();
         }
@@ -33,9 +33,9 @@ namespace Caffeing.Application.Services
         /// and then splits the resulting enum into a list of human-readable flag names (e.g., ["StoreInfo", "Search"]).
         /// /// </summary>
         /// <returns>
-        /// A list of <see cref="KeywordResponse"/> objects with only the 'Search' flag (if set) resolved to string names.
+        /// A list of <see cref="KeywordEntity"/> objects with only the 'Search' flag (if set) resolved to string names.
         /// </returns>
-        public async Task<IEnumerable<KeywordResponse>> GetKeywordsOptionsAsync()
+        public async Task<IEnumerable<KeywordEntity>> GetKeywordsOptionsAsync()
         {
             var entities = await _repository.GetKeywords();
 
@@ -52,7 +52,7 @@ namespace Caffeing.Application.Services
                     .Select(flag => flag.ToString()) 
                     .ToList();
 
-                return new KeywordResponse
+                return new KeywordEntity
                 {
                     KeywordID = e.KeywordID,
                     KeywordName = e.KeywordName,

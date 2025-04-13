@@ -27,13 +27,13 @@ namespace Caffeing.Infrastructure.Repositories
         /// <summary>
         /// Retrieves keyword data from the database and merges basic information with keyword type flags.
         /// The base information (ID and name) and the keyword types (stored as integer arrays) are queried separately 
-        /// for simplicity and clarity, then combined into full <see cref="KeywordResponse"/> objects.
+        /// for simplicity and clarity, then combined into full <see cref="KeywordEntity"/> objects.
         /// </summary>
         /// <returns>
-        /// A collection of <see cref="KeywordResponse"/> instances containing keyword IDs, names, and associated keyword types.
+        /// A collection of <see cref="KeywordEntity"/> instances containing keyword IDs, names, and associated keyword types.
         /// </returns>
 
-        public async Task<IEnumerable<KeywordResponse>> GetKeywords()
+        public async Task<IEnumerable<KeywordEntity>> GetKeywords()
         {
             string baseQuery = @"
                 SELECT 
@@ -52,7 +52,7 @@ namespace Caffeing.Infrastructure.Repositories
             using (var connection = _context.CreateConnection())
             {
                 // Query the base data and cast to KeywordResponseBase
-                var baseResults = await connection.QueryAsync<KeywordResponseBase>(baseQuery);
+                var baseResults = await connection.QueryAsync<KeywordEntityBase>(baseQuery);
 
                 // Query the keyword_type column separately
                 var typeResults = await connection.QueryAsync<(Guid KeywordID, int[] KeywordType)>(typeQuery);
@@ -62,7 +62,7 @@ namespace Caffeing.Infrastructure.Repositories
                 {
                     var types = typeResults.FirstOrDefault(x => x.KeywordID == baseItem.KeywordID).KeywordType?.ToList() ?? new List<int>();
 
-                    return new KeywordResponse
+                    return new KeywordEntity
                     {
                         KeywordID = baseItem.KeywordID,
                         KeywordName = baseItem.KeywordName,

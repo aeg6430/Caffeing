@@ -12,8 +12,8 @@ namespace Caffeing.Application.IServices
     {
         public interface IKeywordService
         {
-            Task<IEnumerable<KeywordResponse>> GetKeywordsAsync();
-            Task<IEnumerable<KeywordResponse>> GetKeywordsOptionsAsync();
+            Task<IEnumerable<KeywordEntity>> GetKeywordsAsync();
+            Task<IEnumerable<KeywordEntity>> GetKeywordsOptionsAsync();
         }
     }
 }
