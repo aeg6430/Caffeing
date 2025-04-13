@@ -1,6 +1,7 @@
 import 'package:caffeing/models/request/search/search_request_model.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/view/components/dialog_components.dart';
+import 'package:caffeing/view/components/search_suggestions_list.dart';
 import 'package:caffeing/view_model/search/search_view_model.dart';
 import 'package:flutter/material.dart';
 
@@ -136,38 +137,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           ),
         ),
         if (_showSuggestions)
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.95,
-            child: Container(
-              margin: EdgeInsets.only(top: 5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: Theme.of(context).colorScheme.surfaceContainer,
-              ),
-              width: MediaQuery.sizeOf(context).width * 0.95,
-              child:
-                  _isLoading
-                      ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(child: CircularProgressIndicator()),
-                      )
-                      : _searchResults.isEmpty
-                      ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('No results found.'),
-                      )
-                      : ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _searchResults.length,
-                        itemBuilder: (context, index) {
-                          final store = _searchResults[index];
-                          return ListTile(
-                            title: Text(store.name ?? 'Unnamed Store'),
-                            onTap: () => _onStoreSelected(store),
-                          );
-                        },
-                      ),
-            ),
+          SearchSuggestionList(
+            isLoading: _isLoading,
+            searchResults: _searchResults,
+            onStoreSelected: _onStoreSelected,
           ),
       ],
     );
