@@ -117,7 +117,7 @@ class ApiService {
     }
   }
 
-  Future<KeywordResponseModel?> keywords() async {
+  Future<List<KeywordResponseModel>?> keywords() async {
     try {
       final response = await http.get(
         Uri.parse('$_apiUrl/keywords'),
@@ -128,11 +128,41 @@ class ApiService {
       );
 
       if (response.statusCode == 200 || response.statusCode == 401) {
-        final jsonResponse = json.decode(response.body);
-        return KeywordResponseModel.fromJson(jsonResponse);
+        final jsonResponse = json.decode(response.body) as List<dynamic>;
+
+        return jsonResponse
+            .map((item) => KeywordResponseModel.fromJson(item))
+            .toList();
+      } else {
+        return null;
       }
     } catch (error) {
       debugPrint('Error during fetching keywords: $error');
+      return null;
+    }
+  }
+
+  Future<List<KeywordResponseModel>?> keywordsOptions() async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_apiUrl/keywords/options'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 401) {
+        final jsonResponse = json.decode(response.body) as List<dynamic>;
+
+        return jsonResponse
+            .map((item) => KeywordResponseModel.fromJson(item))
+            .toList();
+      } else {
+        return null;
+      }
+    } catch (error) {
+      debugPrint('Error during fetching keywords options: $error');
       return null;
     }
   }

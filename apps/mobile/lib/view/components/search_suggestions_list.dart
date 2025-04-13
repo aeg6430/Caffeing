@@ -1,3 +1,4 @@
+import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -29,12 +30,12 @@ class SearchSuggestionList extends StatelessWidget {
             isLoading
                 ? const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: Center(child: LinearProgressIndicator()),
                 )
                 : searchResults.isEmpty
-                ? const Padding(
+                ? Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text('No results found.'),
+                  child: Text(S.of(context).noResultsFound),
                 )
                 : ListView.builder(
                   shrinkWrap: true,

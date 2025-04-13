@@ -14,5 +14,8 @@
   "confirm":"確認",
   "logout":"登出",
   "map":"地圖",
-  "settings":"設定"
+  "settings":"設定",
+  "search": "搜尋店家",
+  "advancedSearch": "進階搜尋",
+  "noResultsFound":"沒有符合的結果"
 }

@@ -3,6 +3,7 @@ import 'package:caffeing/provider/localeProvider.dart';
 import 'package:caffeing/view/components/custom_bottom_sheet.dart';
 import 'package:caffeing/view/components/map_content.dart';
 import 'package:caffeing/view/components/search_bar_widget.dart';
+import 'package:caffeing/view_model/keyword/keyword_view_model.dart';
 import 'package:caffeing/view_model/search/search_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,12 @@ class _MapScreenState extends State<MapScreen> {
 
   TextEditingController _searchController = TextEditingController();
   late SearchViewModel searchViewModel;
+  late KeywordViewModel keywordViewModel;
   @override
   void initState() {
     super.initState();
     searchViewModel = Provider.of<SearchViewModel>(context, listen: false);
+    keywordViewModel = Provider.of<KeywordViewModel>(context, listen: false);
   }
 
   @override
@@ -42,6 +45,7 @@ class _MapScreenState extends State<MapScreen> {
                   alignment: Alignment.topRight,
                   child: SearchBarWidget(
                     searchViewModel: searchViewModel,
+                    keywordViewModel: keywordViewModel,
                     onSelected: (store) {
                       print(
                         "Selected: ${store.name}, lat: ${store.latitude}, lng: ${store.longitude}",

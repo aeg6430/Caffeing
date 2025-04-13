@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "advancedSearch": MessageLookupByLibrary.simpleMessage("進階搜尋"),
     "cancel": MessageLookupByLibrary.simpleMessage("取消"),
     "checkUpdate": MessageLookupByLibrary.simpleMessage("檢查更新"),
     "chineseTraditional": MessageLookupByLibrary.simpleMessage("繁體中文"),
@@ -35,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "lightMode": MessageLookupByLibrary.simpleMessage("淺色主題"),
     "logout": MessageLookupByLibrary.simpleMessage("登出"),
     "map": MessageLookupByLibrary.simpleMessage("地圖"),
+    "noResultsFound": MessageLookupByLibrary.simpleMessage("沒有符合的結果"),
+    "search": MessageLookupByLibrary.simpleMessage("搜尋店家"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("選擇語言"),
     "settings": MessageLookupByLibrary.simpleMessage("設定"),
   };

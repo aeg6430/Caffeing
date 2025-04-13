@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "advancedSearch": MessageLookupByLibrary.simpleMessage("고급 검색"),
     "cancel": MessageLookupByLibrary.simpleMessage("취소"),
     "checkUpdate": MessageLookupByLibrary.simpleMessage("업데이트 확인"),
     "chineseTraditional": MessageLookupByLibrary.simpleMessage("중국어 번체"),
@@ -35,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "lightMode": MessageLookupByLibrary.simpleMessage("라이트 모드"),
     "logout": MessageLookupByLibrary.simpleMessage("로그아웃"),
     "map": MessageLookupByLibrary.simpleMessage("지도"),
+    "noResultsFound": MessageLookupByLibrary.simpleMessage("검색 결과가 없습니다"),
+    "search": MessageLookupByLibrary.simpleMessage("매장 검색"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("언어 선택"),
     "settings": MessageLookupByLibrary.simpleMessage("설정"),
   };

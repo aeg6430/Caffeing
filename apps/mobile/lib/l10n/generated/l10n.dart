@@ -144,6 +144,36 @@ class S {
   String get settings {
     return Intl.message('Settings', name: 'settings', desc: '', args: []);
   }
+
+  /// `Search for stores`
+  String get search {
+    return Intl.message(
+      'Search for stores',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Advanced Search`
+  String get advancedSearch {
+    return Intl.message(
+      'Advanced Search',
+      name: 'advancedSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No results found`
+  String get noResultsFound {
+    return Intl.message(
+      'No results found',
+      name: 'noResultsFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -14,5 +14,8 @@
     "confirm":"확인",
     "logout":"로그아웃",
     "map":"지도",
-    "settings":"설정"
+    "settings":"설정",
+    "search": "매장 검색",
+    "advancedSearch": "고급 검색",
+    "noResultsFound":"검색 결과가 없습니다"
 }

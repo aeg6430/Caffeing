@@ -1,17 +1,21 @@
+import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/request/search/search_request_model.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/view/components/dialog_components.dart';
 import 'package:caffeing/view/components/search_suggestions_list.dart';
+import 'package:caffeing/view_model/keyword/keyword_view_model.dart';
 import 'package:caffeing/view_model/search/search_view_model.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatefulWidget {
   final SearchViewModel searchViewModel;
+  final KeywordViewModel keywordViewModel;
   final Function(StoreResponseModel) onSelected;
 
   const SearchBarWidget({
     Key? key,
     required this.searchViewModel,
+    required this.keywordViewModel,
     required this.onSelected,
   }) : super(key: key);
 
@@ -21,12 +25,23 @@ class SearchBarWidget extends StatefulWidget {
 
 class _SearchBarWidgetState extends State<SearchBarWidget> {
   final TextEditingController _controller = TextEditingController();
+  List<String> _selectedKeywords = [];
+
   List<StoreResponseModel> _searchResults = [];
   bool _showSuggestions = false;
   bool _isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    widget.keywordViewModel.getKeywordsOptions();
+  }
+
   Future<void> _onQueryChanged(String query) async {
-    if (query.isEmpty) {
+    final hasQuery = query.isNotEmpty;
+    final hasKeywords = _selectedKeywords.isNotEmpty;
+
+    if (!hasQuery && !hasKeywords) {
       setState(() {
         _searchResults = [];
         _showSuggestions = false;
@@ -40,7 +55,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     });
 
     try {
-      final request = SearchRequestModel(query: query, keywordIds: []);
+      final request = SearchRequestModel(
+        query: query,
+        keywordIds: _selectedKeywords,
+      );
       final result = await widget.searchViewModel.search(request);
       setState(() {
         _searchResults = result.search?.stores ?? [];
@@ -61,6 +79,72 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     });
   }
 
+  void _showFilterDialog() async {
+    await widget.keywordViewModel.getKeywordsOptions();
+
+    if (widget.keywordViewModel.keywordOptions.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          List<String> tempSelected = List.from(_selectedKeywords);
+
+          return DialogUtils.showCustomDialog(
+            context: context,
+            widgetHeight: MediaQuery.sizeOf(context).height * 0.45,
+            widgetWidth: MediaQuery.sizeOf(context).width * 0.9,
+            title: S.of(context).advancedSearch,
+            content: StatefulBuilder(
+              builder: (context, setStateDialog) {
+                return SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children:
+                        widget.keywordViewModel.keywordOptions.map((keyword) {
+                          return CheckboxListTile(
+                            title: Text(keyword.keywordName),
+                            value: tempSelected.contains(keyword.keywordID),
+                            onChanged: (bool? value) {
+                              setStateDialog(() {
+                                if (value == true) {
+                                  tempSelected.add(keyword.keywordID);
+                                } else {
+                                  tempSelected.remove(keyword.keywordID);
+                                }
+                              });
+                            },
+                          );
+                        }).toList(),
+                  ),
+                );
+              },
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(S.of(context).cancel),
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedKeywords.clear();
+                    _selectedKeywords.addAll(tempSelected);
+                  });
+                  _onQueryChanged(_controller.text);
+                  Navigator.of(context).pop();
+                },
+                child: Text(S.of(context).confirm),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("No filter options available")));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,47 +162,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 Theme.of(context).colorScheme.surfaceContainerHighest,
               ),
               controller: _controller,
-              hintText: 'Search for a store',
+              hintText: S.of(context).search,
               onChanged: _onQueryChanged,
               leading: IconButton(
                 icon: Icon(Icons.filter_alt_outlined),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return DialogUtils.showCustomDialog(
-                        context: context,
-                        widgetHeight: MediaQuery.sizeOf(context).height * 0.45,
-                        widgetWidth: MediaQuery.sizeOf(context).width * 0.9,
-                        title: 'Filter Options',
-                        content: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            CheckboxListTile(
-                              title: Text('Filter by Category'),
-                              value: true,
-                              onChanged: (bool? value) {},
-                            ),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Close'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Apply'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
+                onPressed: _showFilterDialog,
               ),
               trailing: [
                 if (_controller.text.isNotEmpty)

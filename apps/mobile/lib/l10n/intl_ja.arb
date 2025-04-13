@@ -14,5 +14,8 @@
     "confirm":"確認",
     "logout":"ログアウト",
     "map":"地図",
-    "settings":"設定"
+    "settings":"設定",
+    "search": "店舗を検索",
+    "advancedSearch": "詳細検索",
+    "noResultsFound":"一致する検索結果がありません"
 }
