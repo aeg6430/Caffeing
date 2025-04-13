@@ -4,6 +4,6 @@ namespace Caffeing.Infrastructure.IRepositories
 {
     public interface ITestRepository
     {
-        public Task<TestResponse> Get();
+        Task<TestResponse> Get();
     }
 }

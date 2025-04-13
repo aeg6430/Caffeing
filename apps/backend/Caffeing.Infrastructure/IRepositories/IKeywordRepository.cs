@@ -9,6 +9,6 @@ namespace Caffeing.Infrastructure.IRepositories
 {
     public interface IKeywordRepository
     {
-        public Task<IEnumerable<KeywordResponse>> GetKeywords();
+        Task<IEnumerable<KeywordResponse>> GetKeywords();
     }
 }

@@ -9,6 +9,6 @@ namespace Caffeing.Infrastructure.IRepositories
 {
     public interface ISearchRepository
     {
-        public Task<SearchResponse> SearchStores(SearchRequest searchRequest);
+        Task<SearchResponse> SearchStores(SearchRequest searchRequest);
     }
 }
