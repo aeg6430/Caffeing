@@ -1,8 +1,10 @@
 import 'package:caffeing/models/request/search/search_request_model.dart';
+import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/provider/localeProvider.dart';
 import 'package:caffeing/view/components/custom_bottom_sheet.dart';
 import 'package:caffeing/view/components/map_content.dart';
 import 'package:caffeing/view/components/search_bar_widget.dart';
+import 'package:caffeing/view/components/store_info_panel.dart';
 import 'package:caffeing/view_model/keyword/keyword_view_model.dart';
 import 'package:caffeing/view_model/search/search_view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +24,8 @@ class _MapScreenState extends State<MapScreen> {
   TextEditingController _searchController = TextEditingController();
   late SearchViewModel searchViewModel;
   late KeywordViewModel keywordViewModel;
+  StoreResponseModel? selectedStore;
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +58,7 @@ class _MapScreenState extends State<MapScreen> {
                         latitude = store.latitude ?? latitude;
                         longitude = store.longitude ?? longitude;
                       });
+                      selectedStore = store;
                     },
                   ),
                 ),
@@ -67,6 +72,7 @@ class _MapScreenState extends State<MapScreen> {
                   ) {
                     return CustomBottomSheet(
                       scrollController: scrollController,
+                      child: StoreInfoPanel(store: selectedStore),
                     );
                   },
                 ),

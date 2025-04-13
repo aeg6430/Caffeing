@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   final ScrollController scrollController;
-
-  const CustomBottomSheet({Key? key, required this.scrollController})
-    : super(key: key);
+  final Widget? child;
+  const CustomBottomSheet({
+    Key? key,
+    required this.scrollController,
+    this.child,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +32,11 @@ class CustomBottomSheet extends StatelessWidget {
                           : Colors.black26,
                 ),
               ),
-              const Text(
-                'Content of the bottom sheet',
-                style: TextStyle(fontSize: 18),
-              ),
+              child ??
+                  Text(
+                    'Content of the bottom sheet',
+                    style: TextStyle(fontSize: 18),
+                  ),
             ],
           ),
         ),
