@@ -37,7 +37,29 @@ namespace Caffeing.WebAPI.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Failed to get keyword result");
+                _logger.LogError(e, "Failed to get keywords result");
+                return BadRequest("Internal server error");
+            }
+        }
+
+        // GET api/keywords/options
+        [HttpGet("options")]
+        public async Task<IActionResult> GetKeywordsOptionsAsync()
+        {
+            try
+            {
+                var result = await _keywordService.GetKeywordsOptionsAsync();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Failed to get keywords options result");
                 return BadRequest("Internal server error");
             }
         }
