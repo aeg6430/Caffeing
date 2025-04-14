@@ -10,8 +10,16 @@ namespace Caffeing.Infrastructure.Entities.Search
     {
         public string Query { get; set; }
         public Guid[] KeywordIds { get; set; }
+        public int PageNumber { get; set; }
         public int PageSize { get; set; }
-        public int Offset { get; set; }
+        public int Offset { get; set; } 
+        
+
+        // TODO: Implement sorting logic for this property
+        //public string? SortBy { get; set; }
+
+        // TODO: Implement sorting direction for this property (true = descending)
+        //public bool SortDescending { get; set; } 
     }
 }
 

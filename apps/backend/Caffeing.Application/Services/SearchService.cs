@@ -29,8 +29,9 @@ namespace Caffeing.Application.Services
             {
                 Query = searchRequest.Query,
                 KeywordIds = searchRequest.KeywordIds,
-                PageSize = searchRequest.PageSize,
-                Offset = searchRequest.Offset
+                PageNumber = searchRequest.PageNumber ?? 1, 
+                PageSize = searchRequest.PageSize ?? 5,    
+                Offset = ((searchRequest.PageNumber ?? 1) - 1) * (searchRequest.PageSize ?? 5)
             };
         }
 
@@ -53,12 +54,14 @@ namespace Caffeing.Application.Services
                     
                 }).ToList();
 
+            var totalStoresCount = storeWithKeywordsData.Count();
+
             var response = new SearchResponse
             {
                 Stores = stores,
                 TotalStoresCount = stores.Count, 
-                PageNumber = searchRequest.PageNumber,
-                PageSize = searchRequest.PageSize,
+                PageNumber = searchRequest.PageNumber??1,
+                PageSize = searchRequest.PageSize??10,
                 IsMatched = stores.Count > 0
             };
             return response;
