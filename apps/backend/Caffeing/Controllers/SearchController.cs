@@ -21,9 +21,9 @@ namespace Caffeing.WebAPI.Controllers
             _searchService = searchService;
         }
 
-        // POST api/search
-        [HttpPost]
-        public async Task<IActionResult> SearchStoresAsync([FromBody] SearchRequest searchRequest)
+        // GET api/search
+        [HttpGet]
+        public async Task<IActionResult> SearchStoresAsync([FromQuery] SearchRequest searchRequest)
         {
             try
             {
