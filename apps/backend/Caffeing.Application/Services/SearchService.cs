@@ -42,16 +42,13 @@ namespace Caffeing.Application.Services
 
             var stores = storeWithKeywordsData
                 .GroupBy(x => x.StoreID)
-                .Select(group => new StoreDTO
+                .Select(group => new SearchDTO
                 {
-                    Store = new StoreEntity
-                    {
-                        StoreID = group.Key,
-                        Name = group.First().Name,
-                        Latitude = group.First().Latitude,
-                        Longitude = group.First().Longitude,
-                    },
-                    
+                    StoreID = group.Key,
+                    Name = group.First().Name,
+                    Latitude = group.First().Latitude,
+                    Longitude = group.First().Longitude,
+
                 }).ToList();
 
             var totalStoresCount = storeWithKeywordsData.Count();
