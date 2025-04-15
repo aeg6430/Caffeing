@@ -102,13 +102,13 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                         widget.keywordViewModel.keywordOptions.map((keyword) {
                           return CheckboxListTile(
                             title: Text(keyword.keywordName),
-                            value: tempSelected.contains(keyword.keywordID),
+                            value: tempSelected.contains(keyword.keywordId),
                             onChanged: (bool? value) {
                               setStateDialog(() {
                                 if (value == true) {
-                                  tempSelected.add(keyword.keywordID);
+                                  tempSelected.add(keyword.keywordId);
                                 } else {
-                                  tempSelected.remove(keyword.keywordID);
+                                  tempSelected.remove(keyword.keywordId);
                                 }
                               });
                             },

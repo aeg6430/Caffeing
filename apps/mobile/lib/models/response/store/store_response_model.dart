@@ -1,12 +1,12 @@
 class StoreResponseModel {
-  final String storeID;
+  final String storeId;
   final String name;
   final double latitude;
   final double longitude;
   final List<String>? tags;
 
   StoreResponseModel({
-    required this.storeID,
+    required this.storeId,
     required this.name,
     required this.latitude,
     required this.longitude,
@@ -15,7 +15,7 @@ class StoreResponseModel {
 
   factory StoreResponseModel.fromJson(Map<String, dynamic> json) {
     return StoreResponseModel(
-      storeID: json['storeID'],
+      storeId: json['storeId'],
       name: json['name'],
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),

@@ -28,7 +28,7 @@ class StoreInfoPanel extends StatelessWidget {
           Text("Name: ${store!.name}"),
           Text("Latitude: ${store!.latitude}"),
           Text("Longitude: ${store!.longitude}"),
-          Text("ID: ${store!.storeID}"),
+          Text("ID: ${store!.storeId}"),
         ],
       ),
     );
