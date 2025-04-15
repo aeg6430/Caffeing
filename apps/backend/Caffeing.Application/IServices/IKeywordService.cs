@@ -1,10 +1,5 @@
-﻿using Caffeing.Infrastructure.Entities;
-using Caffeing.Infrastructure.Entities.Keywords;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Caffeing.Application.Dtos;
+
 
 namespace Caffeing.Application.IServices
 {
@@ -12,8 +7,8 @@ namespace Caffeing.Application.IServices
     {
         public interface IKeywordService
         {
-            Task<IEnumerable<KeywordEntity>> GetKeywordsAsync();
-            Task<IEnumerable<KeywordEntity>> GetKeywordsOptionsAsync();
+            Task<IEnumerable<KeywordDto>> GetKeywordsAsync();
+            Task<IEnumerable<KeywordDto>> GetKeywordsOptionsAsync();
         }
     }
 }

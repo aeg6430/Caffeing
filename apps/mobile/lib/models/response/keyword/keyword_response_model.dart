@@ -1,7 +1,7 @@
 class KeywordResponseModel {
   final String keywordId;
   final String keywordName;
-  final List<int> keywordType;
+  final List<String> keywordType;
   KeywordResponseModel({
     required this.keywordId,
     required this.keywordName,
@@ -12,7 +12,7 @@ class KeywordResponseModel {
     return KeywordResponseModel(
       keywordId: json['keywordId'],
       keywordName: json['keywordName'],
-      keywordType: List<int>.from(json['keywordType']),
+      keywordType: List<String>.from(json['keywordType']),
     );
   }
 }
