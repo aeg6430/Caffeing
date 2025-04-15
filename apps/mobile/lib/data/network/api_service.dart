@@ -98,15 +98,18 @@ class ApiService {
 
   Future<SearchResponseModel?> search(SearchRequestModel search) async {
     try {
-      final response = await http.post(
-        Uri.parse('$_apiUrl/search'),
+      final uri = Uri.parse(
+        '$_apiUrl/search?query=${Uri.encodeComponent(search.query ?? '')}'
+        '${(search.keywordIds ?? []).map((id) => '&keywordIds=${Uri.encodeComponent(id)}').join()}',
+      );
+
+      final response = await http.get(
+        uri,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        body: jsonEncode(search.toJson()),
       );
-
       if (response.statusCode == 200 || response.statusCode == 401) {
         final jsonResponse = json.decode(response.body);
         return SearchResponseModel.fromJson(jsonResponse);
