@@ -24,51 +24,19 @@ namespace Caffeing.Infrastructure.Repositories
             _context = context;
         }
 
-        /// <summary>
-        /// Retrieves keyword data from the database and merges basic information with keyword type flags.
-        /// The base information (Id and name) and the keyword types (stored as integer arrays) are queried separately 
-        /// for simplicity and clarity, then combined into full <see cref="KeywordEntity"/> objects.
-        /// </summary>
-        /// <returns>
-        /// A collection of <see cref="KeywordEntity"/> instances containing keyword Ids, names, and associated keyword types.
-        /// </returns>
-
         public async Task<IEnumerable<KeywordEntity>> GetKeywords()
         {
-            string baseQuery = @"
+            string query = @"
                 SELECT 
                     keyword_id AS KeywordId, 
-                    keyword_name AS KeywordName
-                FROM keywords;
-            ";
-
-            string typeQuery = @"
-                SELECT 
-                    keyword_id AS KeywordId,
+                    keyword_name AS KeywordName,
                     keyword_type AS KeywordType 
                 FROM keywords;
             ";
 
             using (var connection = _context.CreateConnection())
-            {
-                // Query the base data and cast to KeywordResponseBase
-                var baseResults = await connection.QueryAsync<KeywordEntityBase>(baseQuery);
-
-                // Query the keyword_type column separately
-                var typeResults = await connection.QueryAsync<(Guid KeywordID, int[] KeywordType)>(typeQuery);
-
-                // Merge both results into full KeywordResponse
-                var result = baseResults.Select(baseItem =>
-                {
-                    var types = typeResults.FirstOrDefault(x => x.KeywordID == baseItem.KeywordId).KeywordType?.ToList() ?? new List<int>();
-
-                    return new KeywordEntity
-                    {
-                        KeywordId = baseItem.KeywordId,
-                        KeywordName = baseItem.KeywordName,
-                        KeywordType = types
-                    };
-                });
+            {       
+                var result = await connection.QueryAsync<KeywordEntity>(query);
 
                 return result;
             }

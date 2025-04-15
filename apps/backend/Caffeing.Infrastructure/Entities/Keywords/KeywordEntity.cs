@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace Caffeing.Infrastructure.Entities.Keywords
 {
-    public class KeywordEntityBase
+    public class KeywordEntity
     {
         public Guid KeywordId { get; set; }
         public string KeywordName { get; set; }
-        public List<int> KeywordType { get; set; }
-    }
-    public class KeywordEntity :  KeywordEntityBase
-    {
-        public List<int> KeywordType { get; set; }
+        public string KeywordType { get; set; }
     }
 }
