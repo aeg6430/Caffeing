@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Caffeing.Application.DTOs
+namespace Caffeing.Application.Dtos
 {
-    public class SearchDTO
+    public class SearchDto
     {
-        public Guid StoreID { get; set; }
+        public Guid StoreId { get; set; }
         public string Name { get; set; }
         public Decimal Latitude { get; set; }
         public Decimal Longitude { get; set; }

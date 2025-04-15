@@ -8,7 +8,7 @@ namespace Caffeing.Infrastructure.Entities.Stores
 {
     public class StoreKeywordEntity
     {
-        public Guid StoreID { get; set; }
-        public Guid KeywordID { get; set; }
+        public Guid StoreId { get; set; }
+        public Guid KeywordId { get; set; }
     }
 }

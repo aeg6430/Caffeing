@@ -54,7 +54,7 @@ namespace Caffeing.Application.Services
 
                 return new KeywordEntity
                 {
-                    KeywordID = e.KeywordID,
+                    KeywordId = e.KeywordId,
                     KeywordName = e.KeywordName,
                     KeywordType = keywordTypeFlags 
                 };

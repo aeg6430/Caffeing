@@ -22,7 +22,7 @@ namespace Caffeing.Application.Services
         {
             return new StoreCriteria
             {
-                StoreID = Guid.Parse(storeRequest.StoreId)
+                StoreId = Guid.Parse(storeRequest.StoreId)
             };
         }
         public async  Task<StoreResponse> GetStoreResultAsync(StoreRequest storeRequest)
@@ -33,7 +33,7 @@ namespace Caffeing.Application.Services
 
             var dto = new StoreDto
             {
-                StoreID = entity.StoreID,
+                StoreId = entity.StoreId,
                 Name = entity.Name,
                 Latitude = entity.Latitude,
                 Longitude = entity.Longitude,

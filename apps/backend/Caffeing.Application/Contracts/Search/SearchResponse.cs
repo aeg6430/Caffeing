@@ -1,4 +1,4 @@
-﻿using Caffeing.Application.DTOs;
+﻿using Caffeing.Application.Dtos;
 using Caffeing.Infrastructure.Entities.Stores;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace Caffeing.Application.Contracts.Search
 {
     public class SearchResponse
     {
-        public List<SearchDTO> Stores { get; set; }
+        public List<SearchDto> Stores { get; set; }
         public bool IsMatched { get; set; }
         public int TotalStoresCount { get; set; }
         public int PageNumber { get; set; }

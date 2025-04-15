@@ -28,7 +28,7 @@ namespace Caffeing.Infrastructure.Repositories
             string query =
                 @"
                     SELECT 
-                    store_id AS StoreID, 
+                    store_id AS StoreId, 
                     name AS Name,
                     latitude AS Latitude,  
                     longitude AS Longitude, 
@@ -36,11 +36,11 @@ namespace Caffeing.Infrastructure.Repositories
                     contact_number AS ContactNumber, 
                     business_hours AS BusinessHours
 	                FROM stores
-                    WHERE store_id = @StoreID
+                    WHERE store_id = @StoreId
                 ";
             var parameters = new StoreCriteria
             {
-               StoreID = storeCriteria.StoreID,
+               StoreId = storeCriteria.StoreId,
             };
             using (var connection = _context.CreateConnection())
             {

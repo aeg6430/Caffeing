@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caffeing.Application.Contracts.Search;
-using Caffeing.Application.DTOs;
+using Caffeing.Application.Dtos;
 using Caffeing.Application.IServices.Caffeing.Application.Services;
 using Caffeing.Infrastructure.Entities;
 using Caffeing.Infrastructure.Entities.Keywords;
@@ -41,10 +41,10 @@ namespace Caffeing.Application.Services
             var storeWithKeywordsData = await _repository.GetSearchResult(searchCriteria);
 
             var stores = storeWithKeywordsData
-                .GroupBy(x => x.StoreID)
-                .Select(group => new SearchDTO
+                .GroupBy(x => x.StoreId)
+                .Select(group => new SearchDto
                 {
-                    StoreID = group.Key,
+                    StoreId = group.Key,
                     Name = group.First().Name,
                     Latitude = group.First().Latitude,
                     Longitude = group.First().Longitude,
