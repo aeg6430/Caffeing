@@ -13,5 +13,8 @@ namespace Caffeing.Infrastructure.Entities.Stores
         public string Name { get; set; }
         public Decimal Latitude { get; set; }
         public Decimal Longitude { get; set; }
+        public string Address { get; set; }
+        public string ContactNumber { get; set; }
+        public string BusinessHours { get; set; }
     }
 }
