@@ -1,0 +1,61 @@
+import 'package:caffeing/data/network/network_utils.dart';
+import 'package:caffeing/models/request/store/store_request_model.dart';
+import 'package:caffeing/models/response/store/store_response_model.dart';
+import 'package:caffeing/repository/store/store_repository.dart';
+import 'package:caffeing/view_model/store/store_result.dart';
+import 'package:flutter/widgets.dart';
+
+enum StoreStatus {
+  idle,
+  dataAvailable,
+  dataUnavailable,
+  loading,
+  error,
+  tokenInvalid,
+}
+
+class StoreViewModel extends ChangeNotifier {
+  final StoreRepository storeRepository;
+
+  bool _isInternetConnected = false;
+  bool _isServerReachable = false;
+  bool get isServerReachable => _isServerReachable;
+  bool get isInternetConnected => _isInternetConnected;
+
+  StoreViewModel({required this.storeRepository});
+
+  StoreStatus _status = StoreStatus.idle;
+  StoreStatus get status => _status;
+
+  StoreResponseModel? _data;
+  StoreResponseModel? get data => _data;
+
+  Future<StoreResult> getStore(StoreRequestModel storeRequest) async {
+    try {
+      _status = StoreStatus.loading;
+      notifyListeners();
+
+      _isInternetConnected = await NetworkUtils.isInternetConnected();
+      _isServerReachable = await NetworkUtils.isBackendServerReachable();
+
+      if (_isInternetConnected && _isServerReachable) {
+        final storeResult = await storeRepository.getStore(storeRequest);
+        if (storeResult != null) {
+          _status = StoreStatus.dataAvailable;
+          _data = storeResult;
+          notifyListeners();
+          return StoreResult(store: storeResult);
+        } else {
+          _status = StoreStatus.dataUnavailable;
+        }
+      }
+    } catch (error) {
+      debugPrint('Error during get store: $error');
+      _status = StoreStatus.error;
+      return StoreResult();
+    } finally {
+      notifyListeners();
+    }
+    return StoreResult();
+  }
+}

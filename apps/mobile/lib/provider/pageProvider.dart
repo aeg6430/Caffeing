@@ -1,7 +1,9 @@
 import 'package:caffeing/repository/keyword/keyword_repository.dart';
 import 'package:caffeing/repository/search/search_repository.dart';
+import 'package:caffeing/repository/store/store_repository.dart';
 import 'package:caffeing/view_model/keyword/keyword_view_model.dart';
 import 'package:caffeing/view_model/search/search_view_model.dart';
+import 'package:caffeing/view_model/store/store_view_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:caffeing/data/network/api_service.dart';
 import 'package:caffeing/repository/auth/auth_repository.dart';
@@ -37,6 +39,12 @@ class PageProvider {
           create:
               (context) => KeywordViewModel(
                 keywordRepository: KeywordRepository(apiService: ApiService()),
+              ),
+        ),
+        ChangeNotifierProvider<StoreViewModel>(
+          create:
+              (context) => StoreViewModel(
+                storeRepository: StoreRepository(apiService: ApiService()),
               ),
         ),
       ],

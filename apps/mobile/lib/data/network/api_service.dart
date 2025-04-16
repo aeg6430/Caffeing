@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:caffeing/models/request/search/search_request_model.dart';
+import 'package:caffeing/models/request/store/store_request_model.dart';
 import 'package:caffeing/models/response/keyword/keyword_response_model.dart';
 import 'package:caffeing/models/response/search/search_response_model.dart';
+import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:caffeing/data/network/network_utils.dart';
@@ -166,6 +168,27 @@ class ApiService {
       }
     } catch (error) {
       debugPrint('Error during fetching keywords options: $error');
+      return null;
+    }
+  }
+
+  Future<StoreResponseModel?> getStore(StoreRequestModel store) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_apiUrl/stores?storeid=${store.storeId}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 401) {
+        final jsonResponse = json.decode(response.body);
+        final storeJson = jsonResponse['store'];
+        return StoreResponseModel.fromJson(storeJson);
+      }
+    } catch (error) {
+      debugPrint('Error during get store: $error');
       return null;
     }
   }

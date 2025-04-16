@@ -3,14 +3,18 @@ class StoreResponseModel {
   final String name;
   final double latitude;
   final double longitude;
-  final List<String>? tags;
+  final String? address;
+  final String? contactNumber;
+  final String? businessHours;
 
   StoreResponseModel({
     required this.storeId,
     required this.name,
     required this.latitude,
     required this.longitude,
-    this.tags,
+    this.address,
+    this.contactNumber,
+    this.businessHours,
   });
 
   factory StoreResponseModel.fromJson(Map<String, dynamic> json) {
@@ -19,7 +23,9 @@ class StoreResponseModel {
       name: json['name'],
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
-      tags: json['tags'] != null ? List<String>.from(json['tags']) : null,
+      address: json['address'],
+      contactNumber: json['contactNumber'],
+      businessHours: json['businessHours'],
     );
   }
 }
