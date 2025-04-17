@@ -40,5 +40,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "search": MessageLookupByLibrary.simpleMessage("매장 검색"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("언어 선택"),
     "settings": MessageLookupByLibrary.simpleMessage("설정"),
+    "unavailable": MessageLookupByLibrary.simpleMessage("데이터 없음"),
   };
 }

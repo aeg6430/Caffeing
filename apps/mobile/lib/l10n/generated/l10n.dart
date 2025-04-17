@@ -174,6 +174,11 @@ class S {
       args: [],
     );
   }
+
+  /// `Unavailable`
+  String get unavailable {
+    return Intl.message('Unavailable', name: 'unavailable', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

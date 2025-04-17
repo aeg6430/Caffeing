@@ -40,5 +40,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "search": MessageLookupByLibrary.simpleMessage("搜尋店家"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("選擇語言"),
     "settings": MessageLookupByLibrary.simpleMessage("設定"),
+    "unavailable": MessageLookupByLibrary.simpleMessage("無資料"),
   };
 }

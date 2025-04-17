@@ -42,5 +42,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "search": MessageLookupByLibrary.simpleMessage("Search for stores"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
   };
 }

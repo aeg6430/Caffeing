@@ -17,6 +17,7 @@
     "settings":"Settings",
     "search":"Search for stores",
     "advancedSearch":"Advanced Search",
-    "noResultsFound":"No results found"
+    "noResultsFound":"No results found",
+    "unavailable":"Unavailable"
   }
   

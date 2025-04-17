@@ -17,5 +17,6 @@
     "settings":"설정",
     "search": "매장 검색",
     "advancedSearch": "고급 검색",
-    "noResultsFound":"검색 결과가 없습니다"
+    "noResultsFound":"검색 결과가 없습니다",
+    "unavailable": "데이터 없음"
 }
