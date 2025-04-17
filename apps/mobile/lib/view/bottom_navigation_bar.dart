@@ -21,6 +21,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
       onTap: (index) {
         onTabSelected(index);
       },
+      selectedItemColor:
+          Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+      unselectedItemColor:
+          Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+      backgroundColor:
+          Theme.of(context).bottomNavigationBarTheme.backgroundColor,
       items: [
         BottomNavigationBarItem(
           label: S.of(context).map,

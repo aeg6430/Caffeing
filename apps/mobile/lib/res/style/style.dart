@@ -42,20 +42,66 @@ class AppThemeNotifier extends ChangeNotifier {
 
 class AppStyles {
   static ThemeData getTheme(BuildContext context) {
+    final customColorScheme = const ColorScheme(
+      brightness: Brightness.light,
+      primary: Color(0xFF795548),
+      secondary: Color(0xFFA1887F),
+      surface: Color(0xFFFFFBFA),
+      onSurface: Colors.black,
+      onError: Colors.white,
+      error: Colors.red,
+      onPrimary: Colors.white,
+      onSecondary: Colors.black,
+    );
+
     return ThemeData(
       brightness: Brightness.light,
-      primarySwatch: Colors.grey,
-      primaryColor: Colors.black,
-      dividerColor: Colors.black12,
+      primaryColor: customColorScheme.primary,
+      dividerColor: Colors.brown.shade100,
+      scaffoldBackgroundColor: Colors.grey.shade50,
+      appBarTheme: AppBarTheme(
+        backgroundColor: customColorScheme.primary,
+        foregroundColor: customColorScheme.onPrimary,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: customColorScheme.primary,
+        unselectedItemColor: Colors.grey.shade600,
+        backgroundColor: customColorScheme.surface,
+      ),
+      colorScheme: customColorScheme,
     );
   }
 
   static ThemeData getDarkTheme(BuildContext context) {
+    final darkColorScheme = const ColorScheme(
+      brightness: Brightness.dark,
+      primary: Color(0xFF5D4037),
+      secondary: Color(0xFFA1887F),
+      surface: Color(0xFF121212),
+      background: Color(0xFF1E1E1E),
+      error: Colors.red,
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      onSurface: Colors.white,
+      onBackground: Colors.white,
+      onError: Colors.black,
+    );
+
     return ThemeData(
       brightness: Brightness.dark,
-      primarySwatch: Colors.grey,
-      primaryColor: Colors.white,
-      dividerColor: Colors.white54,
+      primaryColor: darkColorScheme.primary,
+      dividerColor: Colors.grey.shade700,
+      scaffoldBackgroundColor: darkColorScheme.surface,
+      appBarTheme: AppBarTheme(
+        backgroundColor: darkColorScheme.primary,
+        foregroundColor: darkColorScheme.onPrimary,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: darkColorScheme.primary,
+        unselectedItemColor: Colors.grey.shade400,
+        backgroundColor: darkColorScheme.surface,
+      ),
+      colorScheme: darkColorScheme,
     );
   }
 
@@ -96,9 +142,9 @@ class AppStyles {
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius ?? BorderRadius.circular(4),
       ),
-      side: const BorderSide(color: Colors.white),
-      backgroundColor: backgroundColor ?? Colors.orange,
-      foregroundColor: foregroundColor ?? Colors.white,
+      side: BorderSide(color: foregroundColor ?? Colors.white),
+      backgroundColor: backgroundColor,
+      foregroundColor: foregroundColor,
       textStyle: TextStyle(fontSize: fontSize ?? 16),
     );
   }
