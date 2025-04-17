@@ -1,3 +1,5 @@
+import 'package:caffeing/models/response/keyword/keyword_response_model.dart';
+
 class StoreResponseModel {
   final String storeId;
   final String name;
@@ -6,7 +8,7 @@ class StoreResponseModel {
   final String? address;
   final String? contactNumber;
   final String? businessHours;
-
+  final List<KeywordResponseModel> keywords;
   StoreResponseModel({
     required this.storeId,
     required this.name,
@@ -15,6 +17,7 @@ class StoreResponseModel {
     this.address,
     this.contactNumber,
     this.businessHours,
+    required this.keywords,
   });
 
   factory StoreResponseModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +29,10 @@ class StoreResponseModel {
       address: json['address'],
       contactNumber: json['contactNumber'],
       businessHours: json['businessHours'],
+      keywords:
+          (json['keywords'] as List<dynamic>)
+              .map((k) => KeywordResponseModel.fromJson(k))
+              .toList(),
     );
   }
 }

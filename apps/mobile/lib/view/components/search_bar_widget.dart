@@ -1,6 +1,7 @@
 import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/request/search/search_request_model.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
+import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 import 'package:caffeing/view/components/dialog_components.dart';
 import 'package:caffeing/view/components/search_suggestions_list.dart';
 import 'package:caffeing/view_model/keyword/keyword_view_model.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/material.dart';
 class SearchBarWidget extends StatefulWidget {
   final SearchViewModel searchViewModel;
   final KeywordViewModel keywordViewModel;
-  final Function(StoreResponseModel) onSelected;
+  final Function(StoreSummaryResponseModel) onSelected;
 
   const SearchBarWidget({
     Key? key,
@@ -27,7 +28,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   final TextEditingController _controller = TextEditingController();
   List<String> _selectedKeywords = [];
 
-  List<StoreResponseModel> _searchResults = [];
+  List<StoreSummaryResponseModel> _searchResults = [];
   bool _showSuggestions = false;
   bool _isLoading = false;
 
@@ -70,7 +71,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     }
   }
 
-  void _onStoreSelected(StoreResponseModel store) {
+  void _onStoreSelected(StoreSummaryResponseModel store) {
     widget.onSelected(store);
     _controller.clear();
     setState(() {

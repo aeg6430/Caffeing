@@ -1,7 +1,8 @@
 import 'package:caffeing/models/response/store/store_response_model.dart';
+import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 
 class SearchResponseModel {
-  final List<StoreResponseModel> stores;
+  final List<StoreSummaryResponseModel> stores;
   final bool isMatched;
   final int totalStoresCount;
   final int pageNumber;
@@ -19,7 +20,7 @@ class SearchResponseModel {
     return SearchResponseModel(
       stores:
           (json['stores'] as List)
-              .map((store) => StoreResponseModel.fromJson(store))
+              .map((store) => StoreSummaryResponseModel.fromJson(store))
               .toList(),
       isMatched: json['isMatched'],
       totalStoresCount: json['totalStoresCount'],

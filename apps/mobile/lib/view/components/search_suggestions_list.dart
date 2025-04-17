@@ -1,12 +1,13 @@
 import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
+import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SearchSuggestionList extends StatelessWidget {
   final bool isLoading;
-  final List<StoreResponseModel> searchResults;
-  final void Function(StoreResponseModel) onStoreSelected;
+  final List<StoreSummaryResponseModel> searchResults;
+  final void Function(StoreSummaryResponseModel) onStoreSelected;
 
   const SearchSuggestionList({
     Key? key,
