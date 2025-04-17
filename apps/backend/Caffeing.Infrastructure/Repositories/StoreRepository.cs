@@ -1,4 +1,5 @@
 ﻿using Caffeing.Infrastructure.Contexts;
+using Caffeing.Infrastructure.Entities.Keywords;
 using Caffeing.Infrastructure.Entities.Stores;
 using Caffeing.Infrastructure.IRepositories;
 using Dapper;
@@ -25,28 +26,53 @@ namespace Caffeing.Infrastructure.Repositories
 
         public async Task<StoreEntity> GetStoreResult(StoreCriteria storeCriteria)
         {
-            string query =
-                @"
-                    SELECT 
-                    store_id AS StoreId, 
-                    name AS Name,
-                    latitude AS Latitude,  
-                    longitude AS Longitude, 
-                    address AS Address, 
-                    contact_number AS ContactNumber, 
-                    business_hours AS BusinessHours
-	                FROM stores
-                    WHERE store_id = @StoreId
-                ";
-            var parameters = new StoreCriteria
-            {
-               StoreId = storeCriteria.StoreId,
-            };
+            string sql = @"
+        SELECT 
+            s.store_id AS StoreId, 
+            s.name AS Name,
+            s.latitude AS Latitude,  
+            s.longitude AS Longitude, 
+            s.address AS Address, 
+            s.contact_number AS ContactNumber, 
+            s.business_hours AS BusinessHours,
+
+            k.keyword_id AS KeywordId,
+            k.keyword_name AS KeywordName,
+            k.keyword_type AS KeywordType
+
+        FROM stores s
+        LEFT JOIN store_keywords sk ON s.store_id = sk.store_id
+        LEFT JOIN keywords k ON sk.keyword_id = k.keyword_id
+        WHERE s.store_id = @StoreId
+    ";
+
+            var storeDict = new Dictionary<Guid, StoreEntity>();
+
             using (var connection = _context.CreateConnection())
             {
-                var result = await connection.QueryAsync<StoreEntity>(query, parameters, commandType: CommandType.Text);
+                var result = await connection.QueryAsync<StoreEntity, KeywordEntity, StoreEntity>(
+                    sql,
+                    (store, keyword) =>
+                    {
+                        if (!storeDict.TryGetValue(store.StoreId, out var currentStore))
+                        {
+                            currentStore = store;
+                            currentStore.Keywords = new List<KeywordEntity>();
+                            storeDict.Add(currentStore.StoreId, currentStore);
+                        }
 
-                return result.FirstOrDefault();  
+                        if (keyword != null && !currentStore.Keywords.Any(k => k.KeywordId == keyword.KeywordId))
+                        {
+                            currentStore.Keywords.Add(keyword);
+                        }
+
+                        return currentStore;
+                    },
+                    param: new { storeCriteria.StoreId },
+                    splitOn: "KeywordId"
+                );
+
+                return result.FirstOrDefault();
             }
         }
     }

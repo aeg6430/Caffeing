@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caffeing.Infrastructure.Entities.Keywords;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,6 @@ namespace Caffeing.Application.Dtos
         public string Address { get; set; }
         public string ContactNumber { get; set; }
         public string BusinessHours { get; set; }
+        public List<KeywordDto> Keywords { get; set; } = new();
     }
 }

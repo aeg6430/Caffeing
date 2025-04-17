@@ -39,7 +39,13 @@ namespace Caffeing.Application.Services
                 Longitude = entity.Longitude,
                 Address = entity.Address,
                 ContactNumber = entity.ContactNumber,
-                BusinessHours = entity.BusinessHours
+                BusinessHours = entity.BusinessHours,
+                Keywords = entity.Keywords.Select(k => new KeywordDto
+                {
+                    KeywordId = k.KeywordId,
+                    KeywordName = k.KeywordName,
+                    KeywordType = k.KeywordType.Split(',').ToList()
+                }).ToList()
             };
 
             return new StoreResponse
