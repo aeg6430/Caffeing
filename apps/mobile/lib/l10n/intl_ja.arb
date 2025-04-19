@@ -18,5 +18,6 @@
     "search": "店舗を検索",
     "advancedSearch": "詳細検索",
     "noResultsFound":"一致する検索結果がありません",
-    "unavailable": "データなし"
+    "unavailable": "データなし",
+    "mapInitializing": "地図の初期化中..."
 }

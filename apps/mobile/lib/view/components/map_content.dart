@@ -1,3 +1,4 @@
+import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 import 'package:caffeing/res/style/style.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ class _MapContentState extends State<MapContent> {
   double defaultLatitude = 25.05291553866105;
   double defaultLongitude = 121.52035694040113;
   String? _mapStyle;
+  bool _isLoading = true;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -35,6 +38,7 @@ class _MapContentState extends State<MapContent> {
     DefaultAssetBundle.of(context).loadString(styleFile).then((style) {
       setState(() {
         _mapStyle = style;
+        _isLoading = false;
       });
     });
   }
@@ -73,33 +77,52 @@ class _MapContentState extends State<MapContent> {
     final initialLatitude = store?.latitude ?? defaultLatitude;
     final initialLongitude = store?.longitude ?? defaultLongitude;
 
-    return Consumer<AppThemeNotifier>(
-      builder: (context, themeNotifier, child) {
-        return GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target:
-                _markerPosition ?? LatLng(initialLatitude, initialLongitude),
-            zoom: widget.zoom,
+    return _isLoading
+        ? Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 20),
+              Text(
+                S.of(context).mapInitializing,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
-          style: _mapStyle,
-          onMapCreated: (controller) async {
-            _mapController = controller;
+        )
+        : Consumer<AppThemeNotifier>(
+          builder: (context, themeNotifier, child) {
+            return GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target:
+                    _markerPosition ??
+                    LatLng(initialLatitude, initialLongitude),
+                zoom: widget.zoom,
+              ),
+              style: _mapStyle,
+              onMapCreated: (controller) async {
+                _mapController = controller;
+              },
+              markers:
+                  _markerPosition == null
+                      ? {}
+                      : {
+                        Marker(
+                          markerId: MarkerId(store?.storeId ?? 'default'),
+                          position: _markerPosition!,
+                          infoWindow: InfoWindow(
+                            title:
+                                'Marker at ${_markerPosition!.latitude}, ${_markerPosition!.longitude}',
+                          ),
+                        ),
+                      },
+            );
           },
-          markers:
-              _markerPosition == null
-                  ? {}
-                  : {
-                    Marker(
-                      markerId: MarkerId(store?.storeId ?? 'default'),
-                      position: _markerPosition!,
-                      infoWindow: InfoWindow(
-                        title:
-                            'Marker at ${_markerPosition!.latitude}, ${_markerPosition!.longitude}',
-                      ),
-                    ),
-                  },
         );
-      },
-    );
   }
 }

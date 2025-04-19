@@ -18,5 +18,6 @@
   "search": "搜尋店家",
   "advancedSearch": "進階搜尋",
   "noResultsFound":"沒有符合的結果",
-  "unavailable": "無資料"
+  "unavailable": "無資料",
+  "mapInitializing": "地圖載入中..."
 }

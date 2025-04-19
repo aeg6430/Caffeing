@@ -179,6 +179,16 @@ class S {
   String get unavailable {
     return Intl.message('Unavailable', name: 'unavailable', desc: '', args: []);
   }
+
+  /// `Map is initializing...`
+  String get mapInitializing {
+    return Intl.message(
+      'Map is initializing...',
+      name: 'mapInitializing',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

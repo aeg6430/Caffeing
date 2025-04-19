@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lightMode": MessageLookupByLibrary.simpleMessage("ライトモード"),
     "logout": MessageLookupByLibrary.simpleMessage("ログアウト"),
     "map": MessageLookupByLibrary.simpleMessage("地図"),
+    "mapInitializing": MessageLookupByLibrary.simpleMessage("地図の初期化中..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("一致する検索結果がありません"),
     "search": MessageLookupByLibrary.simpleMessage("店舗を検索"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("言語を選択"),

@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lightMode": MessageLookupByLibrary.simpleMessage("淺色主題"),
     "logout": MessageLookupByLibrary.simpleMessage("登出"),
     "map": MessageLookupByLibrary.simpleMessage("地圖"),
+    "mapInitializing": MessageLookupByLibrary.simpleMessage("地圖載入中..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("沒有符合的結果"),
     "search": MessageLookupByLibrary.simpleMessage("搜尋店家"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("選擇語言"),

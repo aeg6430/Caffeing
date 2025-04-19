@@ -38,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "map": MessageLookupByLibrary.simpleMessage("Map"),
+    "mapInitializing": MessageLookupByLibrary.simpleMessage(
+      "Map is initializing...",
+    ),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("No results found"),
     "search": MessageLookupByLibrary.simpleMessage("Search for stores"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),

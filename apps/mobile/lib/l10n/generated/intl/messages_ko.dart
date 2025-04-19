@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lightMode": MessageLookupByLibrary.simpleMessage("라이트 모드"),
     "logout": MessageLookupByLibrary.simpleMessage("로그아웃"),
     "map": MessageLookupByLibrary.simpleMessage("지도"),
+    "mapInitializing": MessageLookupByLibrary.simpleMessage("맵을 초기화하는 중..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("검색 결과가 없습니다"),
     "search": MessageLookupByLibrary.simpleMessage("매장 검색"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("언어 선택"),

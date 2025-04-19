@@ -18,6 +18,7 @@
     "search":"Search for stores",
     "advancedSearch":"Advanced Search",
     "noResultsFound":"No results found",
-    "unavailable":"Unavailable"
+    "unavailable":"Unavailable",
+    "mapInitializing":"Map is initializing..."
   }
   
