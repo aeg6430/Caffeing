@@ -100,6 +100,9 @@ class _MapContentState extends State<MapContent> {
       setState(() {
         _markerPosition = newPosition;
         _selectedMarkerId = store?.storeId;
+        if (store != null) {
+          _mapController?.showMarkerInfoWindow(MarkerId(store.storeId));
+        }
       });
     }
   }
@@ -120,6 +123,7 @@ class _MapContentState extends State<MapContent> {
           setState(() {
             _selectedMarkerId = store.storeId;
             _markerPosition = LatLng(store.latitude, store.longitude);
+            _mapController?.showMarkerInfoWindow(MarkerId(store.storeId));
           });
         },
         infoWindow: InfoWindow(title: store.name, snippet: store.address),
