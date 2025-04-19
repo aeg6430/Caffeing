@@ -14,7 +14,7 @@ namespace Caffeing.Application.IServices
         public interface IStoreService
         {
             Task<IEnumerable<StoreDto>> GetAllAsync();
-            Task<StoreResponse> GetByRequestAsync(StoreRequest storeRequest);
+            Task<StoreDto> GetByRequestAsync(StoreRequest storeRequest);
         }
     }
 }

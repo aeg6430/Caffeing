@@ -42,7 +42,7 @@ namespace Caffeing.WebAPI.Controllers
             }
         }
         // GET api/stores/search 
-        [HttpGet("search ")]
+        [HttpGet("search")]
         public async Task<IActionResult> SearchStoresAsync([FromQuery] StoreRequest storeRequest)
         {
             try

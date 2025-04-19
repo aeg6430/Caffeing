@@ -175,7 +175,7 @@ class ApiService {
   Future<StoreResponseModel?> getStore(StoreRequestModel store) async {
     try {
       final response = await http.get(
-        Uri.parse('$_apiUrl/stores?storeid=${store.storeId}'),
+        Uri.parse('$_apiUrl/stores/search?storeid=${store.storeId}'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -184,8 +184,7 @@ class ApiService {
 
       if (response.statusCode == 200 || response.statusCode == 401) {
         final jsonResponse = json.decode(response.body);
-        final storeJson = jsonResponse['store'];
-        return StoreResponseModel.fromJson(storeJson);
+        return StoreResponseModel.fromJson(jsonResponse);
       }
     } catch (error) {
       debugPrint('Error during get store: $error');

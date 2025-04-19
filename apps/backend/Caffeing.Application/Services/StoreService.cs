@@ -49,7 +49,7 @@ namespace Caffeing.Application.Services
             return dtos; 
         }
 
-        public async  Task<StoreResponse> GetByRequestAsync(StoreRequest storeRequest)
+        public async  Task<StoreDto> GetByRequestAsync(StoreRequest storeRequest)
         {
             var storeCriteria = ConvertToStoreCriteria(storeRequest);
             var entity = await _repository.GetByRequestAsync(storeCriteria);
@@ -72,10 +72,7 @@ namespace Caffeing.Application.Services
                 }).ToList()
             };
 
-            return new StoreResponse
-            {
-                Store = dto
-            };
+            return dto;
         }
     }
 }
