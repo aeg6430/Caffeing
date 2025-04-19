@@ -99,6 +99,7 @@ class _MapContentState extends State<MapContent> {
       );
       setState(() {
         _markerPosition = newPosition;
+        _selectedMarkerId = store?.storeId;
       });
     }
   }
