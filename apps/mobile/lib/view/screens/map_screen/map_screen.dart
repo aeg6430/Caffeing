@@ -1,6 +1,5 @@
-import 'package:caffeing/models/request/search/search_request_model.dart';
 import 'package:caffeing/models/request/store/store_request_model.dart';
-import 'package:caffeing/models/response/store/store_response_model.dart';
+import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 import 'package:caffeing/provider/localeProvider.dart';
 import 'package:caffeing/view/components/custom_bottom_sheet.dart';
 import 'package:caffeing/view/components/map_content.dart';
@@ -19,15 +18,11 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  double latitude = 25.05291553866105;
-  double longitude =
-      121.52035694040113; // Default location (Zhongshan_District,_Taipei inital position)
-
   TextEditingController _searchController = TextEditingController();
   late SearchViewModel searchViewModel;
   late KeywordViewModel keywordViewModel;
   late StoreViewModel storeViewModel;
-  StoreResponseModel? selectedStore;
+  StoreSummaryResponseModel? selectedStore;
 
   @override
   void initState() {
@@ -45,19 +40,15 @@ class _MapScreenState extends State<MapScreen> {
           body: SafeArea(
             child: Stack(
               children: [
-                /*
-              Center(
-                child: MapContent(latitude: latitude, longitude: longitude),
-              ),*/
+                Center(child: MapContent(store: selectedStore)),
                 Align(
-                  alignment: Alignment.topRight,
+                  alignment: Alignment.topCenter,
                   child: SearchBarWidget(
                     searchViewModel: searchViewModel,
                     keywordViewModel: keywordViewModel,
                     onSelected: (store) async {
                       setState(() {
-                        latitude = store.latitude ?? latitude;
-                        longitude = store.longitude ?? longitude;
+                        selectedStore = store;
                       });
                       await storeViewModel.getStore(
                         StoreRequestModel(storeId: store.storeId),
