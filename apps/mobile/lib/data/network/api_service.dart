@@ -172,7 +172,7 @@ class ApiService {
     }
   }
 
-  Future<StoreResponseModel?> getStore(StoreRequestModel store) async {
+  Future<StoreResponseModel?> getStoreByRequest(StoreRequestModel store) async {
     try {
       final response = await http.get(
         Uri.parse('$_apiUrl/stores/search?storeid=${store.storeId}'),

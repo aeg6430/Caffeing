@@ -30,7 +30,7 @@ class StoreViewModel extends ChangeNotifier {
   StoreResponseModel? _data;
   StoreResponseModel? get data => _data;
 
-  Future<StoreResult> getStore(StoreRequestModel storeRequest) async {
+  Future<StoreResult> getStoreByRequest(StoreRequestModel storeRequest) async {
     try {
       _status = StoreStatus.loading;
       notifyListeners();
@@ -39,7 +39,9 @@ class StoreViewModel extends ChangeNotifier {
       _isServerReachable = await NetworkUtils.isBackendServerReachable();
 
       if (_isInternetConnected && _isServerReachable) {
-        final storeResult = await storeRepository.getStore(storeRequest);
+        final storeResult = await storeRepository.getStoreByRequest(
+          storeRequest,
+        );
         if (storeResult != null) {
           _status = StoreStatus.dataAvailable;
           _data = storeResult;

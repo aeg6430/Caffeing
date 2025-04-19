@@ -6,7 +6,7 @@ class StoreRepository {
 
   StoreRepository({required this.apiService});
 
-  Future<dynamic> getStore(StoreRequestModel store) async {
-    return await apiService.getStore(store);
+  Future<dynamic> getStoreByRequest(StoreRequestModel store) async {
+    return await apiService.getStoreByRequest(store);
   }
 }

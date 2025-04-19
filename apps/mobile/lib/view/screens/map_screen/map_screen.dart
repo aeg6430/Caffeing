@@ -50,7 +50,7 @@ class _MapScreenState extends State<MapScreen> {
                       setState(() {
                         selectedStore = store;
                       });
-                      await storeViewModel.getStore(
+                      await storeViewModel.getStoreByRequest(
                         StoreRequestModel(storeId: store.storeId),
                       );
                     },
