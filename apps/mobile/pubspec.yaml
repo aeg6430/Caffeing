@@ -49,6 +49,8 @@ flutter:
 
   assets:
     - assets/image/ 
+    - assets/map_style_light.json
+    - assets/map_style_dark.json
 
 flutter_intl:
   enabled: true

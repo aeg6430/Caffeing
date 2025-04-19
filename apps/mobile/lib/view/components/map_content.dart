@@ -1,6 +1,8 @@
 import 'package:caffeing/models/response/store/store_summary_response_model.dart';
+import 'package:caffeing/res/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class MapContent extends StatefulWidget {
   final StoreSummaryResponseModel? store;
@@ -20,11 +22,21 @@ class _MapContentState extends State<MapContent> {
   // Default location
   double defaultLatitude = 25.05291553866105;
   double defaultLongitude = 121.52035694040113;
-
+  String? _mapStyle;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _updateMarkerPosition();
+    final themeMode = Provider.of<AppThemeNotifier>(context).currentThemeMode;
+    String styleFile =
+        themeMode == ThemeMode.dark
+            ? 'assets/map_style_dark.json'
+            : 'assets/map_style_light.json';
+
+    DefaultAssetBundle.of(context).loadString(styleFile).then((style) {
+      setState(() {
+        _mapStyle = style;
+      });
+    });
   }
 
   @override
@@ -61,27 +73,33 @@ class _MapContentState extends State<MapContent> {
     final initialLatitude = store?.latitude ?? defaultLatitude;
     final initialLongitude = store?.longitude ?? defaultLongitude;
 
-    return GoogleMap(
-      initialCameraPosition: CameraPosition(
-        target: _markerPosition ?? LatLng(initialLatitude, initialLongitude),
-        zoom: widget.zoom,
-      ),
-      onMapCreated: (controller) {
-        _mapController = controller;
+    return Consumer<AppThemeNotifier>(
+      builder: (context, themeNotifier, child) {
+        return GoogleMap(
+          initialCameraPosition: CameraPosition(
+            target:
+                _markerPosition ?? LatLng(initialLatitude, initialLongitude),
+            zoom: widget.zoom,
+          ),
+          style: _mapStyle,
+          onMapCreated: (controller) async {
+            _mapController = controller;
+          },
+          markers:
+              _markerPosition == null
+                  ? {}
+                  : {
+                    Marker(
+                      markerId: MarkerId(store?.storeId ?? 'default'),
+                      position: _markerPosition!,
+                      infoWindow: InfoWindow(
+                        title:
+                            'Marker at ${_markerPosition!.latitude}, ${_markerPosition!.longitude}',
+                      ),
+                    ),
+                  },
+        );
       },
-      markers:
-          _markerPosition == null
-              ? {}
-              : {
-                Marker(
-                  markerId: MarkerId(store?.storeId ?? 'default'),
-                  position: _markerPosition!,
-                  infoWindow: InfoWindow(
-                    title:
-                        'Marker at ${_markerPosition!.latitude}, ${_markerPosition!.longitude}',
-                  ),
-                ),
-              },
     );
   }
 }
