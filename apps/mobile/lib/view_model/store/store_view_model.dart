@@ -27,8 +27,38 @@ class StoreViewModel extends ChangeNotifier {
   StoreStatus _status = StoreStatus.idle;
   StoreStatus get status => _status;
 
-  StoreResponseModel? _data;
-  StoreResponseModel? get data => _data;
+  StoreResponseModel? _storeData;
+  StoreResponseModel? get storeData => _storeData;
+  StoreResponseModel? _storeByRequestData;
+  StoreResponseModel? get storeByRequestData => _storeByRequestData;
+  Future<StoreResult> getAllStore() async {
+    try {
+      _status = StoreStatus.loading;
+      notifyListeners();
+
+      _isInternetConnected = await NetworkUtils.isInternetConnected();
+      _isServerReachable = await NetworkUtils.isBackendServerReachable();
+
+      if (_isInternetConnected && _isServerReachable) {
+        final storeResult = await storeRepository.getAllStore();
+        if (storeResult != null) {
+          _status = StoreStatus.dataAvailable;
+          _storeData = storeResult;
+          notifyListeners();
+          return StoreResult(store: storeResult);
+        } else {
+          _status = StoreStatus.dataUnavailable;
+        }
+      }
+    } catch (error) {
+      debugPrint('Error during get store: $error');
+      _status = StoreStatus.error;
+      return StoreResult();
+    } finally {
+      notifyListeners();
+    }
+    return StoreResult();
+  }
 
   Future<StoreResult> getStoreByRequest(StoreRequestModel storeRequest) async {
     try {
@@ -44,7 +74,7 @@ class StoreViewModel extends ChangeNotifier {
         );
         if (storeResult != null) {
           _status = StoreStatus.dataAvailable;
-          _data = storeResult;
+          _storeByRequestData = storeResult;
           notifyListeners();
           return StoreResult(store: storeResult);
         } else {

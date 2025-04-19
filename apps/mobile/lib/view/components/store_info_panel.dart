@@ -11,7 +11,7 @@ class StoreInfoPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<StoreViewModel>(
       builder: (context, storeViewModel, _) {
-        final store = storeViewModel.data;
+        final store = storeViewModel.storeByRequestData;
 
         if (storeViewModel.status == StoreStatus.loading) {
           return const Center(child: CircularProgressIndicator());
