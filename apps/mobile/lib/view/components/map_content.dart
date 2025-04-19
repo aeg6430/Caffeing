@@ -25,6 +25,31 @@ class _MapContentState extends State<MapContent> {
   double defaultLongitude = 121.52035694040113;
   String? _mapStyle;
   bool _isLoading = true;
+  BitmapDescriptor? _defaultMarkerIcon;
+  BitmapDescriptor? _selectedMarkerIcon;
+  String? _selectedMarkerId;
+  @override
+  void initState() {
+    super.initState();
+    _loadCustomMarkerIcon();
+  }
+
+  void _loadCustomMarkerIcon() async {
+    final BitmapDescriptor defaultIcon = await BitmapDescriptor.asset(
+      ImageConfiguration(size: Size(10, 10)),
+      'assets/image/marker_default.png',
+    );
+
+    final BitmapDescriptor selectedIcon = await BitmapDescriptor.asset(
+      ImageConfiguration(size: Size(12, 12)),
+      'assets/image/marker_selected.png',
+    );
+
+    setState(() {
+      _defaultMarkerIcon = defaultIcon;
+      _selectedMarkerIcon = selectedIcon;
+    });
+  }
 
   @override
   void didChangeDependencies() {
@@ -113,11 +138,22 @@ class _MapContentState extends State<MapContent> {
                       ? {}
                       : {
                         Marker(
-                          markerId: MarkerId(store?.storeId ?? 'default'),
+                          markerId: MarkerId(
+                            store?.storeId ?? S.of(context).unavailable,
+                          ),
                           position: _markerPosition!,
+                          icon:
+                              _selectedMarkerId == store?.storeId
+                                  ? _selectedMarkerIcon!
+                                  : _defaultMarkerIcon!,
+                          onTap: () {
+                            setState(() {
+                              _selectedMarkerId = store?.storeId;
+                            });
+                          },
                           infoWindow: InfoWindow(
                             title:
-                                'Marker at ${_markerPosition!.latitude}, ${_markerPosition!.longitude}',
+                                '${store?.name ?? S.of(context).unavailable}',
                           ),
                         ),
                       },
