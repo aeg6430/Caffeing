@@ -23,8 +23,56 @@ namespace Caffeing.Infrastructure.Repositories
             _logger = logger;
             _context = context;
         }
+        public async Task<IEnumerable<StoreEntity>> GetAllAsync()
+        {
+            string sql = @"
+            SELECT 
+                s.store_id AS StoreId, 
+                s.name AS Name,
+                s.latitude AS Latitude,  
+                s.longitude AS Longitude, 
+                s.address AS Address, 
+                s.contact_number AS ContactNumber, 
+                s.business_hours AS BusinessHours,
 
-        public async Task<StoreEntity> GetStoreResult(StoreCriteria storeCriteria)
+                k.keyword_id AS KeywordId,
+                k.keyword_name AS KeywordName,
+                k.keyword_type AS KeywordType
+
+            FROM stores s
+            LEFT JOIN store_keywords sk ON s.store_id = sk.store_id
+            LEFT JOIN keywords k ON sk.keyword_id = k.keyword_id
+        ";
+
+            var storeDict = new Dictionary<Guid, StoreEntity>();
+
+            using (var connection = _context.CreateConnection())
+            {
+                var result = await connection.QueryAsync<StoreEntity, KeywordEntity, StoreEntity>(
+                    sql,
+                    (store, keyword) =>
+                    {
+                        if (!storeDict.TryGetValue(store.StoreId, out var currentStore))
+                        {
+                            currentStore = store;
+                            currentStore.Keywords = new List<KeywordEntity>();
+                            storeDict.Add(currentStore.StoreId, currentStore);
+                        }
+
+                        if (keyword != null && !currentStore.Keywords.Any(k => k.KeywordId == keyword.KeywordId))
+                        {
+                            currentStore.Keywords.Add(keyword);
+                        }
+
+                        return currentStore;
+                    },
+                    splitOn: "KeywordId"
+                );
+
+                return storeDict.Values.ToList();
+            }
+        }
+        public async Task<StoreEntity> GetByRequestAsync(StoreCriteria storeCriteria)
         {
             string sql = @"
         SELECT 

@@ -9,6 +9,7 @@ namespace Caffeing.Infrastructure.IRepositories
 {
     public interface IStoreRepository
     {
-        Task<StoreEntity> GetStoreResult(StoreCriteria storeCriteria);
+        Task<IEnumerable<StoreEntity>> GetAllAsync();
+        Task<StoreEntity> GetByRequestAsync(StoreCriteria storeCriteria);
     }
 }

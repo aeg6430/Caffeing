@@ -1,4 +1,5 @@
 ﻿using Caffeing.Application.Contracts.Stores;
+using Caffeing.Application.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,8 @@ namespace Caffeing.Application.IServices
 
         public interface IStoreService
         {
-            Task<StoreResponse> GetStoreResultAsync(StoreRequest storeRequest);
+            Task<IEnumerable<StoreDto>> GetAllAsync();
+            Task<StoreResponse> GetByRequestAsync(StoreRequest storeRequest);
         }
     }
 }

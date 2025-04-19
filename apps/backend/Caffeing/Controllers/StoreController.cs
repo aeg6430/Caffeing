@@ -20,9 +20,29 @@ namespace Caffeing.WebAPI.Controllers
             _logger = logger;
             _storeService = storeService;
         }
-
-        // GET api/stores/{id}
+        // GET api/stores
         [HttpGet]
+        public async Task<IActionResult> GetAllStoresAsync()
+        {
+            try
+            {
+                var result = await _storeService.GetAllAsync();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Failed to get store result");
+                return BadRequest("Internal server error");
+            }
+        }
+        // GET api/stores/search 
+        [HttpGet("search ")]
         public async Task<IActionResult> SearchStoresAsync([FromQuery] StoreRequest storeRequest)
         {
             try
@@ -34,7 +54,7 @@ namespace Caffeing.WebAPI.Controllers
 
                 storeRequest.StoreId = parsedStoreId.ToString();
 
-                var result = await _storeService.GetStoreResultAsync(storeRequest);
+                var result = await _storeService.GetByRequestAsync(storeRequest);
 
                 if (result == null)
                 {

@@ -25,10 +25,34 @@ namespace Caffeing.Application.Services
                 StoreId = Guid.Parse(storeRequest.StoreId)
             };
         }
-        public async  Task<StoreResponse> GetStoreResultAsync(StoreRequest storeRequest)
+        public async Task<IEnumerable<StoreDto>> GetAllAsync()
+        {
+            var entities = await _repository.GetAllAsync();
+
+            var dtos = entities.Select(entity => new StoreDto
+            {
+                StoreId = entity.StoreId,
+                Name = entity.Name,
+                Latitude = entity.Latitude,
+                Longitude = entity.Longitude,
+                Address = entity.Address,
+                ContactNumber = entity.ContactNumber,
+                BusinessHours = entity.BusinessHours,
+                Keywords = entity.Keywords.Select(k => new KeywordDto
+                {
+                    KeywordId = k.KeywordId,
+                    KeywordName = k.KeywordName,
+                    KeywordType = k.KeywordType.Split(',').ToList() 
+                }).ToList()
+            }).ToList();
+
+            return dtos; 
+        }
+
+        public async  Task<StoreResponse> GetByRequestAsync(StoreRequest storeRequest)
         {
             var storeCriteria = ConvertToStoreCriteria(storeRequest);
-            var entity = await _repository.GetStoreResult(storeCriteria);
+            var entity = await _repository.GetByRequestAsync(storeCriteria);
 
 
             var dto = new StoreDto
