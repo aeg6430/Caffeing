@@ -172,6 +172,29 @@ class ApiService {
     }
   }
 
+  Future<List<StoreResponseModel>> getAllStore() async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_apiUrl/stores'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 401) {
+        final jsonResponse = json.decode(response.body) as List;
+        return jsonResponse
+            .map((store) => StoreResponseModel.fromJson(store))
+            .toList();
+      }
+      return [];
+    } catch (error) {
+      debugPrint('Error during get store: $error');
+      return [];
+    }
+  }
+
   Future<StoreResponseModel?> getStoreByRequest(StoreRequestModel store) async {
     try {
       final response = await http.get(
