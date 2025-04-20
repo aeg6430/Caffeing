@@ -6,7 +6,9 @@ using Caffeing.Infrastructure.IRepositories;
 using Dapper;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,9 +29,31 @@ namespace Caffeing.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task CreateAsync(User user)
+        public async Task CreateAsync(User user, IDbConnection connection, IDbTransaction transaction)
         {
-            throw new NotImplementedException();
+            string insert = @"
+            INSERT INTO users (
+                id, provider, provider_id,
+                email, name, role,
+                created_time, modified_time
+            ) VALUES (
+                @Id, @Provider, @ProviderId,
+                @Email, @Name, @Role,
+                @CreatedDate, @ModifiedDate
+            )";
+            var parameters = new
+            {
+                Id = user.Id.Value,
+                Provider = user.Provider.Value,
+                ProviderId = user.ProviderId.Value,
+                Email = user.Email?.Value,
+                Name = user.Name?.Value,
+                Role = user.Role.ToString(),
+                CreatedDate = user.CreatedDate,
+                ModifiedDate = user.ModifiedDate
+            };
+
+            await connection.ExecuteAsync(insert, parameters, transaction);
         }
 
         public async Task<User?> GetByProviderAsync(string provider, string providerId)

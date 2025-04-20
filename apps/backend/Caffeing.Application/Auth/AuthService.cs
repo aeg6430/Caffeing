@@ -2,6 +2,7 @@
 using Caffeing.Domain.Enums;
 using Caffeing.Domain.Models;
 using Caffeing.Domain.ValueObjects;
+using Caffeing.Infrastructure.Contexts;
 using Caffeing.Infrastructure.IRepositories;
 using System;
 using System.Threading.Tasks;
@@ -16,16 +17,18 @@ namespace Caffeing.Application.Auth
         private readonly IUserRepository _userRepository;
         private readonly IJwtTokenService _jwtTokenService;
         private readonly IFirebaseAuthProviderService _firebaseAuthService;
-
+        private readonly DapperContext _context;
         public AuthService(
             IUserRepository userRepository,
             IJwtTokenService jwtTokenService,
-            IFirebaseAuthProviderService firebaseAuthService
+            IFirebaseAuthProviderService firebaseAuthService,
+            DapperContext context
         )
         {
             _userRepository = userRepository;
             _jwtTokenService = jwtTokenService;
             _firebaseAuthService = firebaseAuthService;
+            _context = context;
         }
         /// <summary>
         /// Authenticates a user using a Firebase ID token provided by an OAuth provider (e.g., Google),
@@ -44,43 +47,58 @@ namespace Caffeing.Application.Auth
             }
             var providerType = ConvertToProviderType(oauthUserInfo.Provider);
 
-            var user = await _userRepository.GetByProviderAsync(oauthUserInfo.Provider, oauthUserInfo.ProviderId);
+            
 
-            if (user == null)
+            try
             {
-                user = new User(
-                    id: new UserId(Guid.NewGuid()),
-                    provider: new Provider(providerType),
-                    providerId: new ProviderId(oauthUserInfo.ProviderId),
-                    email: new Email(oauthUserInfo.Email),
-                    name: new UserName(oauthUserInfo.Name),
-                    role: new UserRole(UserRoleType.User), 
-                    createdDate: DateTime.UtcNow,
-                    modifiedDate: DateTime.UtcNow
-                );
+                _context.Begin();
 
-                await _userRepository.CreateAsync(user);
+                var user = await _userRepository.GetByProviderAsync(oauthUserInfo.Provider, oauthUserInfo.ProviderId);
+
+                if (user == null)
+                {
+                    user = new User(
+                        id: new UserId(Guid.NewGuid()),
+                        provider: new Provider(providerType),
+                        providerId: new ProviderId(oauthUserInfo.ProviderId),
+                        email: new Email(oauthUserInfo.Email),
+                        name: new UserName(oauthUserInfo.Name),
+                        role: new UserRole(UserRoleType.User),
+                        createdDate: DateTime.UtcNow,
+                        modifiedDate: DateTime.UtcNow
+                    );
+
+                    await _userRepository.CreateAsync(user, _context.Connection, _context.Transaction);
+                }
+                _context.Commit();
+                var tokenPayload = new JwtTokenPayload
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    Role = user.Role.ToString(),
+                };
+                var token = _jwtTokenService.GenerateToken(tokenPayload);
+
+                var userDto = new UserDto
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Role = user.Role.ToString(),
+                    Token = token
+                };
+
+                return userDto;
             }
-
-            var tokenPayload = new JwtTokenPayload
+            catch (Exception e)
             {
-                UserId = user.Id,
-                Email = user.Email,
-                Role = user.Role.ToString(),
-            };
-
-            var token = _jwtTokenService.GenerateToken(tokenPayload);
-
-            var userDto = new UserDto
+                _context.Rollback();
+                throw;
+            }
+            finally 
             {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                Role = user.Role.ToString(),
-                Token = token
-            };
-
-            return userDto;
+                _context.Dispose();
+            }         
         }
         private ProviderType ConvertToProviderType(string provider)
         {
