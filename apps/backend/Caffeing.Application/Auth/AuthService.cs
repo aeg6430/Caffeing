@@ -64,8 +64,8 @@ namespace Caffeing.Application.Auth
                         email: new Email(oauthUserInfo.Email),
                         name: new UserName(oauthUserInfo.Name),
                         role: new UserRole(UserRoleType.User),
-                        createdDate: DateTime.UtcNow,
-                        modifiedDate: DateTime.UtcNow
+                        createdTime: DateTime.UtcNow,
+                        modifiedTime: DateTime.UtcNow
                     );
 
                     await _userRepository.CreateAsync(user, _context.Connection, _context.Transaction);

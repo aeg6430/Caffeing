@@ -39,7 +39,7 @@ namespace Caffeing.Infrastructure.Repositories
             ) VALUES (
                 @Id, @Provider, @ProviderId,
                 @Email, @Name, @Role,
-                @CreatedDate, @ModifiedDate
+                @CreatedTime, @ModifiedTime
             )";
             var parameters = new
             {
@@ -49,8 +49,8 @@ namespace Caffeing.Infrastructure.Repositories
                 Email = user.Email?.Value,
                 Name = user.Name?.Value,
                 Role = user.Role.ToString(),
-                CreatedDate = user.CreatedDate,
-                ModifiedDate = user.ModifiedDate
+                CreatedTime = user.CreatedTime,
+                ModifiedTime = user.ModifiedTime
             };
 
             await connection.ExecuteAsync(insert, parameters, transaction);

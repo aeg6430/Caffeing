@@ -15,8 +15,8 @@ namespace Caffeing.Domain.Models
         public Email? Email { get; }
         public UserName? Name { get; }
         public UserRole Role { get; }
-        public DateTime CreatedDate { get; }
-        public DateTime ModifiedDate { get; }
+        public DateTime CreatedTime { get; }
+        public DateTime ModifiedTime { get; }
 
         public User(
             UserId id,
@@ -25,8 +25,9 @@ namespace Caffeing.Domain.Models
             Email? email,
             UserName? name,
             UserRole role,
-            DateTime createdDate,
-            DateTime modifiedDate)
+            DateTime createdTime,
+            DateTime modifiedTime
+         )
         {
             Id = id;
             Provider = provider;
@@ -34,8 +35,8 @@ namespace Caffeing.Domain.Models
             Email = email;
             Name = name;
             Role = role;
-            CreatedDate = createdDate;
-            ModifiedDate = modifiedDate;
+            CreatedTime = createdTime;
+            ModifiedTime = modifiedTime;
         }
     }
 }
