@@ -1,4 +1,7 @@
-﻿using Caffeing.Application.IServices.Caffeing.Application.Services;
+﻿using Caffeing.Application.Auth;
+using Caffeing.Application.IServices.Caffeing.Application.Services;
+using Caffeing.Application.Jwt;
+using Caffeing.Application.Jwt.Caffeing.Application.Jwt;
 using Caffeing.Application.Services;
 using Caffeing.Infrastructure.Contexts;
 using Caffeing.Infrastructure.IRepositories;
@@ -29,6 +32,10 @@ namespace Caffeing.WebAPI
 
             services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddScoped<IStoreService, StoreService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IJwtTokenService, JwtTokenGenerator>();
         }
     }
 }

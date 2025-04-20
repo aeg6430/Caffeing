@@ -1,6 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
 using Caffeing.WebAPI;
 using Caffeing.Infrastructure;
+using Google.Protobuf.WellKnownTypes;
+using Caffeing.Application.Jwt;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 public class Startup
 {
@@ -13,28 +17,10 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        /*
-        var jwtConfig = _configuration.GetSection("Jwt").Get<JwtConfig>();
-        services.AddScoped<JwtTokenGenerator>();
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtConfig.Issuer,
-                ValidAudience = jwtConfig.Audience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Key))
-            };
-        });
-        */
+        services.AddFirebase(_configuration);
+        services.AddHttpClient();
+        services.Configure<JwtConfig>(_configuration.GetSection("Jwt"));
+        services.AddSingleton(sp => sp.GetRequiredService<IOptions<JwtConfig>>().Value);
         services.Configure<DatabaseSettings>(_configuration.GetSection("Database"));
         services.AddSingleton(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
         services.AddScoped<TransactionContext>();
@@ -42,6 +28,13 @@ public class Startup
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            });
+        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,7 +44,7 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        app.UseCors("AllowAll");
         app.UseHttpsRedirection();
         app.UseRouting();
 
