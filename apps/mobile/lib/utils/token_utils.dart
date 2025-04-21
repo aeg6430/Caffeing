@@ -1,9 +1,9 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class TokenUtils {
-  static const String _userIDKey = 'userID';
-  static const String _userNameKey = 'userName';
-  static const String _authTokenKey = 'authToken';
+  static const String _firebaseUserIDKey = 'firebaseUserID';
+  static const String _firebaseUserNameKey = 'firebaseUserName';
+  static const String _firebaseAuthTokenKey = 'firebaseAuthToken';
 
   static final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
 
@@ -12,26 +12,26 @@ class TokenUtils {
     String userName,
     String authToken,
   ) async {
-    await _secureStorage.write(key: _userIDKey, value: userID);
-    await _secureStorage.write(key: _userNameKey, value: userName);
-    await _secureStorage.write(key: _authTokenKey, value: authToken);
+    await _secureStorage.write(key: _firebaseUserIDKey, value: userID);
+    await _secureStorage.write(key: _firebaseUserNameKey, value: userName);
+    await _secureStorage.write(key: _firebaseAuthTokenKey, value: authToken);
   }
 
   static Future<String?> getUserID() async {
-    return await _secureStorage.read(key: _userIDKey);
+    return await _secureStorage.read(key: _firebaseUserIDKey);
   }
 
   static Future<String?> getUserName() async {
-    return await _secureStorage.read(key: _userNameKey);
+    return await _secureStorage.read(key: _firebaseUserNameKey);
   }
 
   static Future<String?> getAuthToken() async {
-    return await _secureStorage.read(key: _authTokenKey);
+    return await _secureStorage.read(key: _firebaseAuthTokenKey);
   }
 
   static Future<void> deleteAuthToken() async {
-    await _secureStorage.delete(key: _userIDKey);
-    await _secureStorage.delete(key: _userNameKey);
-    await _secureStorage.delete(key: _authTokenKey);
+    await _secureStorage.delete(key: _firebaseUserIDKey);
+    await _secureStorage.delete(key: _firebaseUserNameKey);
+    await _secureStorage.delete(key: _firebaseAuthTokenKey);
   }
 }

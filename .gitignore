@@ -80,6 +80,9 @@ apps/mobile/android/gradlew.bat
 apps/mobile/android/**/gradle-wrapper.jar
 apps/mobile/android/app/src/main/res/values/strings.xml
 
+# Firebase config
+apps/mobile/android/app/google-services.json
+
 # macOS
 apps/mobile/macos/Flutter/GeneratedPluginRegistrant.swift
 apps/mobile/macos/Flutter/ephemeral

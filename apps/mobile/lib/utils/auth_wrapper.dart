@@ -41,19 +41,17 @@ class _AuthWrapperState extends State<AuthWrapper> {
   Widget build(BuildContext context) {
     return Consumer<AuthViewModel>(
       builder: (context, authViewModel, _) {
-        if (true /*authViewModel.loginStatus == LoginStatus.authorized*/ ) {
+        if (authViewModel.loginStatus == LoginStatus.authorized) {
           final bottomNavigationProvider = BottomNavigationProvider();
 
           return FutureBuilder<void>(
             future: _navigationBarFuture,
             builder: (context, snapshot) {
-              /*if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  body: Center(child: CircularProgressIndicator()),
                 );
-              }*/
+              }
               return HomeScreen(
                 bottomNavigationProvider: bottomNavigationProvider,
               );

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:caffeing/data/network/network_utils.dart';
 import 'package:caffeing/models/request/app_update/app_update_request_model.dart';
-import 'package:caffeing/models/request/user/user_request_model.dart';
 import 'package:caffeing/models/response/user/user_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -77,15 +76,15 @@ class ApiService {
     return prefs.getString('token');
   }
 
-  Future<UserResponseModel?> loginUser(UserRequestModel user) async {
+  Future<UserResponseModel?> loginWithFirebaseToken(String idToken) async {
     try {
       final response = await http.post(
-        Uri.parse('$_apiUrl/user/login'),
+        Uri.parse('$_apiUrl/auth/login'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        body: jsonEncode(user.toJson()),
+        body: jsonEncode(idToken),
       );
 
       if (response.statusCode == 200 || response.statusCode == 401) {
@@ -93,9 +92,9 @@ class ApiService {
         return UserResponseModel.fromJson(jsonResponse);
       }
     } catch (error) {
-      debugPrint('Error during login: $error');
-      return null;
+      debugPrint('Error during Firebase login: $error');
     }
+    return null;
   }
 
   Future<SearchResponseModel?> search(SearchRequestModel search) async {

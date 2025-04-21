@@ -1,22 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:caffeing/data/network/network_utils.dart';
-import 'package:caffeing/models/request/user/user_request_model.dart';
 import 'package:caffeing/models/response/user/user_response_model.dart';
 import 'package:caffeing/repository/auth/auth_repository.dart';
 import 'package:caffeing/utils/token_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum LoginStatus {
-  idle,
-  loading,
-  success,
-  passwordMismatch,
-  userNotFound,
-  authorized,
-  unauthorized,
-  error,
-}
+enum LoginStatus { idle, loading, success, authorized, unauthorized, error }
 
 class AuthViewModel extends ChangeNotifier {
   final AuthRepository authRepository;
@@ -27,6 +19,7 @@ class AuthViewModel extends ChangeNotifier {
     _loginStatusController.add(_loginStatus);
     _initializeAuth();
   }
+
   String? _currentUserID;
   String? _currentUserName;
   String? _currentToken;
@@ -37,8 +30,9 @@ class AuthViewModel extends ChangeNotifier {
   String? get currentToken => _currentToken;
   LoginStatus get loginStatus => _loginStatus;
 
-  late StreamController<LoginStatus> _loginStatusController;
+  late final StreamController<LoginStatus> _loginStatusController;
   Stream<LoginStatus> get loginStatusStream => _loginStatusController.stream;
+
   Future<void> _initializeAuth() async {
     final storedUserID = await TokenUtils.getUserID();
     final storedUserName = await TokenUtils.getUserName();
@@ -83,62 +77,6 @@ class AuthViewModel extends ChangeNotifier {
     return true;
   }
 
-  Future<void> loginUser(String userId, String password) async {
-    _updateLoginStatus(LoginStatus.loading);
-    final isNetworkAvailable = await _checkNetworkConnectivity();
-    if (!isNetworkAvailable) return;
-
-    try {
-      final userModel = UserRequestModel(userId: userId, password: password);
-      final response = await _performLogin(userModel);
-      _handleLoginResponse(response);
-    } catch (error) {
-      _handleLoginError(error.toString());
-    }
-  }
-
-  Future<UserResponseModel?> _performLogin(UserRequestModel user) async {
-    final isNetworkAvailable = await _checkNetworkConnectivity();
-    if (!isNetworkAvailable) return null;
-
-    return await authRepository.loginUser(user);
-  }
-
-  void _handleLoginResponse(UserResponseModel? response) {
-    if (response == null) {
-      _updateLoginStatus(LoginStatus.error);
-      return;
-    }
-
-    if (response.isSuccess) {
-      _setCurrentUser(response.user!);
-      _updateLoginStatus(LoginStatus.authorized);
-    } else {
-      _handleLoginError(response.message);
-    }
-  }
-
-  Future<void> _setCurrentUser(User user) async {
-    _currentUserID = user.userId;
-    _currentUserName = user.userName;
-    _currentToken = user.token;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', user.token);
-  }
-
-  void _handleLoginError(String? message) {
-    switch (message) {
-      case "Incorrect password":
-        _updateLoginStatus(LoginStatus.passwordMismatch);
-        break;
-      case "User not found":
-        _updateLoginStatus(LoginStatus.userNotFound);
-        break;
-      default:
-        _updateLoginStatus(LoginStatus.error);
-    }
-  }
-
   Future<void> logoutUser() async {
     try {
       await authRepository.logoutUser();
@@ -149,5 +87,66 @@ class AuthViewModel extends ChangeNotifier {
     } catch (error) {
       debugPrint('Error during logout: $error');
     }
+  }
+
+  Future<void> loginWithGoogle() async {
+    _updateLoginStatus(LoginStatus.loading);
+
+    final isNetworkAvailable = await _checkNetworkConnectivity();
+    if (!isNetworkAvailable) return;
+
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        _updateLoginStatus(LoginStatus.idle);
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final credential = fb.GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final fb.UserCredential userCredential = await fb.FirebaseAuth.instance
+          .signInWithCredential(credential);
+      final fb.User? user = userCredential.user;
+
+      if (user != null) {
+        final idToken = await user.getIdToken();
+        if (idToken?.isNotEmpty ?? false) {
+          await _exchangeTokenWithBackend(idToken!);
+        }
+      } else {
+        _updateLoginStatus(LoginStatus.error);
+      }
+    } catch (e) {
+      debugPrint('Google Sign-In failed: $e');
+      _updateLoginStatus(LoginStatus.error);
+    }
+  }
+
+  Future<void> _exchangeTokenWithBackend(String idToken) async {
+    try {
+      final response = await authRepository.loginWithFirebaseToken(idToken);
+      if (response?.isSuccess == true && response?.user != null) {
+        await _setCurrentUser(response!.user!);
+        _updateLoginStatus(LoginStatus.authorized);
+      } else {
+        _updateLoginStatus(LoginStatus.unauthorized);
+      }
+    } catch (e) {
+      debugPrint('Token exchange failed: $e');
+      _updateLoginStatus(LoginStatus.error);
+    }
+  }
+
+  Future<void> _setCurrentUser(User user) async {
+    _currentUserID = user.id;
+    _currentUserName = user.name;
+    _currentToken = user.token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', user.token);
   }
 }
