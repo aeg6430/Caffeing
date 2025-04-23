@@ -8,6 +8,6 @@ namespace Caffeing.Domain.Enums
 {
     public enum ProviderType
     {
-        Google,
+        firebase,
     }
 }
