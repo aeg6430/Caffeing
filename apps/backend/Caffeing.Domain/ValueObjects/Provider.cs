@@ -15,6 +15,15 @@ namespace Caffeing.Domain.ValueObjects
         {
             Value = value;
         }
+        public static Provider FromString(string value)
+        {
+            if (!Enum.TryParse<ProviderType>(value, ignoreCase: true, out var parsed))
+            {
+                throw new InvalidOperationException($"Unsupported provider: {value}");
+            }
+
+            return new Provider(parsed);
+        }
 
         public static implicit operator ProviderType(Provider provider) => provider.Value;
         public override string ToString() => Value.ToString();

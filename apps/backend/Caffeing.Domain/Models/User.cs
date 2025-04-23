@@ -7,36 +7,20 @@ using System.Threading.Tasks;
 
 namespace Caffeing.Domain.Models
 {
-    public class User
-    {
-        public UserId Id { get; }
-        public Provider Provider { get; }
-        public ProviderId ProviderId { get; }
-        public Email? Email { get; }
-        public UserName? Name { get; }
-        public UserRole Role { get; }
-        public DateTime CreatedTime { get; }
-        public DateTime ModifiedTime { get; }
 
-        public User(
-            UserId id,
-            Provider provider,
-            ProviderId providerId,
-            Email? email,
-            UserName? name,
-            UserRole role,
-            DateTime createdTime,
-            DateTime modifiedTime
-         )
+    namespace Caffeing.Infrastructure.Entities
+    {
+        public class User
         {
-            Id = id;
-            Provider = provider;
-            ProviderId = providerId;
-            Email = email;
-            Name = name;
-            Role = role;
-            CreatedTime = createdTime;
-            ModifiedTime = modifiedTime;
+            public Guid UserId { get; set; }  
+            public string Provider { get; set; }
+            public string ProviderId { get; set; }
+            public string? Email { get; set; }
+            public string? Name { get; set; }
+            public string Role { get; set; }  
+            public DateTime CreatedTime { get; set; }
+            public DateTime ModifiedTime { get; set; }
         }
     }
+
 }

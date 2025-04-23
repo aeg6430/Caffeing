@@ -1,4 +1,6 @@
-﻿using Caffeing.Domain.Models;
+﻿using Caffeing.Domain.Enums;
+using Caffeing.Domain.Models;
+using Caffeing.Domain.ValueObjects;
 using Caffeing.Infrastructure.Contexts;
 using Caffeing.Infrastructure.Entities.Keywords;
 using Caffeing.Infrastructure.Entities.Users;
@@ -29,26 +31,26 @@ namespace Caffeing.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(User user, IDbConnection connection, IDbTransaction transaction)
+        public async Task CreateAsync(UserEntity user, IDbConnection connection, IDbTransaction transaction)
         {
             string insert = @"
             INSERT INTO users (
-                id, provider, provider_id,
+                user_id, provider, provider_id,
                 email, name, role,
                 created_time, modified_time
             ) VALUES (
-                @Id, @Provider, @ProviderId,
+                @UserId, @Provider, @ProviderId,
                 @Email, @Name, @Role,
                 @CreatedTime, @ModifiedTime
             )";
             var parameters = new
             {
-                Id = user.Id.Value,
-                Provider = user.Provider.Value,
-                ProviderId = user.ProviderId.Value,
-                Email = user.Email?.Value,
-                Name = user.Name?.Value,
-                Role = user.Role.ToString(),
+                UserId = user.UserId,
+                Provider = user.Provider,
+                ProviderId = user.ProviderId,
+                Email = user.Email,
+                Name = user.Name,
+                Role = user.Role,
                 CreatedTime = user.CreatedTime,
                 ModifiedTime = user.ModifiedTime
             };
@@ -56,30 +58,36 @@ namespace Caffeing.Infrastructure.Repositories
             await connection.ExecuteAsync(insert, parameters, transaction);
         }
 
-        public async Task<User?> GetByProviderAsync(string provider, string providerId)
+        public async Task<UserEntity?> GetByProviderAsync(string provider, string providerId)
         {
             string query = @"
             SELECT 
-                id, provider, provider_id,
-                email, name, role,
-                created_time, modified_time
+                user_id AS userId,
+                provider,
+                provider_id AS providerId,
+                email,
+                name,
+                role,
+                created_time AS createdTime,
+                modified_time AS modifiedTime
             FROM users
             WHERE 
                 provider = @Provider
             AND
                 provider_id = @ProviderId
             ";
-            var parameters = new 
+
+            var parameters = new
             {
                 Provider = provider,
                 ProviderId = providerId
             };
-            using (var connection = _context.CreateConnection())
-            {
-                var result = await connection.QueryFirstOrDefaultAsync<User>(query, parameters);
 
-                return result;
-            }
+            using var connection = _context.CreateConnection();
+
+            var result = await connection.QueryFirstOrDefaultAsync<UserEntity>(query, parameters);
+            
+            return result;
         }
     }
 }

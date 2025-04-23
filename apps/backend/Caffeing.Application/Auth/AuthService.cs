@@ -3,7 +3,9 @@ using Caffeing.Domain.Enums;
 using Caffeing.Domain.Models;
 using Caffeing.Domain.ValueObjects;
 using Caffeing.Infrastructure.Contexts;
+using Caffeing.Infrastructure.Entities.Users;
 using Caffeing.Infrastructure.IRepositories;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Threading.Tasks;
 
@@ -46,10 +48,11 @@ namespace Caffeing.Application.Auth
                 throw new InvalidOperationException("Invalid Firebase token or user information.");
             }
             var providerType = ConvertToProviderType(oauthUserInfo.Provider);
+            var providerId = ConvertToProviderId(oauthUserInfo.ProviderId);
 
-            
 
             try
+
             {
                 _context.Begin();
 
@@ -57,23 +60,23 @@ namespace Caffeing.Application.Auth
 
                 if (user == null)
                 {
-                    user = new User(
-                        id: new UserId(Guid.NewGuid()),
-                        provider: new Provider(providerType),
-                        providerId: new ProviderId(oauthUserInfo.ProviderId),
-                        email: new Email(oauthUserInfo.Email),
-                        name: new UserName(oauthUserInfo.Name),
-                        role: new UserRole(UserRoleType.User),
-                        createdTime: DateTime.UtcNow,
-                        modifiedTime: DateTime.UtcNow
-                    );
+                    user = new UserEntity {
+                        UserId = Guid.NewGuid(),
+                        Provider =  Provider.FromString(oauthUserInfo.Provider).ToString(),
+                        ProviderId = new ProviderId(oauthUserInfo.ProviderId),
+                        Email = new Email(oauthUserInfo.Email),
+                        Name = new UserName(oauthUserInfo.Name),
+                        Role = new UserRole(UserRoleType.User).ToString(),
+                        CreatedTime = DateTime.UtcNow,
+                        ModifiedTime =  DateTime.UtcNow
+                    };
 
                     await _userRepository.CreateAsync(user, _context.Connection, _context.Transaction);
                 }
                 _context.Commit();
                 var tokenPayload = new JwtTokenPayload
                 {
-                    UserId = user.Id,
+                    UserId = user.UserId,
                     Email = user.Email,
                     Role = user.Role.ToString(),
                 };
@@ -81,7 +84,7 @@ namespace Caffeing.Application.Auth
 
                 var userDto = new UserDto
                 {
-                    Id = user.Id,
+                    UserId = user.UserId,
                     Name = user.Name,
                     Email = user.Email,
                     Role = user.Role.ToString(),
@@ -104,9 +107,20 @@ namespace Caffeing.Application.Auth
         {
             return provider.ToLower() switch
             {
-                "google.com" => ProviderType.Google,
+                "firebase" => ProviderType.firebase,
                 _ => throw new InvalidOperationException($"Unsupported provider: {provider}")
             };
         }
+
+        private ProviderId ConvertToProviderId(string providerId)
+        {
+            if (string.IsNullOrWhiteSpace(providerId))
+            {
+                throw new ArgumentException("ProviderId cannot be null or empty.", nameof(providerId));
+            }
+
+            return new ProviderId(providerId);
+        }
+
     }
 }

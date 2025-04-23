@@ -1,4 +1,6 @@
-﻿using Caffeing.Domain.Models;
+﻿using Caffeing.Domain.Enums;
+using Caffeing.Domain.Models;
+using Caffeing.Domain.ValueObjects;
 using Caffeing.Infrastructure.Entities.Users;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ namespace Caffeing.Infrastructure.IRepositories
 {
     public interface IUserRepository
     {
-        Task CreateAsync(User user, IDbConnection connection, IDbTransaction transaction);
-        Task<User?> GetByProviderAsync(string provider, string providerId);
+        Task CreateAsync(UserEntity user, IDbConnection connection, IDbTransaction transaction);
+        Task<UserEntity?> GetByProviderAsync(string provider, string providerId);
     }
 }
