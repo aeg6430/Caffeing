@@ -34,6 +34,14 @@ namespace Caffeing.Application.Auth
                     Provider = "firebase"
                 };
             }
+            catch (FirebaseAuthException e) when (e.AuthErrorCode == AuthErrorCode.ExpiredIdToken)
+            {
+                throw new InvalidOperationException("Token has expired.", e);
+            }
+            catch (FirebaseAuthException e)
+            {
+                throw new InvalidOperationException($"Firebase authentication failed: {e.AuthErrorCode}", e);
+            }
             catch (Exception e)
             {
                 throw new InvalidOperationException("Invalid or expired token.", e);
