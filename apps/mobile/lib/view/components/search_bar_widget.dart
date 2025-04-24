@@ -1,6 +1,5 @@
 import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/request/search/search_request_model.dart';
-import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 import 'package:caffeing/view/components/dialog_components.dart';
 import 'package:caffeing/view/components/search_suggestions_list.dart';
@@ -153,11 +152,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         Align(
           alignment: Alignment.topCenter,
           child: SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.95,
+            width: MediaQuery.sizeOf(context).width,
             child: SearchBar(
               elevation: WidgetStateProperty.all(0),
               shape: WidgetStateProperty.all(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)),
               ),
               backgroundColor: WidgetStateProperty.all(
                 Theme.of(context).colorScheme.surfaceContainerHighest,
