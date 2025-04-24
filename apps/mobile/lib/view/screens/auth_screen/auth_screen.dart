@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:caffeing/view_model/auth/auth_view_model.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,7 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.black87,
+      backgroundColor: Colors.black87,
       body: StreamBuilder<LoginStatus>(
         stream: Provider.of<AuthViewModel>(context).loginStatusStream,
         builder: (context, snapshot) {
@@ -46,7 +47,7 @@ class _AuthScreenState extends State<AuthScreen> {
         children: <Widget>[
           Image.asset(
             'assets/image/logo.png',
-            width: MediaQuery.of(context).size.width * 0.6,
+            width: MediaQuery.of(context).size.width,
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           Material(
@@ -56,8 +57,8 @@ class _AuthScreenState extends State<AuthScreen> {
                 await authViewModel.loginWithGoogle();
                 await _saveLoginInfo();
               },
-              child: Image.asset(
-                'assets/google_signin/light.png',
+              child: SvgPicture.asset(
+                'assets/google_signin/light.svg',
                 width: MediaQuery.of(context).size.width * 0.5,
                 fit: BoxFit.contain,
               ),
