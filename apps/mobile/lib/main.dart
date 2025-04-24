@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:caffeing/data/local/data_handler.dart';
@@ -15,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DataHandler.createFolderOnInstall();
   await Env.load();
+  await Firebase.initializeApp();
   final savedLocale = await AppLocalizations.loadSavedLocale();
 
   runApp(
