@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 using Caffeing.Application.Contracts.Search;
 using Caffeing.Application.Dtos;
 using Caffeing.Application.IServices.Caffeing.Application.Services;
-using Caffeing.Infrastructure.Entities;
-using Caffeing.Infrastructure.Entities.Keywords;
 using Caffeing.Infrastructure.Entities.Search;
-using Caffeing.Infrastructure.Entities.Stores;
 using Caffeing.Infrastructure.IRepositories;
+
 
 namespace Caffeing.Application.Services
 {

@@ -1,5 +1,4 @@
 ﻿using Caffeing.Application.Contracts.Search;
-using Caffeing.Infrastructure.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

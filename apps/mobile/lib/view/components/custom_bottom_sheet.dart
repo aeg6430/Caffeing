@@ -32,11 +32,7 @@ class CustomBottomSheet extends StatelessWidget {
                           : Colors.black26,
                 ),
               ),
-              child ??
-                  Text(
-                    'Content of the bottom sheet',
-                    style: TextStyle(fontSize: 18),
-                  ),
+              child ?? Container(),
             ],
           ),
         ),

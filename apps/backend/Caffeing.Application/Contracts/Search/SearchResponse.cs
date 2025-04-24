@@ -1,10 +1,5 @@
 ﻿using Caffeing.Application.Dtos;
-using Caffeing.Infrastructure.Entities.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Caffeing.Application.Contracts.Search
 {
