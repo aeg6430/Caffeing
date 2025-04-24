@@ -10,15 +10,14 @@ class AuthRepository {
 
   Future<UserResponseModel?> loginWithFirebaseToken(String idToken) async {
     try {
-      // Call the API service to login with the Firebase idToken
       final UserResponseModel? response = await apiService
           .loginWithFirebaseToken(idToken);
 
-      if (response?.user != null) {
+      if (response != null) {
         await TokenUtils.setAuthToken(
-          response!.user!.id,
-          response.user!.name,
-          response.user!.token,
+          response.userId,
+          response.name,
+          response.token,
         );
       }
       return response;

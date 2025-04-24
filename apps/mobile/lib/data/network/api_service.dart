@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:caffeing/models/request/search/search_request_model.dart';
 import 'package:caffeing/models/request/store/store_request_model.dart';
+import 'package:caffeing/models/request/user/user_request_model.dart';
 import 'package:caffeing/models/response/keyword/keyword_response_model.dart';
 import 'package:caffeing/models/response/search/search_response_model.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
@@ -78,13 +79,15 @@ class ApiService {
 
   Future<UserResponseModel?> loginWithFirebaseToken(String idToken) async {
     try {
+      final request = new UserRequestModel(idToken: idToken);
       final response = await http.post(
         Uri.parse('$_apiUrl/auth/login'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        body: jsonEncode(idToken),
+
+        body: jsonEncode(request),
       );
 
       if (response.statusCode == 200 || response.statusCode == 401) {

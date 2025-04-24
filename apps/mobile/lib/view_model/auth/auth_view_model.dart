@@ -130,8 +130,8 @@ class AuthViewModel extends ChangeNotifier {
   Future<void> _exchangeTokenWithBackend(String idToken) async {
     try {
       final response = await authRepository.loginWithFirebaseToken(idToken);
-      if (response?.isSuccess == true && response?.user != null) {
-        await _setCurrentUser(response!.user!);
+      if (response != null) {
+        await _setCurrentUser(response);
         _updateLoginStatus(LoginStatus.authorized);
       } else {
         _updateLoginStatus(LoginStatus.unauthorized);
@@ -142,10 +142,11 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> _setCurrentUser(User user) async {
-    _currentUserID = user.id;
+  Future<void> _setCurrentUser(UserResponseModel user) async {
+    _currentUserID = user.userId;
     _currentUserName = user.name;
     _currentToken = user.token;
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', user.token);
   }
