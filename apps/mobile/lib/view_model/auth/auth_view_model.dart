@@ -79,6 +79,8 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> logoutUser() async {
     try {
+      await GoogleSignIn().signOut();
+      await fb.FirebaseAuth.instance.signOut();
       await authRepository.logoutUser();
       _currentToken = null;
       _currentUserName = null;
