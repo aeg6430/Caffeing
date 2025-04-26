@@ -1,7 +1,6 @@
 ﻿using Caffeing.Application.Auth;
+using Caffeing.Application.IServices;
 using Caffeing.Application.IServices.Caffeing.Application.Services;
-using Caffeing.Application.Jwt;
-using Caffeing.Application.Jwt.Caffeing.Application.Jwt;
 using Caffeing.Application.Services;
 using Caffeing.Infrastructure.Contexts;
 using Caffeing.Infrastructure.IRepositories;
@@ -19,6 +18,7 @@ namespace Caffeing.WebAPI
     {
         public static void AddServices(this IServiceCollection services)
         {
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<DapperContext>();
 
             services.AddScoped<ITestRepository, TestRepository>();
@@ -35,7 +35,9 @@ namespace Caffeing.WebAPI
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IJwtTokenService, JwtTokenGenerator>();
+
+            services.AddScoped<IFavoriteStoreRepository, FavoriteStoreRepository>();
+            services.AddScoped<IFavoriteStoreService, FavoriteStoreService>();
         }
     }
 }

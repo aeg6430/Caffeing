@@ -27,7 +27,7 @@ namespace Caffeing.Application.Jwt
             {
                 var claims = new[]
                 {
-                new Claim(ClaimTypes.Name, payload.UserId.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, payload.UserId.ToString()),
                 new Claim(ClaimTypes.Email, payload.Email),
                 new Claim(ClaimTypes.Role, payload.Role)
             };
