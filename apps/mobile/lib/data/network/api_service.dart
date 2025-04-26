@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:caffeing/models/request/favorite/store/favorite_store_request_model.dart';
 import 'package:caffeing/models/request/search/search_request_model.dart';
 import 'package:caffeing/models/request/store/store_request_model.dart';
 import 'package:caffeing/models/request/user/user_request_model.dart';
@@ -73,8 +74,12 @@ class ApiService {
   }
 
   static Future<String?> loadToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token');
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token == null) return null;
+
+    return token.replaceAll('"', '');
   }
 
   Future<UserResponseModel?> loginWithFirebaseToken(String idToken) async {
@@ -213,6 +218,77 @@ class ApiService {
       }
     } catch (error) {
       debugPrint('Error during get store: $error');
+      return null;
+    }
+  }
+
+  Future<List<StoreResponseModel>> getFavoriteStores() async {
+    try {
+      final token = await loadToken();
+      final response = await http.get(
+        Uri.parse('$_apiUrl/favorites/stores'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 401) {
+        final jsonResponse = json.decode(response.body) as List;
+        return jsonResponse
+            .map((store) => StoreResponseModel.fromJson(store))
+            .toList();
+      }
+      return [];
+    } catch (error) {
+      debugPrint('Error during get favorite stores: $error');
+      return [];
+    }
+  }
+
+  Future addFavoriteStore(FavoriteStoreRequestModel request) async {
+    try {
+      final token = await loadToken();
+      final response = await http.post(
+        Uri.parse('$_apiUrl/favorites/stores?storeId=${request.storeId}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return null;
+      } else if (response.statusCode == 401) {
+        throw Exception('Unauthorized');
+      }
+    } catch (error) {
+      debugPrint('Error during add favorite store: $error');
+      return null;
+    }
+  }
+
+  Future removeFavoriteStore(FavoriteStoreRequestModel request) async {
+    try {
+      final token = await loadToken();
+      final response = await http.delete(
+        Uri.parse('$_apiUrl/favorites/stores?storeId=${request.storeId}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return null;
+      } else if (response.statusCode == 401) {
+        throw Exception('Unauthorized');
+      }
+    } catch (error) {
+      debugPrint('Error during remove favorite store: $error');
       return null;
     }
   }

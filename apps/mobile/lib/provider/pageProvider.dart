@@ -1,6 +1,8 @@
+import 'package:caffeing/repository/favorite/store/favorite_store_repository.dart';
 import 'package:caffeing/repository/keyword/keyword_repository.dart';
 import 'package:caffeing/repository/search/search_repository.dart';
 import 'package:caffeing/repository/store/store_repository.dart';
+import 'package:caffeing/view_model/favorite/store/favorite_store_view_model.dart';
 import 'package:caffeing/view_model/keyword/keyword_view_model.dart';
 import 'package:caffeing/view_model/search/search_view_model.dart';
 import 'package:caffeing/view_model/store/store_view_model.dart';
@@ -45,6 +47,14 @@ class PageProvider {
           create:
               (context) => StoreViewModel(
                 storeRepository: StoreRepository(apiService: ApiService()),
+              ),
+        ),
+        ChangeNotifierProvider<FavoriteStoreViewModel>(
+          create:
+              (context) => FavoriteStoreViewModel(
+                favoriteStoreRepository: FavoriteStoreRepository(
+                  apiService: ApiService(),
+                ),
               ),
         ),
       ],
