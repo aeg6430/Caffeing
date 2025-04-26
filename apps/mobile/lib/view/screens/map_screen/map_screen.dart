@@ -8,6 +8,7 @@ import 'package:caffeing/view/components/store_info_panel.dart';
 import 'package:caffeing/view_model/keyword/keyword_view_model.dart';
 import 'package:caffeing/view_model/search/search_view_model.dart';
 import 'package:caffeing/view_model/store/store_view_model.dart';
+import 'package:caffeing/view_model/map/map_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,7 @@ class _MapScreenState extends State<MapScreen> {
   late SearchViewModel searchViewModel;
   late KeywordViewModel keywordViewModel;
   late StoreViewModel storeViewModel;
-  StoreSummaryResponseModel? selectedStore;
+
   @override
   void initState() {
     super.initState();
@@ -36,27 +37,20 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Consumer<LocaleProvider>(
       builder: (context, localeProvider, _) {
-        return Consumer<StoreViewModel>(
-          builder: (context, storeVM, _) {
+        return Consumer2<StoreViewModel, MapViewModel>(
+          builder: (context, storeVM, mapVM, _) {
             return Scaffold(
               body: SafeArea(
                 child: Stack(
                   children: [
-                    Center(
-                      child: MapContent(
-                        selectedStore: selectedStore,
-                        storeList: storeVM.storeList,
-                      ),
-                    ),
+                    Center(child: MapContent(storeList: storeVM.storeList)),
                     Align(
                       alignment: Alignment.topCenter,
                       child: SearchBarWidget(
                         searchViewModel: searchViewModel,
                         keywordViewModel: keywordViewModel,
                         onSelected: (store) async {
-                          setState(() {
-                            selectedStore = store;
-                          });
+                          mapVM.updateSelectedStore(store);
                           await storeViewModel.getStoreByRequest(
                             StoreRequestModel(storeId: store.storeId),
                           );

@@ -2,21 +2,17 @@ import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 import 'package:caffeing/res/style/style.dart';
+import 'package:caffeing/view_model/map/map_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class MapContent extends StatefulWidget {
-  final StoreSummaryResponseModel? selectedStore;
   final List<StoreResponseModel>? storeList;
   final double zoom;
 
-  const MapContent({
-    Key? key,
-    required this.selectedStore,
-    this.storeList,
-    this.zoom = 14,
-  }) : super(key: key);
+  const MapContent({Key? key, this.storeList, this.zoom = 14})
+    : super(key: key);
 
   @override
   State<MapContent> createState() => _MapContentState();
@@ -84,7 +80,8 @@ class _MapContentState extends State<MapContent> {
   }
 
   void _updateMarkerPosition() async {
-    final store = widget.selectedStore;
+    final mapViewModel = Provider.of<MapViewModel>(context, listen: false);
+    final store = mapViewModel.selectedStore;
 
     final latitude = store?.latitude ?? defaultLatitude;
     final longitude = store?.longitude ?? defaultLongitude;
@@ -120,6 +117,20 @@ class _MapContentState extends State<MapContent> {
                 ? _selectedMarkerIcon ?? BitmapDescriptor.defaultMarker
                 : _defaultMarkerIcon ?? BitmapDescriptor.defaultMarker,
         onTap: () {
+          final mapViewModel = Provider.of<MapViewModel>(
+            context,
+            listen: false,
+          );
+
+          StoreSummaryResponseModel summaryStore = StoreSummaryResponseModel(
+            storeId: store.storeId,
+            name: store.name,
+            latitude: store.latitude,
+            longitude: store.longitude,
+          );
+
+          mapViewModel.updateSelectedStore(summaryStore);
+
           setState(() {
             _selectedMarkerId = store.storeId;
             _markerPosition = LatLng(store.latitude, store.longitude);
@@ -133,7 +144,7 @@ class _MapContentState extends State<MapContent> {
 
   @override
   Widget build(BuildContext context) {
-    final store = widget.selectedStore;
+    final store = Provider.of<MapViewModel>(context).selectedStore;
     final initialLatitude = store?.latitude ?? defaultLatitude;
     final initialLongitude = store?.longitude ?? defaultLongitude;
 
