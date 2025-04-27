@@ -33,6 +33,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
           icon: Icon(size: 30.0, Icons.map),
         ),
         BottomNavigationBarItem(
+          label: S.of(context).favorites,
+          icon: Icon(size: 30.0, Icons.favorite),
+        ),
+        BottomNavigationBarItem(
           label: S.of(context).settings,
           icon: Icon(size: 30.0, Icons.settings),
         ),

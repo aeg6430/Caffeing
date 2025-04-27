@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add": MessageLookupByLibrary.simpleMessage("加入"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("進階搜尋"),
     "cancel": MessageLookupByLibrary.simpleMessage("取消"),
     "checkUpdate": MessageLookupByLibrary.simpleMessage("檢查更新"),
@@ -29,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm": MessageLookupByLibrary.simpleMessage("確認"),
     "darkMode": MessageLookupByLibrary.simpleMessage("深色主題"),
     "english": MessageLookupByLibrary.simpleMessage("英語"),
+    "favorites": MessageLookupByLibrary.simpleMessage("收藏"),
     "guest": MessageLookupByLibrary.simpleMessage("訪客"),
     "japanese": MessageLookupByLibrary.simpleMessage("日語"),
     "korean": MessageLookupByLibrary.simpleMessage("韓語"),
@@ -38,9 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "map": MessageLookupByLibrary.simpleMessage("地圖"),
     "mapInitializing": MessageLookupByLibrary.simpleMessage("地圖載入中..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("沒有符合的結果"),
+    "remove": MessageLookupByLibrary.simpleMessage("移除"),
     "search": MessageLookupByLibrary.simpleMessage("搜尋店家"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("選擇語言"),
     "settings": MessageLookupByLibrary.simpleMessage("設定"),
+    "share": MessageLookupByLibrary.simpleMessage("分享"),
     "unavailable": MessageLookupByLibrary.simpleMessage("無資料"),
   };
 }

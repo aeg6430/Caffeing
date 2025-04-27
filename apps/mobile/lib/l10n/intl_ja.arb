@@ -19,5 +19,9 @@
     "advancedSearch": "詳細検索",
     "noResultsFound":"一致する検索結果がありません",
     "unavailable": "データなし",
-    "mapInitializing": "地図の初期化中..."
+    "mapInitializing": "地図の初期化中...",
+    "favorites":"お気に入り",
+    "add":"追加",
+    "remove":"削除",
+    "share": "共有"
 }

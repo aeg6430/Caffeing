@@ -19,5 +19,9 @@
     "advancedSearch": "고급 검색",
     "noResultsFound":"검색 결과가 없습니다",
     "unavailable": "데이터 없음",
-    "mapInitializing": "맵을 초기화하는 중..."
+    "mapInitializing": "맵을 초기화하는 중...",
+    "favorites":"즐겨찾기",
+    "add": "추가",
+    "remove": "제거",
+    "share":"공유"
 }

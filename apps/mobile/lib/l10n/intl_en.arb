@@ -19,6 +19,10 @@
     "advancedSearch":"Advanced Search",
     "noResultsFound":"No results found",
     "unavailable":"Unavailable",
-    "mapInitializing":"Map is initializing..."
+    "mapInitializing":"Map is initializing...",
+    "favorites":"Favorites",
+    "add":"Add",
+    "remove":"Remove",
+    "share":"Share"
   }
   

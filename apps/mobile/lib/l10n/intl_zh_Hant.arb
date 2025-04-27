@@ -19,5 +19,9 @@
   "advancedSearch": "進階搜尋",
   "noResultsFound":"沒有符合的結果",
   "unavailable": "無資料",
-  "mapInitializing": "地圖載入中..."
+  "mapInitializing": "地圖載入中...",
+  "favorites":"收藏",
+  "add": "加入",
+  "remove": "移除",
+  "share":"分享"
 }

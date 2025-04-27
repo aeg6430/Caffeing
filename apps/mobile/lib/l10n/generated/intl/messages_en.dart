@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add": MessageLookupByLibrary.simpleMessage("Add"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("Advanced Search"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "checkUpdate": MessageLookupByLibrary.simpleMessage("Check for Updates"),
@@ -31,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "english": MessageLookupByLibrary.simpleMessage("English"),
+    "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
     "guest": MessageLookupByLibrary.simpleMessage("Guest"),
     "japanese": MessageLookupByLibrary.simpleMessage("Japanese"),
     "korean": MessageLookupByLibrary.simpleMessage("Korean"),
@@ -42,9 +44,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Map is initializing...",
     ),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("No results found"),
+    "remove": MessageLookupByLibrary.simpleMessage("Remove"),
     "search": MessageLookupByLibrary.simpleMessage("Search for stores"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "share": MessageLookupByLibrary.simpleMessage("Share"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
   };
 }

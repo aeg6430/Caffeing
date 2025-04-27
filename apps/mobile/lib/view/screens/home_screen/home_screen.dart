@@ -1,3 +1,4 @@
+import 'package:caffeing/view/screens/favorite/store/favorite_store_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:caffeing/provider/bottom_navigation_provider.dart';
 import 'package:caffeing/view/bottom_navigation_bar.dart';
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screens = [MapScreen(), SettingsScreen()];
+    final screens = [MapScreen(), FavoriteStoreScreen(), SettingsScreen()];
 
     return Scaffold(
       body: IndexedStack(index: _currentIndex, children: screens),

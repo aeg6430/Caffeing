@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add": MessageLookupByLibrary.simpleMessage("追加"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("詳細検索"),
     "cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
     "checkUpdate": MessageLookupByLibrary.simpleMessage("アップデートを確認"),
@@ -29,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm": MessageLookupByLibrary.simpleMessage("確認"),
     "darkMode": MessageLookupByLibrary.simpleMessage("ダークモード"),
     "english": MessageLookupByLibrary.simpleMessage("英語"),
+    "favorites": MessageLookupByLibrary.simpleMessage("お気に入り"),
     "guest": MessageLookupByLibrary.simpleMessage("ゲスト"),
     "japanese": MessageLookupByLibrary.simpleMessage("日本語"),
     "korean": MessageLookupByLibrary.simpleMessage("韓国语"),
@@ -38,9 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "map": MessageLookupByLibrary.simpleMessage("地図"),
     "mapInitializing": MessageLookupByLibrary.simpleMessage("地図の初期化中..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("一致する検索結果がありません"),
+    "remove": MessageLookupByLibrary.simpleMessage("削除"),
     "search": MessageLookupByLibrary.simpleMessage("店舗を検索"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("言語を選択"),
     "settings": MessageLookupByLibrary.simpleMessage("設定"),
+    "share": MessageLookupByLibrary.simpleMessage("共有"),
     "unavailable": MessageLookupByLibrary.simpleMessage("データなし"),
   };
 }

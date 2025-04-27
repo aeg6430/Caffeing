@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "add": MessageLookupByLibrary.simpleMessage("추가"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("고급 검색"),
     "cancel": MessageLookupByLibrary.simpleMessage("취소"),
     "checkUpdate": MessageLookupByLibrary.simpleMessage("업데이트 확인"),
@@ -29,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm": MessageLookupByLibrary.simpleMessage("확인"),
     "darkMode": MessageLookupByLibrary.simpleMessage("다크 모드"),
     "english": MessageLookupByLibrary.simpleMessage("영어"),
+    "favorites": MessageLookupByLibrary.simpleMessage("즐겨찾기"),
     "guest": MessageLookupByLibrary.simpleMessage("손님"),
     "japanese": MessageLookupByLibrary.simpleMessage("일본어"),
     "korean": MessageLookupByLibrary.simpleMessage("한국어"),
@@ -38,9 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "map": MessageLookupByLibrary.simpleMessage("지도"),
     "mapInitializing": MessageLookupByLibrary.simpleMessage("맵을 초기화하는 중..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("검색 결과가 없습니다"),
+    "remove": MessageLookupByLibrary.simpleMessage("제거"),
     "search": MessageLookupByLibrary.simpleMessage("매장 검색"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("언어 선택"),
     "settings": MessageLookupByLibrary.simpleMessage("설정"),
+    "share": MessageLookupByLibrary.simpleMessage("공유"),
     "unavailable": MessageLookupByLibrary.simpleMessage("데이터 없음"),
   };
 }
