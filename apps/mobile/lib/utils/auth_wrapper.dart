@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:caffeing/provider/bottomNavigationProvider.dart';
+import 'package:caffeing/provider/bottom_navigation_provider.dart';
 import 'package:caffeing/utils/permission_utils.dart';
 import 'package:caffeing/view/screens/auth_screen/auth_screen.dart';
 import 'package:caffeing/view/screens/home_screen/home_screen.dart';

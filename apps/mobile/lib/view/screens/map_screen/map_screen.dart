@@ -1,6 +1,6 @@
 import 'package:caffeing/models/request/store/store_request_model.dart';
 import 'package:caffeing/models/response/store/store_summary_response_model.dart';
-import 'package:caffeing/provider/localeProvider.dart';
+import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/view/components/custom_bottom_sheet.dart';
 import 'package:caffeing/view/components/map_content.dart';
 import 'package:caffeing/view/components/search_bar_widget.dart';

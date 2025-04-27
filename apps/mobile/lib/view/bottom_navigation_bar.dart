@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:caffeing/l10n/generated/l10n.dart';
-import 'package:caffeing/provider/bottomNavigationProvider.dart';
+import 'package:caffeing/provider/bottom_navigation_provider.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final ValueChanged<int> onTabSelected;

@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:caffeing/l10n/generated/l10n.dart';
-import 'package:caffeing/provider/localeProvider.dart';
+import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/view/components/dialog_components.dart';
 
 class LocalizationDialogHelper {

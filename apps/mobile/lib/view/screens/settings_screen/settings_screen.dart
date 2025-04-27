@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:caffeing/l10n/generated/l10n.dart';
-import 'package:caffeing/provider/localeProvider.dart';
+import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/res/style/style.dart';
 import 'package:caffeing/utils/localization_dialog_helper.dart';
 import 'package:caffeing/utils/version_updater_utils.dart';
