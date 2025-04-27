@@ -1,5 +1,5 @@
 import 'package:caffeing/models/request/store/store_request_model.dart';
-import 'package:caffeing/models/response/store/store_summary_response_model.dart';
+import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/view/components/custom_bottom_sheet.dart';
 import 'package:caffeing/view/components/map_content.dart';
@@ -19,63 +19,75 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  TextEditingController _searchController = TextEditingController();
-  late SearchViewModel searchViewModel;
-  late KeywordViewModel keywordViewModel;
-  late StoreViewModel storeViewModel;
-
   @override
   void initState() {
     super.initState();
-    searchViewModel = Provider.of<SearchViewModel>(context, listen: false);
-    keywordViewModel = Provider.of<KeywordViewModel>(context, listen: false);
-    storeViewModel = Provider.of<StoreViewModel>(context, listen: false);
-    storeViewModel.getAllStore();
+    final storeVM = Provider.of<StoreViewModel>(context, listen: false);
+    final mapVM = Provider.of<MapViewModel>(context, listen: false);
+
+    storeVM.getAllStore().then((_) {
+      mapVM.updateMapStores(storeVM.storeList);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<LocaleProvider>(
       builder: (context, localeProvider, _) {
-        return Consumer2<StoreViewModel, MapViewModel>(
-          builder: (context, storeVM, mapVM, _) {
-            return Scaffold(
-              body: SafeArea(
-                child: Stack(
-                  children: [
-                    Center(child: MapContent(storeList: storeVM.storeList)),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: SearchBarWidget(
-                        searchViewModel: searchViewModel,
-                        keywordViewModel: keywordViewModel,
+        return Scaffold(
+          body: SafeArea(
+            child: Stack(
+              children: [
+                // Use Selector to only rebuild mapContent when mapStores changes
+                Selector<MapViewModel, List<StoreResponseModel>>(
+                  selector: (context, mapVM) => mapVM.mapStores,
+                  builder: (context, mapStores, _) {
+                    return Center(
+                      child: MapContent(
+                        storeList: mapStores,
+                      ), // Only rebuilds when mapStores changes
+                    );
+                  },
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Consumer4<
+                    SearchViewModel,
+                    KeywordViewModel,
+                    MapViewModel,
+                    StoreViewModel
+                  >(
+                    builder: (context, searchVM, keywordVM, mapVM, storeVM, _) {
+                      return SearchBarWidget(
+                        searchViewModel: searchVM,
+                        keywordViewModel: keywordVM,
                         onSelected: (store) async {
                           mapVM.updateSelectedStore(store);
-                          await storeViewModel.getStoreByRequest(
+                          await storeVM.getStoreByRequest(
                             StoreRequestModel(storeId: store.storeId),
                           );
                         },
-                      ),
-                    ),
-                    DraggableScrollableSheet(
-                      initialChildSize: 0.25,
-                      minChildSize: 0.1,
-                      maxChildSize: 0.8,
-                      builder: (
-                        BuildContext context,
-                        ScrollController scrollController,
-                      ) {
-                        return CustomBottomSheet(
-                          scrollController: scrollController,
-                          child: StoreInfoPanel(),
-                        );
-                      },
-                    ),
-                  ],
+                      );
+                    },
+                  ),
                 ),
-              ),
-            );
-          },
+                DraggableScrollableSheet(
+                  initialChildSize: 0.25,
+                  minChildSize: 0.1,
+                  maxChildSize: 0.8,
+                  builder: (
+                    BuildContext context,
+                    ScrollController scrollController,
+                  ) {
+                    return CustomBottomSheet(
+                      scrollController: scrollController,
+                      child: StoreInfoPanel(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

@@ -59,6 +59,13 @@ class _MapContentState extends State<MapContent> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    final mapViewModel = Provider.of<MapViewModel>(context, listen: false);
+    final newStore = mapViewModel.selectedStore;
+
+    // If the store has changed, update the marker and camera
+    if (newStore != null) {
+      _updateMarkerPosition();
+    }
     final themeMode = Provider.of<AppThemeNotifier>(context).currentThemeMode;
     String styleFile =
         themeMode == ThemeMode.dark

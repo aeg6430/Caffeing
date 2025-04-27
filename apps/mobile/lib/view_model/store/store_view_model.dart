@@ -22,12 +22,18 @@ class StoreViewModel extends ChangeNotifier {
   bool _isServerReachable = false;
   bool get isServerReachable => _isServerReachable;
   bool get isInternetConnected => _isInternetConnected;
+
   StoreViewModel({required this.storeRepository});
 
   StoreStatus _status = StoreStatus.idle;
   StoreStatus get status => _status;
+
   List<StoreResponseModel> _storeList = [];
   List<StoreResponseModel> get storeList => _storeList;
+
+  List<StoreResponseModel> _mapStoreList = [];
+  List<StoreResponseModel> get mapStoreList => _mapStoreList;
+
   StoreResponseModel? _storeByRequestData;
   StoreResponseModel? get storeByRequestData => _storeByRequestData;
 
@@ -42,6 +48,7 @@ class StoreViewModel extends ChangeNotifier {
 
       if (result != null) {
         _storeList = result;
+        _mapStoreList = List.from(result);
         _status = StoreStatus.dataAvailable;
         notifyListeners();
         return StoreListResult(stores: result);
