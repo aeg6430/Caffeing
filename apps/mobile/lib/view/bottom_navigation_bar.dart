@@ -22,23 +22,30 @@ class CustomBottomNavigationBar extends StatelessWidget {
         onTabSelected(index);
       },
       selectedItemColor:
-          Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-      unselectedItemColor:
-          Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
-      backgroundColor:
-          Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.white
+              : Colors.black,
       items: [
         BottomNavigationBarItem(
           label: S.of(context).map,
-          icon: Icon(size: 30.0, Icons.map),
+          icon: Icon(
+            currentIndex == 0 ? Icons.map : Icons.map_outlined,
+            size: 30.0,
+          ),
         ),
         BottomNavigationBarItem(
           label: S.of(context).favorites,
-          icon: Icon(size: 30.0, Icons.favorite),
+          icon: Icon(
+            currentIndex == 1 ? Icons.favorite : Icons.favorite_border,
+            size: 30.0,
+          ),
         ),
         BottomNavigationBarItem(
           label: S.of(context).settings,
-          icon: Icon(size: 30.0, Icons.settings),
+          icon: Icon(
+            currentIndex == 2 ? Icons.settings : Icons.settings_outlined,
+            size: 30.0,
+          ),
         ),
       ],
     );
