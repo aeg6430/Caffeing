@@ -1,49 +1,54 @@
 import 'package:caffeing/view/screens/favorite/store/favorite_store_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:caffeing/provider/bottom_navigation_provider.dart';
-import 'package:caffeing/view/bottom_navigation_bar.dart';
 import 'package:caffeing/view/screens/map_screen/map_screen.dart';
 import 'package:caffeing/view/screens/settings_screen/settings_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-class HomeScreen extends StatefulWidget {
-  final int initialIndex;
-
-  const HomeScreen({
-    this.initialIndex = 0,
-    required BottomNavigationProvider bottomNavigationProvider,
-  });
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-  late BottomNavigationProvider _bottomNavigationProvider;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentIndex = widget.initialIndex;
-    _bottomNavigationProvider = BottomNavigationProvider();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final screens = [MapScreen(), FavoriteStoreScreen(), SettingsScreen()];
-
-    return Scaffold(
-      body: IndexedStack(index: _currentIndex, children: screens),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        onTabSelected: (index) {
-          setState(() {
-            _currentIndex = index;
-            _bottomNavigationProvider.currentIndex = index;
-          });
-        },
-        currentIndex: _currentIndex,
-        bottomNavigationProvider: _bottomNavigationProvider,
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
+  final PersistentTabController _controller = PersistentTabController(
+    initialIndex: 0,
+  );
+  List<PersistentTabConfig> _tabs() => [
+    PersistentTabConfig(
+      screen: MapScreen(),
+      item: ItemConfig(
+        icon: const Icon(Icons.map),
+        title: "Map",
+        activeForegroundColor: Colors.blue,
+        inactiveForegroundColor: Colors.grey,
       ),
-    );
-  }
+    ),
+    PersistentTabConfig(
+      screen: FavoriteStoreScreen(controller: _controller),
+      item: ItemConfig(
+        icon: const Icon(Icons.favorite),
+        title: "Favorites",
+        activeForegroundColor: Colors.red,
+        inactiveForegroundColor: Colors.grey,
+      ),
+    ),
+    PersistentTabConfig(
+      screen: SettingsScreen(),
+      item: ItemConfig(
+        icon: const Icon(Icons.settings),
+        title: "Settings",
+        activeForegroundColor: Colors.green,
+        inactiveForegroundColor: Colors.grey,
+      ),
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) => PersistentTabView(
+    tabs: _tabs(),
+    controller: _controller,
+    navBarBuilder:
+        (navBarConfig) => Style1BottomNavBar(
+          navBarConfig: navBarConfig,
+          navBarDecoration: NavBarDecoration(color: Colors.transparent),
+        ),
+    navBarHeight: 60,
+    navBarOverlap: NavBarOverlap.full(),
+  );
 }

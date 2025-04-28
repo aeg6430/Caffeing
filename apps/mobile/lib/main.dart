@@ -1,3 +1,4 @@
+import 'package:caffeing/provider/page_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -5,9 +6,7 @@ import 'package:caffeing/data/local/data_handler.dart';
 import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/localization/app_localizations.dart';
 import 'package:caffeing/provider/locale_provider.dart';
-import 'package:caffeing/provider/page_provider.dart';
 import 'package:caffeing/res/style/style.dart';
-import 'package:caffeing/routes/routes.dart';
 import 'package:caffeing/utils/auth_wrapper.dart';
 import 'package:caffeing/utils/env.dart';
 import 'package:provider/provider.dart';
@@ -20,12 +19,14 @@ void main() async {
   final savedLocale = await AppLocalizations.loadSavedLocale();
 
   runApp(
-    ChangeNotifierProvider<LocaleProvider>(
-      create: (_) => LocaleProvider(savedLocale),
-      child: ChangeNotifierProvider(
-        create: (_) => AppThemeNotifier(),
-        child: App(),
-      ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<LocaleProvider>(
+          create: (_) => LocaleProvider(savedLocale),
+        ),
+        ChangeNotifierProvider(create: (_) => AppThemeNotifier()),
+      ],
+      child: PageProvider.buildProviders(child: App()),
     ),
   );
 }
@@ -51,11 +52,7 @@ class App extends StatelessWidget {
               theme: AppStyles.getTheme(context),
               darkTheme: AppStyles.getDarkTheme(context),
               themeMode: themeNotifier.currentThemeMode,
-              onGenerateRoute: Routes.generateRoute,
-              home: PageProvider.buildProviders(
-                context: context,
-                child: AuthWrapper(),
-              ),
+              home: AuthWrapper(),
             );
           },
         );

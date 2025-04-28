@@ -4,10 +4,14 @@ import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/view_model/favorite/store/favorite_store_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class FavoriteStoreScreen extends StatefulWidget {
+  final PersistentTabController controller;
+
+  const FavoriteStoreScreen({required this.controller, super.key});
+
   @override
   _FavoriteStoreScreenState createState() => _FavoriteStoreScreenState();
 }
@@ -67,7 +71,11 @@ class _FavoriteStoreScreenState extends State<FavoriteStoreScreen> {
                 title: Text(store.name),
                 subtitle: Text(store.address ?? ''),
                 trailing: _buildTrailing(viewModel, store),
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    widget.controller.jumpToTab(0);
+                  });
+                },
               ),
             );
           },
