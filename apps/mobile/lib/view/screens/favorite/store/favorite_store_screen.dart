@@ -1,8 +1,12 @@
 import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/request/favorite/store/favorite_store_request_model.dart';
+import 'package:caffeing/models/request/store/store_request_model.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
+import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/view_model/favorite/store/favorite_store_view_model.dart';
+import 'package:caffeing/view_model/map/map_view_model.dart';
+import 'package:caffeing/view_model/store/store_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -67,14 +71,26 @@ class _FavoriteStoreScreenState extends State<FavoriteStoreScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               elevation: 0.5,
-              child: ListTile(
-                title: Text(store.name),
-                subtitle: Text(store.address ?? ''),
-                trailing: _buildTrailing(viewModel, store),
-                onTap: () {
-                  setState(() {
-                    widget.controller.jumpToTab(0);
-                  });
+              child: Consumer2<MapViewModel, StoreViewModel>(
+                builder: (context, mapVM, storeVM, _) {
+                  return ListTile(
+                    title: Text(store.name),
+                    subtitle: Text(store.address ?? ''),
+                    trailing: _buildTrailing(viewModel, store),
+                    onTap: () async {
+                      var mapResquest = StoreSummaryResponseModel(
+                        storeId: store.storeId,
+                        name: store.name,
+                        latitude: store.latitude,
+                        longitude: store.longitude,
+                      );
+                      mapVM.updateSelectedStore(mapResquest);
+                      await storeVM.getStoreByRequest(
+                        StoreRequestModel(storeId: store.storeId),
+                      );
+                      widget.controller.jumpToTab(0);
+                    },
+                  );
                 },
               ),
             );
