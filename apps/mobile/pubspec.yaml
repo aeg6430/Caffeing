@@ -41,6 +41,8 @@ dependencies:
   flutter_svg: ^2.1.0
   intl_utils: ^2.8.10
   persistent_bottom_nav_bar_v2: ^5.3.1
+  url_launcher: ^6.3.1
+  share_plus: ^11.0.0
 
 
 dev_dependencies:

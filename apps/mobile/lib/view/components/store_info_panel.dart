@@ -1,6 +1,7 @@
 import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/models/request/favorite/store/favorite_store_request_model.dart';
 import 'package:caffeing/models/request/store/store_request_model.dart';
+import 'package:caffeing/utils/launcher_utils.dart';
 import 'package:caffeing/view_model/favorite/store/favorite_store_view_model.dart';
 import 'package:caffeing/view_model/map/map_view_model.dart';
 import 'package:caffeing/view_model/store/store_view_model.dart';
@@ -16,7 +17,6 @@ class StoreInfoPanel extends StatefulWidget {
 
 class _StoreInfoPanelState extends State<StoreInfoPanel> {
   bool _isLoadingFavorite = false;
-
   Future<void> _loadFavoriteStatus() async {
     if (_isLoadingFavorite) return;
     _isLoadingFavorite = true;
@@ -71,11 +71,9 @@ class _StoreInfoPanelState extends State<StoreInfoPanel> {
                 child: Text("No store details available."),
               );
             }
-
             final isFavorite = favoriteVM.storeList.any(
               (s) => s.storeId == store.storeId,
             );
-
             return SizedBox(
               width: double.infinity,
               child: Padding(
@@ -95,6 +93,24 @@ class _StoreInfoPanelState extends State<StoreInfoPanel> {
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.ios_share, color: Colors.blue),
+                          onPressed: () {
+                            LauncherUtils.openShare(
+                              context: context,
+                              content: "context here",
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.near_me_rounded, color: Colors.blue),
+                          onPressed: () {
+                            LauncherUtils.openMap(
+                              context: context,
+                              query: '${store.name} ${store.address}',
+                            );
+                          },
                         ),
                         // Optimistic UI update for the heart icon
                         IconButton(

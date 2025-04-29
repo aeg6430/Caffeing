@@ -4,6 +4,7 @@ import 'package:caffeing/models/request/store/store_request_model.dart';
 import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/models/response/store/store_summary_response_model.dart';
 import 'package:caffeing/provider/locale_provider.dart';
+import 'package:caffeing/utils/launcher_utils.dart';
 import 'package:caffeing/view_model/favorite/store/favorite_store_view_model.dart';
 import 'package:caffeing/view_model/map/map_view_model.dart';
 import 'package:caffeing/view_model/store/store_view_model.dart';
@@ -115,6 +116,7 @@ class _FavoriteStoreScreenState extends State<FavoriteStoreScreen> {
       icon: const Icon(Icons.more_vert),
       onSelected: (value) {
         if (value == 'share') {
+          LauncherUtils.openShare(context: context, content: "context here");
         } else if (value == 'delete') {
           var request = FavoriteStoreRequestModel(storeId: store.storeId);
           viewModel.remove(request);
