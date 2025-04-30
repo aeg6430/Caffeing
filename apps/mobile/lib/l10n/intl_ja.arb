@@ -23,5 +23,9 @@
     "favorites":"お気に入り",
     "add":"追加",
     "remove":"削除",
-    "share": "共有"
+    "share": "共有",
+    "supportTitle": "サポートとフィードバック",
+    "supportBugReport": "問題を報告する",
+    "supportSendFeedback": "フィードバックを送る",
+    "supportContactUs": "お問い合わせ"
 }

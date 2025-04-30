@@ -49,6 +49,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "share": MessageLookupByLibrary.simpleMessage("Share"),
+    "supportBugReport": MessageLookupByLibrary.simpleMessage(
+      "Report a Problem",
+    ),
+    "supportContactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
+    "supportSendFeedback": MessageLookupByLibrary.simpleMessage(
+      "Send Feedback",
+    ),
+    "supportTitle": MessageLookupByLibrary.simpleMessage("Support & Feedback"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
   };
 }

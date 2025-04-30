@@ -209,6 +209,46 @@ class S {
   String get share {
     return Intl.message('Share', name: 'share', desc: '', args: []);
   }
+
+  /// `Support & Feedback`
+  String get supportTitle {
+    return Intl.message(
+      'Support & Feedback',
+      name: 'supportTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report a Problem`
+  String get supportBugReport {
+    return Intl.message(
+      'Report a Problem',
+      name: 'supportBugReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Feedback`
+  String get supportSendFeedback {
+    return Intl.message(
+      'Send Feedback',
+      name: 'supportSendFeedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact Us`
+  String get supportContactUs {
+    return Intl.message(
+      'Contact Us',
+      name: 'supportContactUs',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

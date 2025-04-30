@@ -45,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectLanguage": MessageLookupByLibrary.simpleMessage("언어 선택"),
     "settings": MessageLookupByLibrary.simpleMessage("설정"),
     "share": MessageLookupByLibrary.simpleMessage("공유"),
+    "supportBugReport": MessageLookupByLibrary.simpleMessage("문제 신고하기"),
+    "supportContactUs": MessageLookupByLibrary.simpleMessage("문의하기"),
+    "supportSendFeedback": MessageLookupByLibrary.simpleMessage("피드백 보내기"),
+    "supportTitle": MessageLookupByLibrary.simpleMessage("지원 및 피드백"),
     "unavailable": MessageLookupByLibrary.simpleMessage("데이터 없음"),
   };
 }

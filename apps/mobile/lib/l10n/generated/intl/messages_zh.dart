@@ -45,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectLanguage": MessageLookupByLibrary.simpleMessage("選擇語言"),
     "settings": MessageLookupByLibrary.simpleMessage("設定"),
     "share": MessageLookupByLibrary.simpleMessage("分享"),
+    "supportBugReport": MessageLookupByLibrary.simpleMessage("回報問題"),
+    "supportContactUs": MessageLookupByLibrary.simpleMessage("聯絡我們"),
+    "supportSendFeedback": MessageLookupByLibrary.simpleMessage("發送回饋"),
+    "supportTitle": MessageLookupByLibrary.simpleMessage("支援與回饋"),
     "unavailable": MessageLookupByLibrary.simpleMessage("無資料"),
   };
 }

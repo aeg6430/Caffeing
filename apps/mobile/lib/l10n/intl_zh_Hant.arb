@@ -23,5 +23,9 @@
   "favorites":"收藏",
   "add": "加入",
   "remove": "移除",
-  "share":"分享"
+  "share":"分享",
+  "supportTitle": "支援與回饋",
+  "supportBugReport": "回報問題",
+  "supportSendFeedback": "發送回饋",
+  "supportContactUs": "聯絡我們"
 }

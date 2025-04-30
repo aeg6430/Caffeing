@@ -45,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectLanguage": MessageLookupByLibrary.simpleMessage("言語を選択"),
     "settings": MessageLookupByLibrary.simpleMessage("設定"),
     "share": MessageLookupByLibrary.simpleMessage("共有"),
+    "supportBugReport": MessageLookupByLibrary.simpleMessage("問題を報告する"),
+    "supportContactUs": MessageLookupByLibrary.simpleMessage("お問い合わせ"),
+    "supportSendFeedback": MessageLookupByLibrary.simpleMessage("フィードバックを送る"),
+    "supportTitle": MessageLookupByLibrary.simpleMessage("サポートとフィードバック"),
     "unavailable": MessageLookupByLibrary.simpleMessage("データなし"),
   };
 }

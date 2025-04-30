@@ -23,6 +23,10 @@
     "favorites":"Favorites",
     "add":"Add",
     "remove":"Remove",
-    "share":"Share"
+    "share":"Share",
+    "supportTitle": "Support & Feedback",
+    "supportBugReport": "Report a Problem",
+    "supportSendFeedback": "Send Feedback",
+    "supportContactUs": "Contact Us"
   }
   
