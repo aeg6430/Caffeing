@@ -41,8 +41,10 @@ namespace Caffeing.Infrastructure.Repositories
                 WHERE (@Query IS NULL OR LOWER(s.name) ILIKE LOWER(@Query))
                 GROUP BY s.store_id    
                 HAVING 
-                COALESCE(array_length(@KeywordIds, 1), 0) = 0 
-                OR COUNT(k.keyword_id) > 0
+                (
+                    COALESCE(array_length(@KeywordIds, 1), 0) = 0 
+                    OR COUNT(DISTINCT k.keyword_id) = array_length(@KeywordIds, 1)
+                )
                 LIMIT @PageSize OFFSET @Offset
             ";
 
