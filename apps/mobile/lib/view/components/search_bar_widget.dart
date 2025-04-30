@@ -91,27 +91,59 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           return DialogUtils.showCustomDialog(
             context: context,
             widgetHeight: MediaQuery.sizeOf(context).height * 0.45,
-            widgetWidth: MediaQuery.sizeOf(context).width * 0.9,
-            title: S.of(context).advancedSearch,
+            widgetWidth: MediaQuery.sizeOf(context).width,
             content: StatefulBuilder(
               builder: (context, setStateDialog) {
                 return SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
                     children:
                         widget.keywordViewModel.keywordOptions.map((keyword) {
-                          return CheckboxListTile(
-                            title: Text(keyword.keywordName),
-                            value: tempSelected.contains(keyword.keywordId),
-                            onChanged: (bool? value) {
+                          final isSelected = tempSelected.contains(
+                            keyword.keywordId,
+                          );
+                          return FilterChip(
+                            showCheckmark: false,
+                            label: Text(
+                              keyword.keywordName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    isSelected
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(
+                                          context,
+                                        ).colorScheme.secondary,
+                              ),
+                            ),
+                            selected: isSelected,
+                            onSelected: (bool selected) {
                               setStateDialog(() {
-                                if (value == true) {
+                                if (selected) {
                                   tempSelected.add(keyword.keywordId);
                                 } else {
                                   tempSelected.remove(keyword.keywordId);
                                 }
                               });
                             },
+                            selectedColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Theme.of(context).colorScheme.primary
+                                        .withValues(alpha: 0.2),
+                            backgroundColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey.withValues(alpha: 0.3)
+                                    : Colors.grey.shade200,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withValues(alpha: 0),
+                              ),
+                            ),
                           );
                         }).toList(),
                   ),
@@ -119,11 +151,24 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               },
             ),
             actions: [
-              TextButton(
+              OutlinedButton(
                 onPressed: () => Navigator.of(context).pop(),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Theme.of(context).colorScheme.onSurface
+                          : Theme.of(context).colorScheme.primary,
+                  side: BorderSide(
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Theme.of(context).colorScheme.outline
+                            : Theme.of(context).colorScheme.primary,
+                  ),
+                ),
                 child: Text(S.of(context).cancel),
               ),
-              TextButton(
+              const SizedBox(width: 12),
+              FilledButton(
                 onPressed: () {
                   setState(() {
                     _selectedKeywords.clear();
