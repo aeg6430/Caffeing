@@ -7,7 +7,7 @@ class DialogUtils {
     required double widgetHeight,
     required double widgetWidth,
     Widget? icon,
-    required String title,
+    String? title,
     Widget? content,
     TextAlign contentTextAlign = TextAlign.center,
     List<Widget>? actions,
@@ -18,29 +18,31 @@ class DialogUtils {
         height: widgetHeight,
         width: widgetWidth,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(10),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (icon != null) ...[icon, const SizedBox(height: 10)],
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900,
+              if (title != null) ...[
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w900,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
+              ],
               if (content != null) ...[
                 const SizedBox(height: 15),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: content,
                 ),
               ],
               if (actions != null && actions.isNotEmpty) ...[
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: actions,
