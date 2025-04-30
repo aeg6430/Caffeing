@@ -1,5 +1,5 @@
+import 'package:caffeing/view/components/settings_section.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/res/style/style.dart';
@@ -60,67 +60,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                     ),
-                    InkWell(
+                    SettingsSection(
+                      text: S.of(context).checkUpdate,
+                      icon: Icons.arrow_circle_down_outlined,
                       onTap: () {
                         VersionUpdater.checkUpdate(context);
                       },
-                      child: Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: FaIcon(FontAwesomeIcons.circleArrowUp),
-                            ),
-                            Text(S.of(context).checkUpdate),
-                          ],
-                        ),
-                      ),
                     ),
-                    InkWell(
+                    SettingsSection(
+                      text: "Language",
+                      icon: Icons.translate,
                       onTap: () {
                         LocalizationDialogHelper.show(context);
                       },
-                      child: Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: Icon(Icons.translate),
-                            ),
-                            Text("Language"),
-                          ],
-                        ),
-                      ),
                     ),
                     Consumer<AppThemeNotifier>(
                       builder: (context, themeNotifier, _) {
                         final isDark =
                             themeNotifier.currentThemeMode == ThemeMode.dark;
-                        return InkWell(
+                        return SettingsSection(
+                          text:
+                              isDark
+                                  ? S.of(context).lightMode
+                                  : S.of(context).darkMode,
+                          icon:
+                              isDark
+                                  ? Icons.light_mode_outlined
+                                  : Icons.dark_mode_outlined,
                           onTap: () {
                             themeNotifier.updateTheme(
                               isDark ? ThemeColor.Light : ThemeColor.Dark,
                             );
                           },
-                          child: Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child:
-                                      isDark
-                                          ? Icon(Icons.light_mode)
-                                          : Icon(Icons.dark_mode),
-                                ),
-                                isDark
-                                    ? Text(S.of(context).lightMode)
-                                    : Text(S.of(context).darkMode),
-                              ],
-                            ),
-                          ),
                         );
                       },
                     ),
@@ -139,66 +110,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                     ),
-                    InkWell(
+                    SettingsSection(
+                      text: S.of(context).supportSendFeedback,
+                      icon: Icons.thumb_up_alt_outlined,
                       onTap: () async {},
-                      child: Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: FaIcon(FontAwesomeIcons.envelope),
-                            ),
-                            Text(S.of(context).supportSendFeedback),
-                          ],
-                        ),
-                      ),
                     ),
-                    InkWell(
+                    SettingsSection(
+                      text: S.of(context).supportBugReport,
+                      icon: Icons.bug_report_outlined,
                       onTap: () async {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(right: 8),
-                            child: FaIcon(FontAwesomeIcons.bug),
-                          ),
-                          Text(S.of(context).supportBugReport),
-                        ],
-                      ),
                     ),
-                    InkWell(
+                    SettingsSection(
+                      text: S.of(context).supportContactUs,
+                      icon: Icons.email_outlined,
                       onTap: () async {},
-                      child: Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: FaIcon(FontAwesomeIcons.comment),
-                            ),
-                            Text(S.of(context).supportContactUs),
-                          ],
-                        ),
-                      ),
                     ),
                     Divider(),
-                    InkWell(
+                    SettingsSection(
+                      text: S.of(context).logout,
+                      icon: Icons.logout,
                       onTap: () async {
                         await authViewModel.logoutUser();
                       },
-                      child: Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: FaIcon(FontAwesomeIcons.rightFromBracket),
-                            ),
-                            Text(S.of(context).logout),
-                          ],
-                        ),
-                      ),
                     ),
                   ],
                 ),
