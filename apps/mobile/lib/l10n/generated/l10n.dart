@@ -249,6 +249,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Something went wrong while submitting bug report Please try again later`
+  String get bugReportFailed {
+    return Intl.message(
+      'Something went wrong while submitting bug report Please try again later',
+      name: 'bugReportFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Max 300 characters and 10 emojis allowed`
+  String get bugReportLimit {
+    return Intl.message(
+      'Max 300 characters and 10 emojis allowed',
+      name: 'bugReportLimit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

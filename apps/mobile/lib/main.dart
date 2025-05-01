@@ -1,4 +1,6 @@
 import 'package:caffeing/provider/page_provider.dart';
+import 'package:caffeing/utils/custom_feedback_localizations.dart';
+import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,14 +21,18 @@ void main() async {
   final savedLocale = await AppLocalizations.loadSavedLocale();
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<LocaleProvider>(
-          create: (_) => LocaleProvider(savedLocale),
-        ),
-        ChangeNotifierProvider(create: (_) => AppThemeNotifier()),
-      ],
-      child: PageProvider.buildProviders(child: App()),
+    BetterFeedback(
+      theme: FeedbackThemeData(sheetIsDraggable: false),
+      localizationsDelegates: [CustomFeedbackLocalizationsDelegate()],
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<LocaleProvider>(
+            create: (_) => LocaleProvider(savedLocale),
+          ),
+          ChangeNotifierProvider(create: (_) => AppThemeNotifier()),
+        ],
+        child: PageProvider.buildProviders(child: App()),
+      ),
     ),
   );
 }

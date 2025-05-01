@@ -24,6 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("Advanced Search"),
+    "bugReportFailed": MessageLookupByLibrary.simpleMessage(
+      "Something went wrong while submitting bug report Please try again later",
+    ),
+    "bugReportLimit": MessageLookupByLibrary.simpleMessage(
+      "Max 300 characters and 10 emojis allowed",
+    ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "checkUpdate": MessageLookupByLibrary.simpleMessage("Check for Updates"),
     "chineseTraditional": MessageLookupByLibrary.simpleMessage(

@@ -83,6 +83,19 @@ apps/mobile/android/app/src/main/res/values/strings.xml
 # Firebase config
 apps/mobile/android/app/google-services.json
 
+# Node.js-related ignores
+package-lock.json
+node_modules/
+
+# Env files
+!example.env  
+.env
+
+# Firebase emulator/local files
+.firebase/
+.firebase-debug.log
+firebase-debug.*.log
+
 # macOS
 apps/mobile/macos/Flutter/GeneratedPluginRegistrant.swift
 apps/mobile/macos/Flutter/ephemeral

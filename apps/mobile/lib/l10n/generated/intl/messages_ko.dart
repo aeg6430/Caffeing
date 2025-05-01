@@ -24,6 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("추가"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("고급 검색"),
+    "bugReportFailed": MessageLookupByLibrary.simpleMessage(
+      "버그 보고를 제출하는 중 문제가 발생했습니다 나중에 다시 시도해 주세요",
+    ),
+    "bugReportLimit": MessageLookupByLibrary.simpleMessage(
+      "최대 300자와 10개의 이모지가 허용됩니다",
+    ),
     "cancel": MessageLookupByLibrary.simpleMessage("취소"),
     "checkUpdate": MessageLookupByLibrary.simpleMessage("업데이트 확인"),
     "chineseTraditional": MessageLookupByLibrary.simpleMessage("중국어 번체"),

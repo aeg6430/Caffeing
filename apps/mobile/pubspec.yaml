@@ -43,7 +43,10 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^5.3.1
   url_launcher: ^6.3.1
   share_plus: ^11.0.0
-
+  feedback_github: ^1.2.1
+  cloud_functions: ^5.5.0
+  firebase_storage: ^12.4.5
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_test:

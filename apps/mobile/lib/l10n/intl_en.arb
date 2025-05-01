@@ -27,6 +27,8 @@
     "supportTitle": "Support & Feedback",
     "supportBugReport": "Report a Problem",
     "supportSendFeedback": "Send Feedback",
-    "supportContactUs": "Contact Us"
+    "supportContactUs": "Contact Us", 
+    "bugReportFailed": "Something went wrong while submitting bug report Please try again later",
+    "bugReportLimit":"Max 300 characters and 10 emojis allowed"
   }
   
