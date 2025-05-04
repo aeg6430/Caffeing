@@ -159,4 +159,15 @@ apps/backend/**/appsettings.Development.json
 apps/backend/**/appsettings*.json
 !apps/backend/**/appsettings.example.json
 
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
 
+# Misc
+.DS_Store
+.fleet
+.idea

@@ -1,0 +1,28 @@
+export default defineNuxtConfig({
+  devtools: { enabled: true },
+  css: ['~/assets/css/tailwind.css'], 
+  components: true,
+  app: {
+    head: {
+      title: 'Caffeing',
+      meta: [
+        { name: 'description', content: 'Discover the best coffee shops near you with Caffeing.' },
+        { name: 'keywords', content: 'coffee shops, coffee finder' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+        { name: 'robots', content: 'index, follow' },
+        { property: 'og:title', content: 'Find the Best Coffee Shops - Caffeing' }, 
+        { property: 'og:description', content: 'Looking for the perfect coffee spot? Download Caffeing!' },
+        { property: 'og:image', content: 'https://caffeing.com/preview.jpg' }, 
+        { property: 'og:url', content: 'https://caffeing.com' }
+      ]
+      
+    },
+    layoutTransition: { name: 'layout', mode: 'out-in' },
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
+});
