@@ -7,7 +7,6 @@ import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/res/style/style.dart';
 import 'package:caffeing/utils/localization_dialog_helper.dart';
-import 'package:caffeing/utils/version_updater_utils.dart';
 import 'package:caffeing/view_model/auth/auth_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -63,13 +62,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   : Colors.black87,
                         ),
                       ),
-                    ),
-                    SettingsSection(
-                      text: S.of(context).checkUpdate,
-                      icon: Icons.arrow_circle_down_outlined,
-                      onTap: () {
-                        VersionUpdater.checkUpdate(context);
-                      },
                     ),
                     SettingsSection(
                       text: "Language",
