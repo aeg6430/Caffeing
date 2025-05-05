@@ -69,6 +69,7 @@ const currentYear = new Date().getFullYear();
 const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' }
+  { label: 'Contact', to: '/contact' },
+  { label: 'Suggest', to: '/suggest' }
 ];
 </script>

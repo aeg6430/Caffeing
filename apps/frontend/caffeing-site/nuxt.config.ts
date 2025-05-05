@@ -1,7 +1,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['~/assets/css/tailwind.css'], 
+  css: ['~/assets/css/tailwind.css'],
   components: true,
+  runtimeConfig: {
+    public: {
+      recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY || ''
+    }
+  },
   app: {
     head: {
       title: 'Caffeing',
@@ -10,12 +15,18 @@ export default defineNuxtConfig({
         { name: 'keywords', content: 'coffee shops, coffee finder' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
         { name: 'robots', content: 'index, follow' },
-        { property: 'og:title', content: 'Find the Best Coffee Shops - Caffeing' }, 
+        { property: 'og:title', content: 'Find the Best Coffee Shops - Caffeing' },
         { property: 'og:description', content: 'Looking for the perfect coffee spot? Download Caffeing!' },
-        { property: 'og:image', content: 'https://caffeing.com/preview.jpg' }, 
+        { property: 'og:image', content: 'https://caffeing.com/preview.jpg' },
         { property: 'og:url', content: 'https://caffeing.com' }
+      ],
+      script: [
+        {
+          src: `https://www.google.com/recaptcha/api.js?render=${process.env.VUE_APP_RECAPTCHA_SITE_KEY}`,
+          async: true,
+          defer: true
+        }
       ]
-      
     },
     layoutTransition: { name: 'layout', mode: 'out-in' },
   },
