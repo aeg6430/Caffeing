@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   components: true,
   runtimeConfig: {
     public: {
-      recaptchaSiteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY || ''
+      turnstileSiteKey: process.env.VUE_APP_CLOUDFLARE_TURNSTILE_SITE_KEY  || ''
     }
   },
   app: {
@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: `https://www.google.com/recaptcha/api.js?render=${process.env.VUE_APP_RECAPTCHA_SITE_KEY}`,
+          src: 'https://challenges.cloudflare.com/turnstile/v0/api.js',
           async: true,
           defer: true
         }

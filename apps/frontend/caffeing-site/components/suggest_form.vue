@@ -34,6 +34,7 @@
                     placeholder="Cat cafe with individual sockets and cozy seating"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-amber-500 focus:border-amber-500"></textarea>
             </div>
+            <div id="turnstile-container" class="cf-turnstile" data-theme="light" />
             <div>
                 <button type="submit"
                     class="w-full py-2 px-4 bg-amber-500 text-white font-semibold rounded-md shadow hover:bg-amber-600 transition">
@@ -48,9 +49,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const { executeRecaptcha } = useRecaptcha();
+import { ref, onMounted } from 'vue';
 
+const config = useRuntimeConfig();
 const form = ref({
     name: '',
     location: '',
@@ -63,29 +64,37 @@ const submitted = ref(false);
 
 const handleSubmit = async () => {
     try {
-        const recaptchaToken = await executeRecaptcha('submit');
+        const token = window.turnstile?.getResponse();
 
-        if (!recaptchaToken) {
-            alert('reCAPTCHA verification failed');
+        if (!token) {
+            alert('Cloudflare Turnstile verification failed');
             return;
         }
-
         console.log('Submitted data:', form.value);
-        console.log('reCAPTCHA Token:', recaptchaToken);
 
         await $fetch('/api/suggestions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: { ...form.value, recaptchaToken },
+            body: { ...form.value, turnstileToken: token },
         });
 
         submitted.value = true;
+        window.turnstile?.reset();
     } catch (e) {
-        console.error('Error with reCAPTCHA:', e);
+        console.error('Error with Turnstile:', e);
     }
 };
+onMounted(() => {
+    const container = document.getElementById('turnstile-container');
+    if (window.turnstile && container) {
+        window.turnstile.render(container, {
+            sitekey: config.public.turnstileSiteKey,
+            theme: 'light',
+        });
+    }
+});
 
 defineProps({});
 </script>
