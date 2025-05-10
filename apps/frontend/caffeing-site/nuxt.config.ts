@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   components: true,
   runtimeConfig: {
     public: {
+      suggestionApi: process.env.NUXT_PUBLIC_SUGGESTION_API ||'',
       turnstileSiteKey: process.env.VUE_APP_CLOUDFLARE_TURNSTILE_SITE_KEY  || ''
     }
   },

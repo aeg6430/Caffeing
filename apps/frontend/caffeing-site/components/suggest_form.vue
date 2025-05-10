@@ -72,12 +72,15 @@ const handleSubmit = async () => {
         }
         console.log('Submitted data:', form.value);
 
-        await $fetch('/api/suggestions', {
+        await $fetch(config.public.suggestionApi, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: { ...form.value, turnstileToken: token },
+            body: {
+                data: JSON.stringify(form.value),
+                token: token
+            },
         });
 
         submitted.value = true;
