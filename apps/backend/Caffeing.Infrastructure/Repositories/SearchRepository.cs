@@ -30,8 +30,8 @@ namespace Caffeing.Infrastructure.Repositories
                        s.name, 
                        s.latitude, 
                        s.longitude
-                FROM stores s
-                LEFT JOIN store_keywords k 
+                FROM store s
+                LEFT JOIN store_keyword k 
                   ON s.store_id = k.store_id
                   AND (
                         @KeywordIds IS NULL 

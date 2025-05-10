@@ -9,7 +9,7 @@ namespace Caffeing.Application.Dtos
 {
     public class StoreDto
     {
-        public Guid StoreId { get; set; }
+        public string StoreId { get; set; }
         public string Name { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }

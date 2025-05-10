@@ -8,7 +8,7 @@ namespace Caffeing.Infrastructure.Entities.Users
 {
     public class UserEntity
     {
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public string Provider { get; set; } = default!;
         public string ProviderId { get; set; } = default!;
         public string? Email { get; set; }

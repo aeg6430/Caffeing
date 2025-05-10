@@ -31,7 +31,7 @@ namespace Caffeing.Infrastructure.Repositories
                     keyword_id AS KeywordId, 
                     keyword_name AS KeywordName,
                     keyword_type AS KeywordType 
-                FROM keywords;
+                FROM keyword;
             ";
 
             using (var connection = _context.CreateConnection())

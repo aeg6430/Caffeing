@@ -39,12 +39,12 @@ namespace Caffeing.Infrastructure.Repositories
                 k.keyword_name AS KeywordName,
                 k.keyword_type AS KeywordType
 
-            FROM stores s
-            LEFT JOIN store_keywords sk ON s.store_id = sk.store_id
-            LEFT JOIN keywords k ON sk.keyword_id = k.keyword_id
+            FROM store s
+            LEFT JOIN store_keyword sk ON s.store_id = sk.store_id
+            LEFT JOIN keyword k ON sk.keyword_id = k.keyword_id
         ";
 
-            var storeDict = new Dictionary<Guid, StoreEntity>();
+            var storeDict = new Dictionary<string, StoreEntity>();
 
             using (var connection = _context.CreateConnection())
             {
@@ -88,13 +88,13 @@ namespace Caffeing.Infrastructure.Repositories
             k.keyword_name AS KeywordName,
             k.keyword_type AS KeywordType
 
-        FROM stores s
-        LEFT JOIN store_keywords sk ON s.store_id = sk.store_id
-        LEFT JOIN keywords k ON sk.keyword_id = k.keyword_id
+        FROM store s
+        LEFT JOIN store_keyword sk ON s.store_id = sk.store_id
+        LEFT JOIN keyword k ON sk.keyword_id = k.keyword_id
         WHERE s.store_id = @StoreId
     ";
 
-            var storeDict = new Dictionary<Guid, StoreEntity>();
+            var storeDict = new Dictionary<string, StoreEntity>();
 
             using (var connection = _context.CreateConnection())
             {
@@ -123,7 +123,7 @@ namespace Caffeing.Infrastructure.Repositories
                 return result.FirstOrDefault();
             }
         }
-        public async Task<IEnumerable<StoreEntity>> GetByIdsAsync(IEnumerable<Guid> storeIds)
+        public async Task<IEnumerable<StoreEntity>> GetByIdsAsync(IEnumerable<string> storeIds)
         {
             string sql = @"
            SELECT 
@@ -139,14 +139,14 @@ namespace Caffeing.Infrastructure.Repositories
                     k.keyword_name AS KeywordName,
                     k.keyword_type AS KeywordType
 
-                FROM stores s
-                LEFT JOIN store_keywords sk ON s.store_id = sk.store_id
-                LEFT JOIN keywords k ON sk.keyword_id = k.keyword_id
+                FROM store s
+                LEFT JOIN store_keyword sk ON s.store_id = sk.store_id
+                LEFT JOIN keyword k ON sk.keyword_id = k.keyword_id
             WHERE s.store_id = ANY(@StoreIds)
             ";
 
             var parameters = new { StoreIds = storeIds.ToArray() };
-            var storeDict = new Dictionary<Guid, StoreEntity>();
+            var storeDict = new Dictionary<string, StoreEntity>();
 
             using (var connection = _context.CreateConnection())
             {

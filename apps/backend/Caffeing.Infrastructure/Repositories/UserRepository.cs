@@ -34,7 +34,7 @@ namespace Caffeing.Infrastructure.Repositories
         public async Task CreateAsync(UserEntity user, IDbConnection connection, IDbTransaction transaction)
         {
             string insert = @"
-            INSERT INTO users (
+            INSERT INTO app_user (
                 user_id, provider, provider_id,
                 email, name, role,
                 created_time, modified_time
@@ -70,7 +70,7 @@ namespace Caffeing.Infrastructure.Repositories
                 role,
                 created_time AS createdTime,
                 modified_time AS modifiedTime
-            FROM users
+            FROM app_user
             WHERE 
                 provider = @Provider
             AND

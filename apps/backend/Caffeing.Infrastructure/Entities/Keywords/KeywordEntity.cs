@@ -8,7 +8,7 @@ namespace Caffeing.Infrastructure.Entities.Keywords
 {
     public class KeywordEntity
     {
-        public Guid KeywordId { get; set; }
+        public string KeywordId { get; set; }
         public string KeywordName { get; set; }
         public string KeywordType { get; set; }
     }

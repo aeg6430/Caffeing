@@ -61,7 +61,7 @@ namespace Caffeing.Application.Auth
                 if (user == null)
                 {
                     user = new UserEntity {
-                        UserId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid().ToString(),
                         Provider =  Provider.FromString(oauthUserInfo.Provider).ToString(),
                         ProviderId = new ProviderId(oauthUserInfo.ProviderId),
                         Email = new Email(oauthUserInfo.Email),
@@ -76,7 +76,7 @@ namespace Caffeing.Application.Auth
                 _context.Commit();
                 var tokenPayload = new JwtTokenPayload
                 {
-                    UserId = user.UserId,
+                    UserId = Guid.Parse(user.UserId),
                     Email = user.Email,
                     Role = user.Role.ToString(),
                 };

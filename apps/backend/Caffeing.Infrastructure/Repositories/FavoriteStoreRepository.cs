@@ -31,7 +31,7 @@ namespace Caffeing.Infrastructure.Repositories
         public async Task AddFavoriteStoreAsync(FavoriteStoreCriteria favoriteStoreCriteria)
         {
             string sql = @"
-            INSERT INTO favorite_stores (user_id, store_id)
+            INSERT INTO favorite_store (user_id, store_id)
             VALUES (@UserId, @StoreId)
             ";
             var parameters = new FavoriteStoreCriteria
@@ -51,7 +51,7 @@ namespace Caffeing.Infrastructure.Repositories
                 SELECT 
                     user_id AS UserId, 
                     store_id AS StoreId
-                FROM favorite_stores
+                FROM favorite_store
                 WHERE 
                     user_id = @UserId
             ";
@@ -70,7 +70,7 @@ namespace Caffeing.Infrastructure.Repositories
         public async Task RemoveFavoriteStoreAsync(FavoriteStoreCriteria favoriteStoreCriteria)
         {
             string sql = @"
-            DELETE FROM favorite_stores
+            DELETE FROM favorite_store
             WHERE user_id = @UserId AND store_id = @StoreId
             ";
             var parameters = new FavoriteStoreCriteria

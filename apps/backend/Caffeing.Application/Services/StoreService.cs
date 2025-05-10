@@ -22,7 +22,7 @@ namespace Caffeing.Application.Services
         {
             return new StoreCriteria
             {
-                StoreId = Guid.Parse(storeRequest.StoreId)
+                StoreId = storeRequest.StoreId
             };
         }
         public async Task<IEnumerable<StoreDto>> GetAllAsync()

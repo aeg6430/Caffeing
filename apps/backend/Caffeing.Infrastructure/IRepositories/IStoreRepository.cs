@@ -11,6 +11,6 @@ namespace Caffeing.Infrastructure.IRepositories
     {
         Task<IEnumerable<StoreEntity>> GetAllAsync();
         Task<StoreEntity> GetByRequestAsync(StoreCriteria storeCriteria);
-        Task<IEnumerable<StoreEntity>> GetByIdsAsync(IEnumerable<Guid> storeIds);
+        Task<IEnumerable<StoreEntity>> GetByIdsAsync(IEnumerable<string> storeIds);
     }
 }
