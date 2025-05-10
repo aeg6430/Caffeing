@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caffeing.Infrastructure", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caffeing.Domain", "..\Caffeing.Domain\Caffeing.Domain.csproj", "{32E0DB97-6EA4-4A43-AF7C-0A2DA7FC620F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caffeing.IntakeService", "..\Caffeing.IntakeService\Caffeing.IntakeService.csproj", "{B97EAF58-DE9B-41ED-A729-B0B5E46C2EEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{32E0DB97-6EA4-4A43-AF7C-0A2DA7FC620F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32E0DB97-6EA4-4A43-AF7C-0A2DA7FC620F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32E0DB97-6EA4-4A43-AF7C-0A2DA7FC620F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97EAF58-DE9B-41ED-A729-B0B5E46C2EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97EAF58-DE9B-41ED-A729-B0B5E46C2EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97EAF58-DE9B-41ED-A729-B0B5E46C2EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97EAF58-DE9B-41ED-A729-B0B5E46C2EEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

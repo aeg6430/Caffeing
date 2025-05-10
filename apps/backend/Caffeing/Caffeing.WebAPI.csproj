@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Caffeing.Application\Caffeing.Application.csproj" />
     <ProjectReference Include="..\Caffeing.Infrastructure\Caffeing.Infrastructure.csproj" />
+    <ProjectReference Include="..\Caffeing.IntakeService\Caffeing.IntakeService.csproj" />
   </ItemGroup>
 
 </Project>

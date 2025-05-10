@@ -22,6 +22,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddFirebase(_configuration);
+        services.AddIntakeService(_configuration);
         services.AddHttpClient();
         services.AddHttpContextAccessor();
         var jwtConfig = _configuration.GetSection("Jwt").Get<JwtConfig>();
