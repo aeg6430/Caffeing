@@ -31,7 +31,7 @@ namespace Caffeing.Application.Services
 
             var dtos = entities.Select(entity => new StoreDto
             {
-                StoreId = entity.StoreId,
+                StoreId = Guid.Parse(entity.StoreId),
                 Name = entity.Name,
                 Latitude = entity.Latitude,
                 Longitude = entity.Longitude,
@@ -40,7 +40,7 @@ namespace Caffeing.Application.Services
                 BusinessHours = entity.BusinessHours,
                 Keywords = entity.Keywords.Select(k => new KeywordDto
                 {
-                    KeywordId = k.KeywordId,
+                    KeywordId = Guid.Parse(k.KeywordId),
                     KeywordName = k.KeywordName,
                     KeywordType = k.KeywordType.Split(',').ToList() 
                 }).ToList()
@@ -57,7 +57,7 @@ namespace Caffeing.Application.Services
 
             var dto = new StoreDto
             {
-                StoreId = entity.StoreId,
+                StoreId = Guid.Parse(entity.StoreId),
                 Name = entity.Name,
                 Latitude = entity.Latitude,
                 Longitude = entity.Longitude,
@@ -66,7 +66,7 @@ namespace Caffeing.Application.Services
                 BusinessHours = entity.BusinessHours,
                 Keywords = entity.Keywords.Select(k => new KeywordDto
                 {
-                    KeywordId = k.KeywordId,
+                    KeywordId = Guid.Parse(k.KeywordId),
                     KeywordName = k.KeywordName,
                     KeywordType = k.KeywordType.Split(',').ToList()
                 }).ToList()

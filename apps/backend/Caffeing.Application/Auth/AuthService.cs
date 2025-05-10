@@ -84,7 +84,7 @@ namespace Caffeing.Application.Auth
 
                 var userDto = new UserDto
                 {
-                    UserId = user.UserId,
+                    UserId = Guid.Parse(user.UserId),
                     Name = user.Name,
                     Email = user.Email,
                     Role = user.Role.ToString(),

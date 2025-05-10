@@ -26,7 +26,8 @@ namespace Caffeing.Infrastructure.Repositories
         {
 
             string query = @"
-                SELECT s.store_id AS storeid,
+                SELECT 
+                       s.store_id AS storeid,
                        s.name, 
                        s.latitude, 
                        s.longitude
@@ -39,7 +40,11 @@ namespace Caffeing.Infrastructure.Repositories
                         OR k.keyword_id = ANY(@KeywordIds)
                   )
                 WHERE (@Query IS NULL OR LOWER(s.name) ILIKE LOWER(@Query))
-                GROUP BY s.store_id    
+                GROUP BY
+                s.store_id,
+                s.name, 
+                s.latitude, 
+                s.longitude
                 HAVING 
                 (
                     COALESCE(array_length(@KeywordIds, 1), 0) = 0 
@@ -53,7 +58,7 @@ namespace Caffeing.Infrastructure.Repositories
                 Query = string.IsNullOrEmpty(searchCriteria.Query) ? null : $"%{searchCriteria.Query}%",
                 KeywordIds = searchCriteria.KeywordIds != null && searchCriteria.KeywordIds.Length > 0
                 ? searchCriteria.KeywordIds
-                : new Guid[] { },
+                : new string[] { },
                 PageSize = searchCriteria.PageSize,
                 Offset = searchCriteria.Offset
             };

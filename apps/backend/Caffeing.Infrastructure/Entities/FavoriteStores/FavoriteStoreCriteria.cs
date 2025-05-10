@@ -8,7 +8,7 @@ namespace Caffeing.Infrastructure.Entities.FavoriteStores
 {
     public class FavoriteStoreCriteria
     {
-        public Guid UserId { get; set; }
-        public Guid StoreId { get; set; }
+        public string UserId { get; set; }
+        public string StoreId { get; set; }
     }
 }

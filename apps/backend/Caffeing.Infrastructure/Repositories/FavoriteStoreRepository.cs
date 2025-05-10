@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Visus.Cuid;
 
 namespace Caffeing.Infrastructure.Repositories
 {
@@ -31,11 +32,14 @@ namespace Caffeing.Infrastructure.Repositories
         public async Task AddFavoriteStoreAsync(FavoriteStoreCriteria favoriteStoreCriteria)
         {
             string sql = @"
-            INSERT INTO favorite_store (user_id, store_id)
-            VALUES (@UserId, @StoreId)
+            INSERT INTO favorite_store (
+                id,user_id, store_id
+            )
+            VALUES (@Id,@UserId, @StoreId)
             ";
-            var parameters = new FavoriteStoreCriteria
+            var parameters = new 
             {
+                Id = new Cuid2().ToString(),
                 UserId = favoriteStoreCriteria.UserId,
                 StoreId = favoriteStoreCriteria.StoreId,
             };
@@ -45,7 +49,7 @@ namespace Caffeing.Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<FavoriteStoreEntity>> GetStoreIdsAsync(Guid userId)
+        public async Task<IEnumerable<FavoriteStoreEntity>> GetStoreIdsAsync(string userId)
         {
             string query = @"
                 SELECT 

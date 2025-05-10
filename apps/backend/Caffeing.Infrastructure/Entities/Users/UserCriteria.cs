@@ -8,6 +8,6 @@ namespace Caffeing.Infrastructure.Entities.Users
 {
     public class UserCriteria
     {
-        public  Guid UserId { get; set; }
+        public  string UserId { get; set; }
     }
 }

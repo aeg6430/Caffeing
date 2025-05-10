@@ -26,7 +26,9 @@ namespace Caffeing.Application.Services
             return new SearchCriteria
             {
                 Query = searchRequest.Query,
-                KeywordIds = searchRequest.KeywordIds,
+                KeywordIds = searchRequest.KeywordIds?
+                .Select(id => id.ToString())
+                .ToArray(),
                 PageNumber = searchRequest.PageNumber ?? 1, 
                 PageSize = searchRequest.PageSize ?? 5,    
                 Offset = ((searchRequest.PageNumber ?? 1) - 1) * (searchRequest.PageSize ?? 5)
@@ -42,7 +44,7 @@ namespace Caffeing.Application.Services
                 .GroupBy(x => x.StoreId)
                 .Select(group => new SearchDto
                 {
-                    StoreId = group.Key,
+                    StoreId = Guid.Parse(group.Key),
                     Name = group.First().Name,
                     Latitude = group.First().Latitude,
                     Longitude = group.First().Longitude,

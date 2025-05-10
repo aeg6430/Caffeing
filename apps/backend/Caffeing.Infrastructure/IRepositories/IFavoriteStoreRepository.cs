@@ -12,7 +12,7 @@ namespace Caffeing.Infrastructure.IRepositories
     public interface IFavoriteStoreRepository
     {
         Task AddFavoriteStoreAsync(FavoriteStoreCriteria favoriteStoreCriteria);
-        Task<IEnumerable<FavoriteStoreEntity>> GetStoreIdsAsync(Guid userId);
+        Task<IEnumerable<FavoriteStoreEntity>> GetStoreIdsAsync(string userId);
         Task RemoveFavoriteStoreAsync(FavoriteStoreCriteria favoriteStoreCriteria);
     }
 }

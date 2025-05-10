@@ -8,7 +8,7 @@ namespace Caffeing.Infrastructure.Entities.Stores
 {
     public class StoreRow
     {
-        public Guid StoreId { get; set; }
+        public string StoreId { get; set; }
         public string Name { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }

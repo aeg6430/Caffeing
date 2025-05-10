@@ -8,7 +8,7 @@ namespace Caffeing.Application.Dtos
 {
     public class KeywordDto
     {
-        public string KeywordId { get; set; }
+        public Guid KeywordId { get; set; }
         public string KeywordName { get; set; }
         public List<string> KeywordType { get; set; }
     }

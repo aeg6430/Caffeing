@@ -38,7 +38,7 @@ namespace Caffeing.Application.Services
                 })
                 .Select(x => new KeywordDto
                 {
-                    KeywordId = x.KeywordId,
+                    KeywordId = Guid.Parse(x.KeywordId),
                     KeywordName = x.KeywordName,
                     KeywordType = x.TypeNames
                 });
@@ -76,7 +76,7 @@ namespace Caffeing.Application.Services
                 .Where(x => x.EnumValue.HasFlag(KeywordType.Search)) 
                 .Select(x => new KeywordDto
                 {
-                    KeywordId = x.KeywordId,
+                    KeywordId = Guid.Parse(x.KeywordId),
                     KeywordName = x.KeywordName,
                     KeywordType = x.TypeNames
                 });

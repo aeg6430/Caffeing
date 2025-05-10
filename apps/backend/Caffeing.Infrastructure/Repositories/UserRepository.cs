@@ -14,6 +14,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Visus.Cuid;
 
 namespace Caffeing.Infrastructure.Repositories
 {
@@ -35,16 +36,17 @@ namespace Caffeing.Infrastructure.Repositories
         {
             string insert = @"
             INSERT INTO app_user (
-                user_id, provider, provider_id,
+                id,user_id, provider, provider_id,
                 email, name, role,
                 created_time, modified_time
             ) VALUES (
-                @UserId, @Provider, @ProviderId,
+                @id,@UserId, @Provider, @ProviderId,
                 @Email, @Name, @Role,
                 @CreatedTime, @ModifiedTime
             )";
             var parameters = new
             {
+                Id = new Cuid2().ToString(),
                 UserId = user.UserId,
                 Provider = user.Provider,
                 ProviderId = user.ProviderId,
