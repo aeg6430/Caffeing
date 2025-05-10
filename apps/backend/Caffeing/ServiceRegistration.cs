@@ -21,9 +21,6 @@ namespace Caffeing.WebAPI
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<DapperContext>();
 
-            services.AddScoped<ITestRepository, TestRepository>();
-            services.AddScoped<ITestService, TestService>();
-
             services.AddScoped<ISearchRepository, SearchRepository>();
             services.AddScoped<ISearchService, SearchService>();
 
