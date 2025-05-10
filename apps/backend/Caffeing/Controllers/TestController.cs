@@ -9,15 +9,12 @@ namespace Caffeing.WebAPI.Controllers
     public class TestController : ControllerBase
     {
         private readonly ILogger<TestController> _logger;
-        private readonly ITestService _testService;
 
         public TestController(
-            ILogger<TestController> logger,
-            ITestService testService
+            ILogger<TestController> logger
          )
         {
             _logger = logger;
-            _testService = testService;
         }
 
         // GET api/test
@@ -26,18 +23,10 @@ namespace Caffeing.WebAPI.Controllers
         {
             try
             {
-                var result = await _testService.GetDataAsync();
-
-                if (result == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(result);
+                return Ok();
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Failed to get test result");
                 return BadRequest("Internal server error");
             }
         }
