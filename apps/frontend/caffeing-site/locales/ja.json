@@ -5,6 +5,40 @@
     "contact": "お問い合わせ",
     "suggest": "カフェ推薦"
   },
+  "suggestForm": {
+    "title": "コーヒーショップを提案する",
+    "fields": {
+      "name": {
+        "label": "店舗名",
+        "placeholder": "Caffeing"
+      },
+      "businessHours": {
+        "label": "営業時間",
+        "placeholder": "月～金: 9 AM - 5 PM, 土: 10 AM - 3 PM"
+      },
+      "address": {
+        "label": "住所（中華民国台湾地區国内のみ対応）",
+        "placeholder": "台北市中正區北平西路3號"
+      },
+      "googleMapsLink": {
+        "label": "Google マップリンク（任意）",
+        "placeholder": "https://goo.gl/maps/caffeing"
+      },
+      "website": {
+        "label": "ウェブサイトまたはInstagram（任意）",
+        "placeholder": "https://www.instagram.com/caffe.ing"
+      },
+      "description": {
+        "label": "説明（任意）",
+        "placeholder": "個別のコンセントと快適な席のあるキャットカフェ"
+      }
+    },
+    "buttons": {
+      "submit": "推薦を送信",
+      "thankYou": "ありがとうございます！",
+      "submitAnother": "別の推薦を送信"
+    }
+  },
   "home": "ホーム",
   "about": "私たちについて",
   "contact": "お問い合わせ",

@@ -5,8 +5,42 @@
     "contact": "Contact",
     "suggest": "Recommend cafe"
   },
+  "suggestForm": {
+    "title": "Recommend a Coffee Shop",
+    "fields": {
+      "name": {
+        "label": "Shop Name",
+        "placeholder": "Caffeing"
+      },
+      "businessHours": {
+        "label": "Business Hours",
+        "placeholder": "Mon-Fri: 9 AM - 5 PM, Sat: 10 AM - 3 PM"
+      },
+      "address": {
+        "label": "Address (Service limited to Taiwan, Republic of China)",
+        "placeholder": "3 Beiping West Road, Zhongzheng District, Taipei City"
+      },
+      "googleMapsLink": {
+        "label": "Google Maps Link (optional)",
+        "placeholder": "https://goo.gl/maps/coffeing"
+      },
+      "website": {
+        "label": "Website or Instagram (optional)",
+        "placeholder": "https://www.instagram.com/caffe.ing"
+      },
+      "description": {
+        "label": "Description (optional)",
+        "placeholder": "Cat cafe with individual sockets and cozy seating"
+      }
+    },
+    "buttons": {
+      "submit": "Submit Recommendation",
+      "thankYou": "Thank You!",
+      "submitAnother": "Submit Another"
+    }
+  },
   "home": "Home",
   "about": "About",
   "contact": "Contact Us",
-  "suggest":"Recommend cafe"
+  "suggest": "Recommend cafe"
 }

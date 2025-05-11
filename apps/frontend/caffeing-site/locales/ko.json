@@ -5,6 +5,40 @@
     "contact": "문의하기",
     "suggest": "카페 추천"
   },
+  "suggestForm": {
+    "title": "커피숍 제안하기",
+    "fields": {
+      "name": {
+        "label": "카페 이름",
+        "placeholder": "Caffeing"
+      },
+      "businessHours": {
+        "label": "영업시간",
+        "placeholder": "월~금: 9 AM - 5 PM, 토: 10 AM - 3 PM"
+      },
+      "address": {
+        "label": "주소 (중화민국 타이완 지역만 지원)",
+        "placeholder": "타이베이시 중정구 베이핑시루 3번지"
+      },
+      "googleMapsLink": {
+        "label": "구글 맵 링크 (선택 사항)",
+        "placeholder": "https://goo.gl/maps/coffeing"
+      },
+      "website": {
+        "label": "웹사이트 또는 인스타그램 (선택 사항)",
+        "placeholder": "https://www.instagram.com/caffe.ing"
+      },
+      "description": {
+        "label": "설명 (선택 사항)",
+        "placeholder": "개인 콘센트와 아늑한 좌석이 있는 고양이 카페"
+      }
+    },
+    "buttons": {
+      "submit": "카페 추천하기",
+      "thankYou": "추천 감사합니다!",
+      "submitAnother": "또 다른 카페 추천하기"
+    }
+  },
   "home": "홈",
   "about": "소개",
   "contact": "문의하기",
