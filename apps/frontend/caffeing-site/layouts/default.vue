@@ -11,7 +11,7 @@
           <ul class="flex flex-row space-x-6">
             <li v-for="link in navLinks" :key="link.to">
               <NuxtLink :to="link.to" class="block py-2 text-white hover:bg-gray-700">
-                {{ link.label }}
+                {{ $t(link.labelKey) }}
               </NuxtLink>
             </li>
           </ul>
@@ -33,7 +33,7 @@
         <ul class="flex flex-col space-y-4 text-center">
           <li v-for="link in navLinks" :key="'mobile-' + link.to">
             <NuxtLink :to="link.to" class="block py-2 text-white hover:bg-gray-700">
-              {{ link.label }}
+              {{ $t(link.labelKey) }}
             </NuxtLink>
           </li>
         </ul>
@@ -67,9 +67,9 @@ const currentYear = new Date().getFullYear();
 
 // Navigation links
 const navLinks = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' },
-  { label: 'Suggest', to: '/suggest' }
+  { labelKey: 'nav.home', to: '/' },
+  { labelKey: 'nav.about', to: '/about' },
+  { labelKey: 'nav.contact', to: '/contact' },
+  { labelKey: 'nav.suggest', to: '/suggest' }
 ];
 </script>

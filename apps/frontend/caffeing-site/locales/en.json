@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "suggest": "Recommend cafe"
+  },
+  "home": "Home",
+  "about": "About",
+  "contact": "Contact Us",
+  "suggest":"Recommend cafe"
+}
