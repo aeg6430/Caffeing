@@ -60,11 +60,14 @@ public class Startup
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+        var corsSettings = _configuration.GetSection("Cors");
         services.AddCors(options =>
         {
-            options.AddPolicy("AllowAll", builder =>
+            options.AddPolicy("CorsPolicy", builder =>
             {
-                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins(corsSettings.GetSection("AllowedOrigins").Get<string[]>())
+                       .WithMethods(corsSettings.GetSection("AllowedMethods").Get<string[]>())
+                       .WithHeaders(corsSettings.GetSection("AllowedHeaders").Get<string[]>());
             });
         });
     }
@@ -76,7 +79,7 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        app.UseCors("AllowAll");
+        app.UseCors("CorsPolicy");
         app.UseHttpsRedirection();
         app.UseRouting();
 
