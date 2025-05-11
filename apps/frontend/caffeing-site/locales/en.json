@@ -4,6 +4,10 @@
     "contact": "Contact",
     "suggest": "Recommend cafe"
   },
+  "home":{
+    "title":"Caffeing",
+    "description":"Explore cafes with Caffeing"
+  },
   "contact": 
   {
     "title":"Let Caffeing explore with you"
@@ -41,7 +45,5 @@
       "thankYou": "Thank You!",
       "submitAnother": "Submit Another"
     }
-  },
-  "home": "Home",
-  "suggest": "Recommend cafe"
+  }
 }

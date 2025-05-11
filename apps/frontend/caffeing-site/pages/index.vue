@@ -1,27 +1,24 @@
 <template>
-  <div class="py-12 sm:py-16 lg:py-24">
-    <div class="flex flex-col items-center text-center px-4 sm:px-8">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold">
-        {{ $t('home') }}
-      </h1>
-      <p class="mt-4 text-base sm:text-lg lg:text-xl">Lorem ipsum.</p>
-      <!-- Download Buttons -->
-      <div class="flex justify-center space-x-4 mt-4 flex-wrap sm:flex-nowrap">
-        <!-- iOS Download -->
-        <a href="https://apps.apple.com/app/caffeing" target="_blank">
-          <img src="/assets/third_party_icons/apple_store.svg" alt="Download on iOS" class="h-8" />
-        </a>
-        <!-- Android Download -->
-        <a href="https://play.google.com/store/apps/details?id=caffeing" target="_blank">
-          <img src="/assets/third_party_icons/google_play.png" alt="Download on Android" class="h-8" />
-        </a>
+  <div class="flex flex-col items-center text-center">
+    <div class="flex flex-col sm:flex-row items-center sm:space-x-20 sm:space-y-20">
+      <!-- DownloadSection on Left -->
+      <div class="w-full sm:w-1/2">
+        <DownloadSection />
       </div>
-      <FeatureShowcase />
+
+      <!-- Image on Right -->
+      <div class="flex flex-col lg:flex-row items-center justify-center px-6 sm:px-6 w-full sm:w-1/2 mt-8">
+        <img src="https://fakeimg.pl/370x660/?text=Mobile Here" alt="Image" class="w-72 sm:w-96 rounded-lg shadow-lg" />
+      </div>
     </div>
   </div>
+  <FeatureShowcase />
 </template>
+
 <script setup>
+import DownloadSection from '@/components/download_section.vue';
 import FeatureShowcase from '@/components/feature_showcase.vue';
+
 definePageMeta({
   layout: 'default',
 });

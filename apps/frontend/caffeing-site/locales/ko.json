@@ -4,6 +4,10 @@
     "contact": "문의하기",
     "suggest": "카페 추천"
   },
+  "home":{
+    "title":"Caffeing",
+    "description": "여행 중에도 Caffeing과 함께 카페를 찾아보세요"
+  },
   "contact": 
   {
     "title": "Caffeing과 함께 탐험해 보세요"
@@ -41,7 +45,5 @@
       "thankYou": "추천 감사합니다!",
       "submitAnother": "또 다른 카페 추천하기"
     }
-  },
-  "home": "홈",
-  "suggest": "카페 추천"
+  }
 }

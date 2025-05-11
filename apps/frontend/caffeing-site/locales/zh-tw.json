@@ -4,6 +4,10 @@
     "contact": "聯絡我們",
     "suggest": "推薦店家"
   },
+  "home":{
+    "title":"Caffeing",
+    "description":"無論身處何處，透過 Caffeing 探索咖啡廳"
+  },
   "contact": 
   {
     "title":"讓Caffeing與你一起探索"
@@ -41,7 +45,5 @@
       "thankYou": "謝謝!",
       "submitAnother": "提交另一個推薦店家"
     }
-  },
-  "home": "首頁",
-  "suggest": "建議"
+  }
 }

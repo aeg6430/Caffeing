@@ -4,6 +4,10 @@
     "contact": "お問い合わせ",
     "suggest": "カフェ推薦"
   },
+  "home":{
+    "title":"Caffeing",
+    "description": "旅先でもCaffeingと一緒にカフェを探そう"
+  },
   "contact": 
   {
     "title": "Caffeingと一緒に探索しよう"
@@ -41,7 +45,5 @@
       "thankYou": "ありがとうございます！",
       "submitAnother": "別の推薦を送信"
     }
-  },
-  "home": "ホーム",
-  "suggest": "カフェ推薦"
+  }
 }
