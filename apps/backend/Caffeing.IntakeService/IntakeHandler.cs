@@ -25,7 +25,7 @@ namespace Caffeing.IntakeService
                 return false;
             }
 
-            var success = await _forwarder.ForwardAsync(request);
+            var success = await _forwarder.ForwardAsync(request.Data);
             if (!success)
             { 
                 return false;

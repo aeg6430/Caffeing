@@ -9,7 +9,7 @@ namespace Caffeing.IntakeService
 {
     public class Request
     {
-        public JsonDocument Data { get; set; } = default!;
+        public string Data { get; set; } = default!;
         public string Token { get; set; } = default!;
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Caffeing.IntakeService
@@ -19,18 +20,25 @@ namespace Caffeing.IntakeService
             _endpoint = endpoint;
         }
 
-        public async Task<bool> ForwardAsync(Request request)
+        public async Task<bool> ForwardAsync(string jsonData)
         {
-            var jsonContent = GetJsonContent(request);
-            var response = await _httpClient.PostAsync(_endpoint, jsonContent);
+            if (string.IsNullOrWhiteSpace(jsonData))
+            {
+                throw new ArgumentException("JSON data cannot be null or empty.", nameof(jsonData));
+            }
 
-            return response.IsSuccessStatusCode;
-        }
 
-        private StringContent GetJsonContent(Request request)
-        {
-            var json = request.Data.RootElement.GetRawText();
-            return new StringContent(json, Encoding.UTF8, "application/json");
+            var jsonContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            try
+            {
+                var response = await _httpClient.PostAsync(_endpoint, jsonContent);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error forwarding JSON: {ex.Message}");
+                return false;
+            }
         }
     }
 }
