@@ -2,7 +2,7 @@
   <div class="py-24">
     <div class="flex flex-col items-center">
       <p class="text-lg mt-4 max-w-2xl w-full">
-        {{ $t('about.title') }}
+        {{ $t('contact.title') }}
       </p>
       <div class="mt-8 max-w-2xl text-left w-full">
         <p class="flex items-center">

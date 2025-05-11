@@ -1,11 +1,10 @@
 {
   "nav": {
     "home": "Home",
-    "about": "About",
     "contact": "Contact",
     "suggest": "Recommend cafe"
   },
-  "about": 
+  "contact": 
   {
     "title":"Let Caffeing explore with you"
   },
@@ -44,6 +43,5 @@
     }
   },
   "home": "Home",
-  "contact": "Contact Us",
   "suggest": "Recommend cafe"
 }
