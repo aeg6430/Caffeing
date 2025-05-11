@@ -6,6 +6,15 @@
       </p>
       <div class="mt-8 max-w-2xl text-left w-full">
         <p class="flex items-center">
+          <i class="fab fa-threads mr-2 text-blue-500"></i>
+
+          <a href="https://threads.com/@caffe.ing" class="text-blue-500" target="_blank" rel="noopener noreferrer">
+            https://threads.com/@caffe.ing
+          </a>
+        </p>
+      </div>
+      <div class="mt-8 max-w-2xl text-left w-full">
+        <p class="flex items-center">
           <i class="fab fa-instagram mr-2 text-blue-500"></i>
 
           <a href="https://www.instagram.com/caffe.ing" class="text-blue-500" target="_blank" rel="noopener noreferrer">
