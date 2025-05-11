@@ -1,54 +1,30 @@
 <template>
     <div>
-        <h1 class="text-2xl font-bold mb-6 text-gray-800">Suggest a Coffee Shop</h1>
+        <h1 class="text-2xl font-bold mb-6">Suggest a Coffee Shop</h1>
 
-        <!-- Show success message if submitted -->
         <div v-if="submitted">
             <h2 class="text-xl font-semibold text-green-600">Thank You!</h2>
-            <p class="mt-4 text-gray-700">
-                Your coffee shop suggestion has been received.
-            </p>
+            <p class="mt-4">Your coffee shop suggestion has been received.</p>
             <button @click="resetForm"
                 class="mt-6 px-4 py-2 bg-amber-500 text-white font-semibold rounded-md shadow hover:bg-amber-600 transition">
                 Submit Another
             </button>
         </div>
 
-        <!-- Show form only if not submitted -->
         <form v-else @submit.prevent="handleSubmit" class="space-y-5">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Shop Name</label>
-                <input v-model="form.name" type="text" placeholder="Coffeing"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-amber-500 focus:border-amber-500"
-                    required />
+            <div v-for="field in fields" :key="field.name">
+                <label :for="field.name" class="block text-sm font-medium">
+                    {{ field.label }}
+                </label>
+
+                <component :is="field.type === 'textarea' ? 'textarea' : 'input'" v-model="form[field.name]"
+                    :type="field.inputType || 'text'" :placeholder="field.placeholder" :rows="field.rows"
+                    :required="field.required"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-gray-800 text-white p-3 shadow-sm focus:ring-amber-500 focus:border-amber-500" />
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Business Hours</label>
-                <textarea v-model="form.businessHours" placeholder="Mon-Fri: 9 AM - 5 PM, Sat: 10 AM - 3 PM" rows="4"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-amber-500 focus:border-amber-500"></textarea>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Address</label>
-                <input v-model="form.address" type="text" placeholder="Street, City, Country"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-amber-500 focus:border-amber-500" />
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Google Maps Link (optional)</label>
-                <input v-model="form.googleMapsLink" type="url" placeholder="https://goo.gl/maps/coffeing"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-amber-500 focus:border-amber-500" />
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Website or Instagram (optional)</label>
-                <input v-model="form.website" type="url" placeholder="https://www.instagram.com/coffeing"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-amber-500 focus:border-amber-500" />
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Description (optional)</label>
-                <textarea v-model="form.description" rows="3"
-                    placeholder="Cat cafe with individual sockets and cozy seating"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-amber-500 focus:border-amber-500"></textarea>
-            </div>
+
             <div id="turnstile-container" class="cf-turnstile" data-theme="light" />
+
             <div>
                 <button type="submit"
                     class="w-full py-2 px-4 bg-amber-500 text-white font-semibold rounded-md shadow hover:bg-amber-600 transition">
@@ -68,11 +44,52 @@ const turnstileError = ref(false);
 
 const form = ref({
     name: '',
-    location: '',
-    description: '',
+    businessHours: '',
+    address: '',
+    googleMapsLink: '',
     website: '',
-    businessHour: '',
+    description: '',
 });
+
+const fields = [
+    {
+        name: 'name',
+        label: 'Shop Name',
+        placeholder: 'Coffeing',
+        required: true,
+    },
+    {
+        name: 'businessHours',
+        label: 'Business Hours',
+        placeholder: 'Mon-Fri: 9 AM - 5 PM, Sat: 10 AM - 3 PM',
+        type: 'textarea',
+        rows: 4,
+    },
+    {
+        name: 'address',
+        label: 'Address',
+        placeholder: 'Street, City, Country',
+    },
+    {
+        name: 'googleMapsLink',
+        label: 'Google Maps Link (optional)',
+        placeholder: 'https://goo.gl/maps/coffeing',
+        inputType: 'url',
+    },
+    {
+        name: 'website',
+        label: 'Website or Instagram (optional)',
+        placeholder: 'https://www.instagram.com/coffeing',
+        inputType: 'url',
+    },
+    {
+        name: 'description',
+        label: 'Description (optional)',
+        placeholder: 'Cat cafe with individual sockets and cozy seating',
+        type: 'textarea',
+        rows: 3,
+    },
+];
 
 const handleSubmit = async () => {
     try {
@@ -87,14 +104,12 @@ const handleSubmit = async () => {
         await new Promise((resolve) => setTimeout(resolve, 500));
 
         const token = window.turnstile?.getResponse();
-
         if (!token) {
             turnstileError.value = true;
             return;
         }
 
         turnstileError.value = false;
-        console.log('Submitted data:', form.value);
 
         await $fetch(config.public.suggestionApi, {
             method: 'POST',
@@ -115,13 +130,9 @@ const handleSubmit = async () => {
 };
 
 const resetForm = () => {
-    form.value = {
-        name: '',
-        location: '',
-        description: '',
-        website: '',
-        businessHour: '',
-    };
+    for (const key in form.value) {
+        form.value[key] = '';
+    }
     submitted.value = false;
     turnstileError.value = false;
 };
