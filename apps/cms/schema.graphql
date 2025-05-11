@@ -448,6 +448,61 @@ input StoreCreateInput {
   store_keywords: StoreKeywordRelateToManyForCreateInput
 }
 
+type SuggestedStore {
+  id: ID!
+  name: String
+  location: String
+  description: String
+  website: String
+  businessHour: String
+}
+
+input SuggestedStoreWhereUniqueInput {
+  id: ID
+}
+
+input SuggestedStoreWhereInput {
+  AND: [SuggestedStoreWhereInput!]
+  OR: [SuggestedStoreWhereInput!]
+  NOT: [SuggestedStoreWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  location: StringFilter
+  description: StringFilter
+  website: StringFilter
+  businessHour: StringFilter
+}
+
+input SuggestedStoreOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  location: OrderDirection
+  description: OrderDirection
+  website: OrderDirection
+  businessHour: OrderDirection
+}
+
+input SuggestedStoreUpdateInput {
+  name: String
+  location: String
+  description: String
+  website: String
+  businessHour: String
+}
+
+input SuggestedStoreUpdateArgs {
+  where: SuggestedStoreWhereUniqueInput!
+  data: SuggestedStoreUpdateInput!
+}
+
+input SuggestedStoreCreateInput {
+  name: String
+  location: String
+  description: String
+  website: String
+  businessHour: String
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -490,6 +545,12 @@ type Mutation {
   updateStores(data: [StoreUpdateArgs!]!): [Store]
   deleteStore(where: StoreWhereUniqueInput!): Store
   deleteStores(where: [StoreWhereUniqueInput!]!): [Store]
+  createSuggestedStore(data: SuggestedStoreCreateInput!): SuggestedStore
+  createSuggestedStores(data: [SuggestedStoreCreateInput!]!): [SuggestedStore]
+  updateSuggestedStore(where: SuggestedStoreWhereUniqueInput!, data: SuggestedStoreUpdateInput!): SuggestedStore
+  updateSuggestedStores(data: [SuggestedStoreUpdateArgs!]!): [SuggestedStore]
+  deleteSuggestedStore(where: SuggestedStoreWhereUniqueInput!): SuggestedStore
+  deleteSuggestedStores(where: [SuggestedStoreWhereUniqueInput!]!): [SuggestedStore]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -531,6 +592,9 @@ type Query {
   store(where: StoreWhereUniqueInput!): Store
   stores(where: StoreWhereInput! = {}, orderBy: [StoreOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: StoreWhereUniqueInput): [Store!]
   storesCount(where: StoreWhereInput! = {}): Int
+  suggestedStore(where: SuggestedStoreWhereUniqueInput!): SuggestedStore
+  suggestedStores(where: SuggestedStoreWhereInput! = {}, orderBy: [SuggestedStoreOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: SuggestedStoreWhereUniqueInput): [SuggestedStore!]
+  suggestedStoresCount(where: SuggestedStoreWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
