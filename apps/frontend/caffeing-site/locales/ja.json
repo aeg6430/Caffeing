@@ -5,6 +5,10 @@
     "contact": "お問い合わせ",
     "suggest": "カフェ推薦"
   },
+  "about": 
+  {
+    "title": "Caffeingと一緒に探索しよう"
+  },
   "suggestForm": {
     "title": "コーヒーショップを提案する",
     "fields": {
@@ -40,7 +44,6 @@
     }
   },
   "home": "ホーム",
-  "about": "私たちについて",
   "contact": "お問い合わせ",
   "suggest": "カフェ推薦"
 }

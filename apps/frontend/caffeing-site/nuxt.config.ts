@@ -29,8 +29,8 @@ export default defineNuxtConfig({
       {
         code: 'zh-cn',
         iso: 'zh-CN',
-        file: 'zh-tw.json', 
-      }
+        file: 'zh-tw.json',
+      },
     ],
     strategy: 'prefix_except_default',
     detectBrowserLanguage: {
@@ -40,7 +40,10 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
-  css: ['~/assets/css/tailwind.css'],
+  css: [
+    '@fortawesome/fontawesome-free/css/all.css',
+    '~/assets/css/tailwind.css',
+  ],
   components: true,
   runtimeConfig: {
     public: {

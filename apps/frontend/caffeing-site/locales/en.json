@@ -5,6 +5,10 @@
     "contact": "Contact",
     "suggest": "Recommend cafe"
   },
+  "about": 
+  {
+    "title":"Let Caffeing explore with you"
+  },
   "suggestForm": {
     "title": "Recommend a Coffee Shop",
     "fields": {
@@ -40,7 +44,6 @@
     }
   },
   "home": "Home",
-  "about": "About",
   "contact": "Contact Us",
   "suggest": "Recommend cafe"
 }

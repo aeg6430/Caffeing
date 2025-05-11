@@ -5,6 +5,10 @@
     "contact": "聯絡我們",
     "suggest": "推薦店家"
   },
+  "about": 
+  {
+    "title":"讓Caffeing與你一起探索"
+  },
   "suggestForm": {
     "title": "推薦店家",
     "fields": {
@@ -40,7 +44,6 @@
     }
   },
   "home": "首頁",
-  "about": "關於",
   "contact": "聯絡我們",
   "suggest": "建議"
 }
