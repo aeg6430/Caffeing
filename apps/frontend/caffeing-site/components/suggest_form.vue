@@ -1,7 +1,21 @@
 <template>
     <div>
         <h1 class="text-2xl font-bold mb-6 text-gray-800">Suggest a Coffee Shop</h1>
-        <form @submit.prevent="handleSubmit" class="space-y-5">
+
+        <!-- Show success message if submitted -->
+        <div v-if="submitted">
+            <h2 class="text-xl font-semibold text-green-600">Thank You!</h2>
+            <p class="mt-4 text-gray-700">
+                Your coffee shop suggestion has been received.
+            </p>
+            <button @click="resetForm"
+                class="mt-6 px-4 py-2 bg-amber-500 text-white font-semibold rounded-md shadow hover:bg-amber-600 transition">
+                Submit Another
+            </button>
+        </div>
+
+        <!-- Show form only if not submitted -->
+        <form v-else @submit.prevent="handleSubmit" class="space-y-5">
             <div>
                 <label class="block text-sm font-medium text-gray-700">Shop Name</label>
                 <input v-model="form.name" type="text" placeholder="Coffeing"
@@ -42,16 +56,16 @@
                 </button>
             </div>
         </form>
-        <p v-if="submitted" class="mt-4 text-green-600">
-            Thanks for your suggestion!
-        </p>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const config = useRuntimeConfig();
+const submitted = ref(false);
+const turnstileError = ref(false);
+
 const form = ref({
     name: '',
     location: '',
@@ -60,16 +74,26 @@ const form = ref({
     businessHour: '',
 });
 
-const submitted = ref(false);
-
 const handleSubmit = async () => {
     try {
+        const container = document.getElementById('turnstile-container');
+        if (!window.turnstile || !container.hasChildNodes()) {
+            window.turnstile.render(container, {
+                sitekey: config.public.turnstileSiteKey,
+                theme: 'light',
+            });
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
         const token = window.turnstile?.getResponse();
 
         if (!token) {
-            alert('Cloudflare Turnstile verification failed');
+            turnstileError.value = true;
             return;
         }
+
+        turnstileError.value = false;
         console.log('Submitted data:', form.value);
 
         await $fetch(config.public.suggestionApi, {
@@ -79,7 +103,7 @@ const handleSubmit = async () => {
             },
             body: {
                 data: JSON.stringify(form.value),
-                token: token
+                token: token,
             },
         });
 
@@ -89,15 +113,16 @@ const handleSubmit = async () => {
         console.error('Error with Turnstile:', e);
     }
 };
-onMounted(() => {
-    const container = document.getElementById('turnstile-container');
-    if (window.turnstile && container) {
-        window.turnstile.render(container, {
-            sitekey: config.public.turnstileSiteKey,
-            theme: 'light',
-        });
-    }
-});
 
-defineProps({});
+const resetForm = () => {
+    form.value = {
+        name: '',
+        location: '',
+        description: '',
+        website: '',
+        businessHour: '',
+    };
+    submitted.value = false;
+    turnstileError.value = false;
+};
 </script>
