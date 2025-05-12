@@ -230,11 +230,11 @@ class S {
     );
   }
 
-  /// `Send Feedback`
-  String get supportSendFeedback {
+  /// `Recommend a Coffee Shop`
+  String get supportRecommendCafe {
     return Intl.message(
-      'Send Feedback',
-      name: 'supportSendFeedback',
+      'Recommend a Coffee Shop',
+      name: 'supportRecommendCafe',
       desc: '',
       args: [],
     );

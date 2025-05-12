@@ -1,3 +1,4 @@
+import 'package:caffeing/utils/launcher_utils.dart';
 import 'package:caffeing/view/components/settings_section.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:feedback_github/feedback_github.dart';
@@ -8,7 +9,9 @@ import 'package:caffeing/provider/locale_provider.dart';
 import 'package:caffeing/res/style/style.dart';
 import 'package:caffeing/utils/localization_dialog_helper.dart';
 import 'package:caffeing/view_model/auth/auth_view_model.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -107,9 +110,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     SettingsSection(
-                      text: S.of(context).supportSendFeedback,
+                      text: S.of(context).supportRecommendCafe,
                       icon: Icons.thumb_up_alt_outlined,
-                      onTap: () async {},
+                      onTap: () async {
+                        LauncherUtils.openOfficialSite(context: context);
+                      },
                     ),
                     SettingsSection(
                       text: S.of(context).supportBugReport,
@@ -148,7 +153,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     SettingsSection(
                       text: S.of(context).supportContactUs,
                       icon: Icons.email_outlined,
-                      onTap: () async {},
+                      onTap: () async {
+                        LauncherUtils.openEmail(context: context);
+                      },
+                    ),
+                    SettingsSection(
+                      text: "Threads",
+                      icon: FontAwesomeIcons.threads,
+                      onTap: () async {
+                        LauncherUtils.openThreads(context: context);
+                      },
                     ),
                     Divider(),
                     SettingsSection(

@@ -53,7 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "share": MessageLookupByLibrary.simpleMessage("分享"),
     "supportBugReport": MessageLookupByLibrary.simpleMessage("回報問題"),
     "supportContactUs": MessageLookupByLibrary.simpleMessage("聯絡我們"),
-    "supportSendFeedback": MessageLookupByLibrary.simpleMessage("發送回饋"),
+    "supportRecommendCafe": MessageLookupByLibrary.simpleMessage("推薦店家"),
     "supportTitle": MessageLookupByLibrary.simpleMessage("支援與回饋"),
     "unavailable": MessageLookupByLibrary.simpleMessage("無資料"),
   };

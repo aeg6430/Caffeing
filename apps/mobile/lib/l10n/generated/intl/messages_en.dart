@@ -59,8 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Report a Problem",
     ),
     "supportContactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
-    "supportSendFeedback": MessageLookupByLibrary.simpleMessage(
-      "Send Feedback",
+    "supportRecommendCafe": MessageLookupByLibrary.simpleMessage(
+      "Recommend a Coffee Shop",
     ),
     "supportTitle": MessageLookupByLibrary.simpleMessage("Support & Feedback"),
     "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),

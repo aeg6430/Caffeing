@@ -53,7 +53,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "share": MessageLookupByLibrary.simpleMessage("共有"),
     "supportBugReport": MessageLookupByLibrary.simpleMessage("問題を報告する"),
     "supportContactUs": MessageLookupByLibrary.simpleMessage("お問い合わせ"),
-    "supportSendFeedback": MessageLookupByLibrary.simpleMessage("フィードバックを送る"),
+    "supportRecommendCafe": MessageLookupByLibrary.simpleMessage(
+      "コーヒーショップを提案する",
+    ),
     "supportTitle": MessageLookupByLibrary.simpleMessage("サポートとフィードバック"),
     "unavailable": MessageLookupByLibrary.simpleMessage("データなし"),
   };

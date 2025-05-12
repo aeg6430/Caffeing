@@ -141,6 +141,68 @@ class LauncherUtils {
       debugPrint('Error sharing: $e');
     }
   }
+
+  static Future<void> openEmail({required BuildContext context}) async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'caffeingapp@gmail.com',
+    );
+
+    try {
+      final launched = await launchUrl(
+        emailLaunchUri,
+        mode: LaunchMode.externalApplication,
+      );
+
+      if (!launched) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Could not launch email app.')));
+      }
+    } catch (e) {
+      debugPrint('Error opening email: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Something went wrong.')));
+    }
+  }
+
+  static Future<void> openThreads({required BuildContext context}) async {
+    const username = 'caffe.ing';
+    final appUrl = Uri.parse('https://threads.com/@$username');
+
+    try {
+      final launchedApp = await launchUrl(
+        appUrl,
+        mode: LaunchMode.externalApplication,
+      );
+    } catch (e) {
+      debugPrint('Error opening Threads: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Something went wrong.')));
+    }
+  }
+
+  static Future<void> openOfficialSite({required BuildContext context}) async {
+    final uri = Uri.parse("https://caffeing.com/suggest");
+    try {
+      final launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+      if (!launched) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Could not open the link.')));
+      }
+    } catch (e) {
+      debugPrint('Error opening URL: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Something went wrong.')));
+    }
+  }
 }
 
 class LauncherChoiceItem {
