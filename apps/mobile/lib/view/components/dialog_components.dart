@@ -14,17 +14,18 @@ class DialogUtils {
   }) {
     return Dialog(
       insetAnimationDuration: const Duration(milliseconds: 500),
-      child: SizedBox(
-        height: widgetHeight,
-        width: widgetWidth,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: widgetHeight,
+          maxWidth: widgetWidth,
+        ),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
             children: [
               if (icon != null) ...[icon, const SizedBox(height: 10)],
-              if (title != null) ...[
+              if (title != null)
                 Text(
                   title,
                   style: const TextStyle(
@@ -33,12 +34,13 @@ class DialogUtils {
                   ),
                   textAlign: TextAlign.center,
                 ),
-              ],
               if (content != null) ...[
                 const SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: content,
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: content,
+                  ),
                 ),
               ],
               if (actions != null && actions.isNotEmpty) ...[

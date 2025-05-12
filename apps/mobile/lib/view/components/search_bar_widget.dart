@@ -94,59 +94,56 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             widgetWidth: MediaQuery.sizeOf(context).width,
             content: StatefulBuilder(
               builder: (context, setStateDialog) {
-                return SingleChildScrollView(
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children:
-                        widget.keywordViewModel.keywordOptions.map((keyword) {
-                          final isSelected = tempSelected.contains(
-                            keyword.keywordId,
-                          );
-                          return FilterChip(
-                            showCheckmark: false,
-                            label: Text(
-                              keyword.keywordName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color:
-                                    isSelected
-                                        ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(
-                                          context,
-                                        ).colorScheme.secondary,
-                              ),
+                return Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children:
+                      widget.keywordViewModel.keywordOptions.map((keyword) {
+                        final isSelected = tempSelected.contains(
+                          keyword.keywordId,
+                        );
+                        return FilterChip(
+                          showCheckmark: false,
+                          label: Text(
+                            keyword.keywordName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color:
+                                  isSelected
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.secondary,
                             ),
-                            selected: isSelected,
-                            onSelected: (bool selected) {
-                              setStateDialog(() {
-                                if (selected) {
-                                  tempSelected.add(keyword.keywordId);
-                                } else {
-                                  tempSelected.remove(keyword.keywordId);
-                                }
-                              });
-                            },
-                            selectedColor:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Theme.of(context).colorScheme.primary
-                                        .withValues(alpha: 0.2),
-                            backgroundColor:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.grey.withValues(alpha: 0.3)
-                                    : Colors.grey.shade200,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.primary.withValues(alpha: 0),
-                              ),
+                          ),
+                          selected: isSelected,
+                          onSelected: (bool selected) {
+                            setStateDialog(() {
+                              if (selected) {
+                                tempSelected.add(keyword.keywordId);
+                              } else {
+                                tempSelected.remove(keyword.keywordId);
+                              }
+                            });
+                          },
+                          selectedColor:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withAlpha(50),
+                          backgroundColor:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.grey.withAlpha(75)
+                                  : Colors.grey.shade200,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primary.withAlpha(0),
                             ),
-                          );
-                        }).toList(),
-                  ),
+                          ),
+                        );
+                      }).toList(),
                 );
               },
             ),
