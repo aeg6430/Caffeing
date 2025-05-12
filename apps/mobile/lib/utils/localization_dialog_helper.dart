@@ -85,20 +85,30 @@ class LocalizationDialogHelper {
                 ],
               ),
               actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                OutlinedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Theme.of(context).colorScheme.onSurface
+                            : Theme.of(context).colorScheme.primary,
+                    side: BorderSide(
+                      color:
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Theme.of(context).colorScheme.outline
+                              : Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
                   child: Text(S.of(context).cancel),
                 ),
-                const SizedBox(width: 10),
-                ElevatedButton(
+                const SizedBox(width: 12),
+                FilledButton(
                   onPressed: () {
                     LocaleProvider.of(
                       context,
                       listen: false,
                     ).updateLocale(selectedLocale);
-                    Navigator.pop(context);
+                    Navigator.of(context).pop();
                   },
                   child: Text(S.of(context).confirm),
                 ),
