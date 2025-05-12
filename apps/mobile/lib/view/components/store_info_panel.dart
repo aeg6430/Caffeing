@@ -123,7 +123,7 @@ class _StoreInfoPanelState extends State<StoreInfoPanel> {
                             final request = FavoriteStoreRequestModel(
                               storeId: store.storeId,
                             );
-                            bool wasFavorite = isFavorite; // Save current state
+                            bool wasFavorite = isFavorite;
                             try {
                               // Temporarily update the favorite list UI
                               if (wasFavorite) {
@@ -131,16 +131,9 @@ class _StoreInfoPanelState extends State<StoreInfoPanel> {
                               } else {
                                 favoriteVM.add(request);
                               }
-
-                              // Perform the API call in the background
-                              if (wasFavorite) {
-                                await favoriteVM.remove(request);
-                              } else {
-                                await favoriteVM.add(request);
-                              }
                             } catch (e) {
                               debugPrint('Error toggling favorite: $e');
-                              // Optional: Revert the UI if the API call fails
+                              // Revert the UI if the API call fails
                               if (wasFavorite) {
                                 favoriteVM.add(request);
                               } else {
