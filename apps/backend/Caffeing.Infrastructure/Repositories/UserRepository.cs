@@ -38,11 +38,11 @@ namespace Caffeing.Infrastructure.Repositories
             INSERT INTO app_user (
                 id,user_id, provider, provider_id,
                 email, name, role,
-                created_time, modified_time
+                created_time
             ) VALUES (
                 @id,@UserId, @Provider, @ProviderId,
                 @Email, @Name, @Role,
-                @CreatedTime, @ModifiedTime
+                @CreatedTime
             )";
             var parameters = new
             {
@@ -54,10 +54,28 @@ namespace Caffeing.Infrastructure.Repositories
                 Name = user.Name,
                 Role = user.Role,
                 CreatedTime = user.CreatedTime,
-                ModifiedTime = user.ModifiedTime
             };
 
             await connection.ExecuteAsync(insert, parameters, transaction);
+        }
+
+        public async Task UpdateAsync(UserEntity user, IDbConnection connection, IDbTransaction transaction)
+        {
+            string update = @"
+            UPDATE app_user
+            SET 
+                name = @Name,
+                modified_time = @ModifiedTime
+            WHERE user_id = @UserId";
+
+            var parameters = new
+            {
+                Name = user.Name,
+                ModifiedTime = user.ModifiedTime,
+                UserId = user.UserId
+            };
+
+            await connection.ExecuteAsync(update, parameters, transaction);
         }
 
         public async Task<UserEntity?> GetByProviderAsync(string provider, string providerId)

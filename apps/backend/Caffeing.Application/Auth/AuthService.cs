@@ -73,6 +73,22 @@ namespace Caffeing.Application.Auth
 
                     await _userRepository.CreateAsync(user, _context.Connection, _context.Transaction);
                 }
+                else
+                {
+                    var updated = false;
+
+                    if (user.Name.ToString() != oauthUserInfo.Name)
+                    {
+                        user.Name = new UserName(oauthUserInfo.Name);
+                        updated = true;
+                    }
+
+                    if (updated)
+                    {
+                        user.ModifiedTime = DateTime.UtcNow;
+                        await _userRepository.UpdateAsync(user, _context.Connection, _context.Transaction);
+                    }
+                }
                 _context.Commit();
                 var tokenPayload = new JwtTokenPayload
                 {

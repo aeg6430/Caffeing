@@ -14,6 +14,7 @@ namespace Caffeing.Infrastructure.IRepositories
     public interface IUserRepository
     {
         Task CreateAsync(UserEntity user, IDbConnection connection, IDbTransaction transaction);
+        Task UpdateAsync(UserEntity user, IDbConnection connection, IDbTransaction transaction);
         Task<UserEntity?> GetByProviderAsync(string provider, string providerId);
     }
 }
