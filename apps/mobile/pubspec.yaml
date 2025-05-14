@@ -55,7 +55,7 @@ flutter:
     - family: 'MaterialIcons'
 
   assets:
-    - assets/image/ 
+    - assets/image/
     - assets/map_style_light.json
     - assets/map_style_dark.json
     - assets/google_signin/

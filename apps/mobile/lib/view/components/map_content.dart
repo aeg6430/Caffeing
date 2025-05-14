@@ -41,13 +41,18 @@ class _MapContentState extends State<MapContent> {
 
   void _loadCustomMarkerIcons() async {
     final BitmapDescriptor defaultIcon = await BitmapDescriptor.asset(
-      const ImageConfiguration(size: Size(10, 10)),
-      'assets/image/marker_default.png',
+      const ImageConfiguration(devicePixelRatio: 15),
+      'assets/image/default.png',
+    );
+
+    final BitmapDescriptor candidateIcon = await BitmapDescriptor.asset(
+      ImageConfiguration(devicePixelRatio: 15),
+      'assets/image/candidate.png',
     );
 
     final BitmapDescriptor selectedIcon = await BitmapDescriptor.asset(
-      const ImageConfiguration(size: Size(12, 12)),
-      'assets/image/marker_selected.png',
+      const ImageConfiguration(devicePixelRatio: 20),
+      'assets/image/selected.png',
     );
 
     setState(() {
