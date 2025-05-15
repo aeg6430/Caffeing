@@ -220,6 +220,7 @@ class _MapContentState extends State<MapContent> {
                 zoom: widget.zoom,
               ),
               markers: _mapMarkers,
+              zoomControlsEnabled: false,
               onMapCreated: (controller) {
                 if (!_controller.isCompleted) {
                   _controller.complete(controller);
