@@ -26,6 +26,7 @@ class MapContent extends StatefulWidget {
 class _MapContentState extends State<MapContent> {
   cluster_manager.ClusterManager? _clusterManager;
   final Completer<GoogleMapController> _controller = Completer();
+  String? _mapStyle;
   Set<Marker> _mapMarkers = {};
   LatLng? _markerPosition;
   String? _selectedMarkerId;
@@ -40,6 +41,7 @@ class _MapContentState extends State<MapContent> {
   @override
   void initState() {
     super.initState();
+    _loadMapStyle();
     _loadCustomMarkerIcons();
   }
 
@@ -52,6 +54,11 @@ class _MapContentState extends State<MapContent> {
         _selectedMarkerIcon != null) {
       _initializeClusterManager();
     }
+  }
+
+  Future<void> _loadMapStyle() async {
+    _mapStyle = await rootBundle.loadString('assets/map_style_light.json');
+    setState(() {});
   }
 
   Future<void> _loadCustomMarkerIcons() async {
@@ -226,6 +233,7 @@ class _MapContentState extends State<MapContent> {
             ? Center(child: CircularProgressIndicator())
             : GoogleMap(
               mapType: MapType.normal,
+              style: _mapStyle,
               initialCameraPosition: CameraPosition(
                 target: _markerPosition ?? LatLng(lat, lng),
                 zoom: widget.zoom,
