@@ -15,9 +15,13 @@ import 'package:caffeing/view_model/map/map_view_model.dart';
 class MapContent extends StatefulWidget {
   final List<StoreResponseModel>? storeList;
   final double zoom;
-
-  const MapContent({Key? key, this.storeList, this.zoom = 10})
-    : super(key: key);
+  final void Function(StoreSummaryResponseModel)? onStoreSelected;
+  const MapContent({
+    Key? key,
+    this.storeList,
+    this.zoom = 10,
+    this.onStoreSelected,
+  }) : super(key: key);
 
   @override
   State<MapContent> createState() => _MapContentState();
@@ -194,16 +198,14 @@ class _MapContentState extends State<MapContent> {
         position: cluster.location,
         icon: isSelected ? _selectedMarkerIcon! : _defaultMarkerIcon!,
         onTap: () {
-          final vm = Provider.of<MapViewModel>(context, listen: false);
-          vm.updateSelectedStore(
-            StoreSummaryResponseModel(
-              storeId: storeCluster.storeId,
-              name: storeCluster.name,
-              latitude: cluster.location.latitude,
-              longitude: cluster.location.longitude,
-            ),
+          final summary = StoreSummaryResponseModel(
+            storeId: storeCluster.storeId,
+            name: storeCluster.name,
+            latitude: cluster.location.latitude,
+            longitude: cluster.location.longitude,
           );
 
+          widget.onStoreSelected?.call(summary);
           setState(() {
             _selectedMarkerId = storeCluster.storeId;
             _markerPosition = cluster.location;

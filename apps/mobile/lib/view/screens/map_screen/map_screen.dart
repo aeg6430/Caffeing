@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({Key? key}) : super(key: key);
   @override
   _MapScreenState createState() => _MapScreenState();
 }
@@ -42,10 +43,20 @@ class _MapScreenState extends State<MapScreen> {
                 Selector<MapViewModel, List<StoreResponseModel>>(
                   selector: (context, mapVM) => mapVM.mapStores,
                   builder: (context, mapStores, _) {
-                    return Center(
-                      child: MapContent(
-                        storeList: mapStores,
-                      ), // Only rebuilds when mapStores changes
+                    return Consumer2<StoreViewModel, MapViewModel>(
+                      builder: (context, storeVM, mapVM, _) {
+                        return Center(
+                          child: MapContent(
+                            storeList: mapStores,
+                            onStoreSelected: (store) async {
+                              mapVM.updateSelectedStore(store);
+                              await storeVM.getStoreByRequest(
+                                StoreRequestModel(storeId: store.storeId),
+                              );
+                            },
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
