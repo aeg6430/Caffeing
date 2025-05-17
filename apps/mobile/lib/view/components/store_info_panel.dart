@@ -88,10 +88,10 @@ class _StoreInfoPanelState extends State<StoreInfoPanel> {
                           child: Text(
                             store.name,
                             style: const TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.bold,
                             ),
-                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
                           ),
                         ),
                         IconButton(
