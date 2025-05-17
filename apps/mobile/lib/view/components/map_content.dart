@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:ui' as ui;
 import 'package:caffeing/models/response/store/store_cluster_model.dart';
 import 'package:caffeing/models/response/store/store_summary_response_model.dart';
+import 'package:caffeing/utils/map_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -34,6 +34,9 @@ class _MapContentState extends State<MapContent> {
   Set<Marker> _mapMarkers = {};
   LatLng? _markerPosition;
   String? _selectedMarkerId;
+  Marker? _userMarker;
+  LatLng? _userLocation;
+  StreamSubscription<Position>? _positionStream;
   BitmapDescriptor? _defaultMarkerIcon;
   BitmapDescriptor? _selectedMarkerIcon;
   bool _isLoading = true;
@@ -41,6 +44,7 @@ class _MapContentState extends State<MapContent> {
   bool _isMovingCamera = false;
   final double defaultLatitude = 25.05291553866105;
   final double defaultLongitude = 121.52035694040113;
+  Offset? _pulsePosition;
 
   @override
   void initState() {
@@ -60,65 +64,87 @@ class _MapContentState extends State<MapContent> {
     }
   }
 
+  @override
+  void dispose() {
+    _positionStream?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<MapViewModel, StoreSummaryResponseModel?>(
+      selector: (_, vm) => vm.selectedStore,
+      builder: (context, selectedStore, _) {
+        if (selectedStore != null) {
+          if (_selectedMarkerId != selectedStore?.storeId) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _updateMarkerPosition();
+            });
+          }
+        }
+
+        final lat = selectedStore?.latitude ?? defaultLatitude;
+        final lng = selectedStore?.longitude ?? defaultLongitude;
+
+        return _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Stack(
+              children: [
+                GoogleMap(
+                  mapType: MapType.normal,
+                  style: _mapStyle,
+                  initialCameraPosition: CameraPosition(
+                    target: _markerPosition ?? LatLng(lat, lng),
+                    zoom: widget.zoom,
+                  ),
+                  markers: _mapMarkers,
+                  zoomControlsEnabled: false,
+                  onMapCreated: (controller) {
+                    if (!_controller.isCompleted) {
+                      _controller.complete(controller);
+                    }
+                    _clusterManager?.setMapId(controller.mapId);
+                    _clusterManager?.updateMap();
+                  },
+                  onCameraMove: (CameraPosition position) {
+                    _currentZoom = position.zoom;
+                    _clusterManager?.onCameraMove(position);
+                  },
+                  onCameraIdle: _clusterManager?.updateMap,
+                ),
+                Positioned(
+                  bottom: MediaQuery.of(context).size.height * 0.25,
+                  right: MediaQuery.of(context).size.width * 0.05,
+                  child: FloatingActionButton(
+                    onPressed: _goToCurrentLocation,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    child: Icon(
+                      Icons.my_location,
+                      color:
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ],
+            );
+      },
+    );
+  }
+
   Future<void> _loadMapStyle() async {
     _mapStyle = await rootBundle.loadString('assets/map_style_light.json');
     setState(() {});
   }
 
   Future<void> _loadCustomMarkerIcons() async {
-    _defaultMarkerIcon = await _createCircleMarker(Colors.orange);
-    _selectedMarkerIcon = await _createCircleMarker(Colors.red);
+    _defaultMarkerIcon = await MapHelper.createCircleMarker(Colors.orange);
+    _selectedMarkerIcon = await await MapHelper.createCircleMarker(Colors.red);
     if (mounted && widget.storeList != null) {
       _initializeClusterManager();
     }
     setState(() => _isLoading = false);
-  }
-
-  Future<BitmapDescriptor> _createCircleMarker(
-    Color color, {
-    int? count,
-  }) async {
-    const int size = 30;
-    final ui.PictureRecorder recorder = ui.PictureRecorder();
-    final Canvas canvas = Canvas(recorder);
-    final double radius = size / 2;
-
-    final Paint paint = Paint()..color = color;
-    canvas.drawCircle(Offset(radius, radius), radius, paint);
-
-    final Paint borderPaint =
-        Paint()
-          ..color = Colors.white
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 0.5;
-    canvas.drawCircle(Offset(radius, radius), radius - 3, borderPaint);
-
-    if (count != null) {
-      final textPainter = TextPainter(
-        text: TextSpan(
-          text: count.toString(),
-          style: const TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        textDirection: TextDirection.ltr,
-        textAlign: TextAlign.center,
-      );
-
-      textPainter.layout();
-      textPainter.paint(
-        canvas,
-        Offset(radius - textPainter.width / 2, radius - textPainter.height / 2),
-      );
-    }
-
-    final ui.Image image = await recorder.endRecording().toImage(size, size);
-    final ByteData? byteData = await image.toByteData(
-      format: ui.ImageByteFormat.png,
-    );
-    return BitmapDescriptor.bytes(byteData!.buffer.asUint8List());
   }
 
   void _initializeClusterManager() {
@@ -149,19 +175,21 @@ class _MapContentState extends State<MapContent> {
 
   void _updateMarkers(Set<Marker> markers) {
     setState(() {
-      _mapMarkers = markers;
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _clusterManager?.updateMap();
-
-      // If selectedStore exists, move to it once markers are ready
-      final vm = Provider.of<MapViewModel>(context, listen: false);
-      final selectedStore = vm.selectedStore;
-      if (selectedStore != null && _selectedMarkerId == null) {
-        _updateMarkerPosition();
+      // Retain the user marker if available
+      final newMarkers = Set<Marker>.from(markers);
+      if (_userMarker != null) {
+        newMarkers.add(_userMarker!);
       }
+      _mapMarkers = newMarkers;
     });
+
+    final vm = Provider.of<MapViewModel>(context, listen: false);
+    final selectedStore = vm.selectedStore;
+    if (selectedStore != null && _selectedMarkerId == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _updateMarkerPosition();
+      });
+    }
   }
 
   Future<Marker> Function(cluster_manager.Cluster<cluster_manager.ClusterItem>)
@@ -171,7 +199,7 @@ class _MapContentState extends State<MapContent> {
     );
 
     if (cluster.isMultiple) {
-      final icon = await _createCircleMarker(
+      final icon = await MapHelper.createCircleMarker(
         containsSelected ? Colors.red : Colors.orange,
         count: cluster.count,
       );
@@ -214,114 +242,20 @@ class _MapContentState extends State<MapContent> {
       );
     }
   };
+  Future<void> _goToCurrentLocation() async {
+    final controller = await _controller.future;
+    _positionStream?.cancel();
 
-  @override
-  Widget build(BuildContext context) {
-    return Selector<MapViewModel, StoreSummaryResponseModel?>(
-      selector: (_, vm) => vm.selectedStore,
-      builder: (context, selectedStore, _) {
-        if (selectedStore != null) {
-          if (_selectedMarkerId != selectedStore?.storeId) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              _updateMarkerPosition();
-            });
-          }
-        }
-
-        final lat = selectedStore?.latitude ?? defaultLatitude;
-        final lng = selectedStore?.longitude ?? defaultLongitude;
-
-        return _isLoading
-            ? Center(child: CircularProgressIndicator())
-            : GoogleMap(
-              mapType: MapType.normal,
-              style: _mapStyle,
-              initialCameraPosition: CameraPosition(
-                target: _markerPosition ?? LatLng(lat, lng),
-                zoom: widget.zoom,
-              ),
-              markers: _mapMarkers,
-              zoomControlsEnabled: false,
-              onMapCreated: (controller) {
-                if (!_controller.isCompleted) {
-                  _controller.complete(controller);
-                }
-                _clusterManager?.setMapId(controller.mapId);
-                _clusterManager?.updateMap();
-              },
-              onCameraMove: (CameraPosition position) {
-                _currentZoom = position.zoom;
-                _clusterManager?.onCameraMove(position);
-              },
-              onCameraIdle: _clusterManager?.updateMap,
-            );
-      },
-    );
-  }
-
-  Future<void> _smoothZoomTo({
-    required GoogleMapController controller,
-    required double fromZoom,
-    required double toZoom,
-    required LatLng target,
-    Duration totalDuration = const Duration(milliseconds: 1000),
-    int steps = 20,
-  }) async {
-    final stepZoom = (toZoom - fromZoom) / steps;
-    final stepDuration = totalDuration ~/ steps;
-
-    for (int i = 1; i <= steps; i++) {
-      final newZoom = fromZoom + stepZoom * i;
-
-      // Use moveCamera for faster, smoother transition in early steps
-      if (i < steps) {
-        await controller.moveCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(target: target, zoom: newZoom),
-          ),
-        );
-      } else {
-        // AnimateCamera for smooth finish
-        await controller.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(target: target, zoom: newZoom),
-          ),
-        );
-      }
-
-      await Future.delayed(stepDuration);
-    }
-  }
-
-  Future<void> _smoothMoveAcrossDistance({
-    required GoogleMapController controller,
-    required LatLng from,
-    required LatLng to,
-    double minZoom = 10.0,
-    double maxZoom = 19.0,
-    Duration zoomOutDuration = const Duration(milliseconds: 1000),
-    Duration moveDuration = const Duration(milliseconds: 500),
-    Duration zoomInDuration = const Duration(milliseconds: 1500),
-  }) async {
-    // Zoom out
-    final zoomOutCamera = CameraUpdate.newCameraPosition(
-      CameraPosition(target: from, zoom: minZoom),
-    );
-    await controller.animateCamera(zoomOutCamera);
-    await Future.delayed(zoomOutDuration);
-
-    // Pan to new target (at wide zoom)
-    final panCamera = CameraUpdate.newLatLng(to);
-    await controller.animateCamera(panCamera);
-    await Future.delayed(moveDuration);
-
-    // Smooth zoom into target
-    await _smoothZoomTo(
+    _positionStream = await MapHelper.trackUserLocation(
       controller: controller,
-      fromZoom: minZoom,
-      toZoom: maxZoom,
-      target: to,
-      totalDuration: zoomInDuration,
+      markerSet: _mapMarkers,
+      updateMarkers: (updated) => setState(() => _mapMarkers = updated),
+      onLocationUpdate: (latLng, marker) {
+        setState(() {
+          _userLocation = latLng;
+          _userMarker = marker;
+        });
+      },
     );
   }
 
@@ -357,13 +291,13 @@ class _MapContentState extends State<MapContent> {
             );
 
     if (distance > 10000 && previousMarkerPosition != null) {
-      await _smoothMoveAcrossDistance(
+      await MapHelper.smoothMoveAcrossDistance(
         controller: controller,
         from: previousMarkerPosition,
         to: newPosition,
       );
     } else {
-      await _smoothZoomTo(
+      await MapHelper.smoothZoomTo(
         controller: controller,
         fromZoom: _currentZoom,
         toZoom: 18.5,
