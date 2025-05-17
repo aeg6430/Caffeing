@@ -1,5 +1,6 @@
 import 'package:caffeing/provider/page_provider.dart';
 import 'package:caffeing/utils/custom_feedback_localizations.dart';
+import 'package:caffeing/utils/deep_link_handler.dart';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +13,14 @@ import 'package:caffeing/utils/auth_wrapper.dart';
 import 'package:caffeing/utils/env.dart';
 import 'package:provider/provider.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Env.load();
   await Firebase.initializeApp();
   final savedLocale = await AppLocalizations.loadSavedLocale();
-
+  DeepLinkHandler.initialize(navigatorKey);
   runApp(
     BetterFeedback(
       theme: FeedbackThemeData(sheetIsDraggable: false),
@@ -45,6 +48,7 @@ class App extends StatelessWidget {
         return Consumer<AppThemeNotifier>(
           builder: (context, themeNotifier, _) {
             return MaterialApp(
+              navigatorKey: navigatorKey,
               debugShowCheckedModeBanner: false,
               locale: locale,
               localizationsDelegates: [

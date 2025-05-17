@@ -47,5 +47,20 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to show you on the map and find nearby stores easily.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+			<string>https</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+	</array>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Allow tracking for deep linking support</string>
 </dict>
 </plist>

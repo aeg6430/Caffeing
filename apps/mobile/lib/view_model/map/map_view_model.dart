@@ -9,6 +9,7 @@ class MapViewModel extends ChangeNotifier {
 
   List<StoreResponseModel> _mapStores = [];
   StoreSummaryResponseModel? _selectedStore;
+  String? _pendingStoreId;
 
   List<StoreResponseModel> get mapStores => _mapStores;
   StoreSummaryResponseModel? get selectedStore => _selectedStore;
@@ -16,11 +17,42 @@ class MapViewModel extends ChangeNotifier {
   void updateMapStores(List<StoreResponseModel> stores) {
     _mapStores = stores;
     notifyListeners();
+
+    // Handle deferred deep link store selection
+    if (_pendingStoreId != null) {
+      _selectStoreById(_pendingStoreId!);
+      _pendingStoreId = null;
+    }
   }
 
   void updateSelectedStore(StoreSummaryResponseModel? store) {
     _selectedStore = store;
     notifyListeners();
+  }
+
+  void selectStoreById(String storeId) {
+    if (_mapStores.isEmpty) {
+      _pendingStoreId = storeId;
+      return;
+    }
+    _selectStoreById(storeId);
+  }
+
+  void _selectStoreById(String storeId) {
+    final StoreResponseModel? match = _mapStores
+        .cast<StoreResponseModel?>()
+        .firstWhere((store) => store?.storeId == storeId, orElse: () => null);
+
+    if (match != null) {
+      updateSelectedStore(
+        StoreSummaryResponseModel(
+          storeId: match.storeId,
+          name: match.name,
+          latitude: match.latitude,
+          longitude: match.longitude,
+        ),
+      );
+    }
   }
 
   void resetMapController() {
