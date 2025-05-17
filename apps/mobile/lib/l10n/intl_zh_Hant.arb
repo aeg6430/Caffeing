@@ -29,5 +29,9 @@
   "supportRecommendCafe": "推薦店家",
   "supportContactUs": "聯絡我們",
   "bugReportFailed": "提交錯誤回報時發生問題 請稍後再試",
-  "bugReportLimit":"最多允許300個字符和10個表情符號"
+  "bugReportLimit":"最多允許300個字符和10個表情符號",
+  "openWith": "選擇開啟方式",
+  "appleMaps": "Apple 地圖",
+  "googleMaps": "Google 地圖",
+  "openInApp": "在 Caffeing 中開啟"
 }

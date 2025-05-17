@@ -269,6 +269,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Open with`
+  String get openWith {
+    return Intl.message('Open with', name: 'openWith', desc: '', args: []);
+  }
+
+  /// `Apple Maps`
+  String get appleMaps {
+    return Intl.message('Apple Maps', name: 'appleMaps', desc: '', args: []);
+  }
+
+  /// `Google Maps`
+  String get googleMaps {
+    return Intl.message('Google Maps', name: 'googleMaps', desc: '', args: []);
+  }
+
+  /// `Open in app`
+  String get openInApp {
+    return Intl.message('Open in app', name: 'openInApp', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

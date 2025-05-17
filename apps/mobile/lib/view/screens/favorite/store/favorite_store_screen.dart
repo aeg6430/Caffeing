@@ -116,7 +116,11 @@ class _FavoriteStoreScreenState extends State<FavoriteStoreScreen> {
       icon: const Icon(Icons.more_vert),
       onSelected: (value) {
         if (value == 'share') {
-          LauncherUtils.openShare(context: context, content: "context here");
+          LauncherUtils.openShare(
+            context: context,
+            content: [store.name, store.address].join('\n'),
+            storeId: store.storeId,
+          );
         } else if (value == 'delete') {
           var request = FavoriteStoreRequestModel(storeId: store.storeId);
           viewModel.remove(request);

@@ -29,5 +29,9 @@
     "supportRecommendCafe": "コーヒーショップを提案する",
     "supportContactUs": "お問い合わせ",
     "bugReportFailed": "バグ報告の送信中に問題が発生しました 後でもう一度お試しください",
-    "bugReportLimit":"最大300文字と10個の絵文字が許可されています"
+    "bugReportLimit":"最大300文字と10個の絵文字が許可されています",
+    "openWith": "アプリで開く",
+    "appleMaps": "Appleマップ",
+    "googleMaps": "Googleマップ",
+    "openInApp": "アプリで開く"
 }

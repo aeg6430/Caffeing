@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:caffeing/l10n/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_plus/share_plus.dart';
@@ -25,7 +26,7 @@ class LauncherUtils {
         if (canGoogleMaps && canAppleMaps) {
           _showChoiceDialog(
             context: context,
-            title: 'Open with',
+            title: S.of(context).openWith,
             choices: [
               LauncherChoiceItem(
                 tooltip: 'Apple Maps',
@@ -123,18 +124,14 @@ class LauncherUtils {
   static Future<void> openShare({
     required BuildContext context,
     String? content,
+    String? storeId,
   }) async {
     try {
-      final appStoreUrl =
-          Platform.isIOS
-              ? 'app store link for ios'
-              : 'app store like for android';
       final parameter = [
-        'See what I got on Caffeing!',
         content ?? '',
         '',
-        'Download now:',
-        appStoreUrl,
+        S.of(context).openInApp,
+        'https://caffeing.com/store/${Uri.encodeComponent(storeId ?? '')}',
       ].join('\n');
       SharePlus.instance.share(ShareParams(text: parameter));
     } catch (e) {

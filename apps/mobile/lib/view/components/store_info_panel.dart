@@ -99,7 +99,8 @@ class _StoreInfoPanelState extends State<StoreInfoPanel> {
                           onPressed: () {
                             LauncherUtils.openShare(
                               context: context,
-                              content: "context here",
+                              content: [store.name, store.address].join('\n'),
+                              storeId: store.storeId,
                             );
                           },
                         ),

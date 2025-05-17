@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("追加"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("詳細検索"),
+    "appleMaps": MessageLookupByLibrary.simpleMessage("Appleマップ"),
     "bugReportFailed": MessageLookupByLibrary.simpleMessage(
       "バグ報告の送信中に問題が発生しました 後でもう一度お試しください",
     ),
@@ -37,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "darkMode": MessageLookupByLibrary.simpleMessage("ダークモード"),
     "english": MessageLookupByLibrary.simpleMessage("英語"),
     "favorites": MessageLookupByLibrary.simpleMessage("お気に入り"),
+    "googleMaps": MessageLookupByLibrary.simpleMessage("Googleマップ"),
     "guest": MessageLookupByLibrary.simpleMessage("ゲスト"),
     "japanese": MessageLookupByLibrary.simpleMessage("日本語"),
     "korean": MessageLookupByLibrary.simpleMessage("韓国语"),
@@ -46,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "map": MessageLookupByLibrary.simpleMessage("地図"),
     "mapInitializing": MessageLookupByLibrary.simpleMessage("地図の初期化中..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("一致する検索結果がありません"),
+    "openInApp": MessageLookupByLibrary.simpleMessage("アプリで開く"),
+    "openWith": MessageLookupByLibrary.simpleMessage("アプリで開く"),
     "remove": MessageLookupByLibrary.simpleMessage("削除"),
     "search": MessageLookupByLibrary.simpleMessage("店舗を検索"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("言語を選択"),

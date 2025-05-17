@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("추가"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("고급 검색"),
+    "appleMaps": MessageLookupByLibrary.simpleMessage("애플 지도"),
     "bugReportFailed": MessageLookupByLibrary.simpleMessage(
       "버그 보고를 제출하는 중 문제가 발생했습니다 나중에 다시 시도해 주세요",
     ),
@@ -37,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "darkMode": MessageLookupByLibrary.simpleMessage("다크 모드"),
     "english": MessageLookupByLibrary.simpleMessage("영어"),
     "favorites": MessageLookupByLibrary.simpleMessage("즐겨찾기"),
+    "googleMaps": MessageLookupByLibrary.simpleMessage("구글 지도"),
     "guest": MessageLookupByLibrary.simpleMessage("손님"),
     "japanese": MessageLookupByLibrary.simpleMessage("일본어"),
     "korean": MessageLookupByLibrary.simpleMessage("한국어"),
@@ -46,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "map": MessageLookupByLibrary.simpleMessage("지도"),
     "mapInitializing": MessageLookupByLibrary.simpleMessage("맵을 초기화하는 중..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("검색 결과가 없습니다"),
+    "openInApp": MessageLookupByLibrary.simpleMessage("앱에서 열기"),
+    "openWith": MessageLookupByLibrary.simpleMessage("앱 선택"),
     "remove": MessageLookupByLibrary.simpleMessage("제거"),
     "search": MessageLookupByLibrary.simpleMessage("매장 검색"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("언어 선택"),

@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("加入"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("進階搜尋"),
+    "appleMaps": MessageLookupByLibrary.simpleMessage("Apple 地圖"),
     "bugReportFailed": MessageLookupByLibrary.simpleMessage(
       "提交錯誤回報時發生問題 請稍後再試",
     ),
@@ -37,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "darkMode": MessageLookupByLibrary.simpleMessage("深色主題"),
     "english": MessageLookupByLibrary.simpleMessage("英語"),
     "favorites": MessageLookupByLibrary.simpleMessage("收藏"),
+    "googleMaps": MessageLookupByLibrary.simpleMessage("Google 地圖"),
     "guest": MessageLookupByLibrary.simpleMessage("訪客"),
     "japanese": MessageLookupByLibrary.simpleMessage("日語"),
     "korean": MessageLookupByLibrary.simpleMessage("韓語"),
@@ -46,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "map": MessageLookupByLibrary.simpleMessage("地圖"),
     "mapInitializing": MessageLookupByLibrary.simpleMessage("地圖載入中..."),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("沒有符合的結果"),
+    "openInApp": MessageLookupByLibrary.simpleMessage("在 Caffeing 中開啟"),
+    "openWith": MessageLookupByLibrary.simpleMessage("選擇開啟方式"),
     "remove": MessageLookupByLibrary.simpleMessage("移除"),
     "search": MessageLookupByLibrary.simpleMessage("搜尋店家"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("選擇語言"),

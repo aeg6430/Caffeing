@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "advancedSearch": MessageLookupByLibrary.simpleMessage("Advanced Search"),
+    "appleMaps": MessageLookupByLibrary.simpleMessage("Apple Maps"),
     "bugReportFailed": MessageLookupByLibrary.simpleMessage(
       "Something went wrong while submitting bug report Please try again later",
     ),
@@ -39,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "english": MessageLookupByLibrary.simpleMessage("English"),
     "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
+    "googleMaps": MessageLookupByLibrary.simpleMessage("Google Maps"),
     "guest": MessageLookupByLibrary.simpleMessage("Guest"),
     "japanese": MessageLookupByLibrary.simpleMessage("Japanese"),
     "korean": MessageLookupByLibrary.simpleMessage("Korean"),
@@ -50,6 +52,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Map is initializing...",
     ),
     "noResultsFound": MessageLookupByLibrary.simpleMessage("No results found"),
+    "openInApp": MessageLookupByLibrary.simpleMessage("Open in app"),
+    "openWith": MessageLookupByLibrary.simpleMessage("Open with"),
     "remove": MessageLookupByLibrary.simpleMessage("Remove"),
     "search": MessageLookupByLibrary.simpleMessage("Search for stores"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),

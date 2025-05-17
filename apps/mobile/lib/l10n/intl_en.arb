@@ -29,6 +29,10 @@
     "supportRecommendCafe": "Recommend a Coffee Shop",
     "supportContactUs": "Contact Us", 
     "bugReportFailed": "Something went wrong while submitting bug report Please try again later",
-    "bugReportLimit":"Max 300 characters and 10 emojis allowed"
+    "bugReportLimit":"Max 300 characters and 10 emojis allowed",
+    "openWith":"Open with",
+    "appleMaps":"Apple Maps",
+    "googleMaps":"Google Maps",
+    "openInApp":"Open in app"
   }
   

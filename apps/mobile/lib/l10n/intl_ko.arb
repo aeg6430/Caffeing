@@ -29,5 +29,9 @@
     "supportRecommendCafe": "커피숍 제안하기",
     "supportContactUs": "문의하기",
     "bugReportFailed": "버그 보고를 제출하는 중 문제가 발생했습니다 나중에 다시 시도해 주세요",
-    "bugReportLimit":"최대 300자와 10개의 이모지가 허용됩니다"
+    "bugReportLimit":"최대 300자와 10개의 이모지가 허용됩니다",
+    "openWith": "앱 선택",
+    "appleMaps": "애플 지도",
+    "googleMaps": "구글 지도",
+    "openInApp": "앱에서 열기"
 }
