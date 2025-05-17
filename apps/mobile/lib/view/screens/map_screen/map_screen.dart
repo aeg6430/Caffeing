@@ -84,8 +84,8 @@ class _MapScreenState extends State<MapScreen> {
                 ),
                 DraggableScrollableSheet(
                   initialChildSize: 0.25,
-                  minChildSize: 0.1,
-                  maxChildSize: 0.8,
+                  minChildSize: 0.125,
+                  maxChildSize: 0.5,
                   builder: (
                     BuildContext context,
                     ScrollController scrollController,
