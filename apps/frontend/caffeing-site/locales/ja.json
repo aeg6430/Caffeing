@@ -6,7 +6,10 @@
   },
   "home":{
     "title":"Caffeing",
-    "description": "旅先でもCaffeingと一緒にカフェを探そう"
+    "description": "旅先でもCaffeingと一緒にカフェを探そう",
+    "featureShowCase": {
+      "advancedSearch": "探しているカフェを簡単に見つけよう"
+    }
   },
   "contact": 
   {

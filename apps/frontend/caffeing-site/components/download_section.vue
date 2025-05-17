@@ -3,7 +3,7 @@
         <div class="flex flex-col space-y-8 mt-6">
             <div class="flex items-center space-x-4">
                 <!-- App Icon on the Left -->
-                <img src="https://fakeimg.pl/125/?text=App Icon" alt="Image" class="w-24 h-24 sm:w-32 sm:h-32 mr-4" />
+                <img src="/assets/app_icon.png" alt="App Icon" class="w-24 h-24 sm:w-32 sm:h-32 mr-4" />
 
                 <!-- Title and Description -->
                 <div class="flex flex-col items-start text-left">

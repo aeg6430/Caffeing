@@ -6,7 +6,10 @@
   },
   "home":{
     "title":"Caffeing",
-    "description":"Explore cafes with Caffeing"
+    "description":"Explore cafes with Caffeing",
+    "featureShowCase": {
+      "advancedSearch":"Easily find the cafes you're looking for"
+    }
   },
   "contact": 
   {

@@ -6,7 +6,10 @@
   },
   "home":{
     "title":"Caffeing",
-    "description": "여행 중에도 Caffeing과 함께 카페를 찾아보세요"
+    "description": "여행 중에도 Caffeing과 함께 카페를 찾아보세요",
+    "featureShowCase": {
+      "advancedSearch": "원하는 카페를 쉽게 찾아보세요"
+    }
   },
   "contact": 
   {

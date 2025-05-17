@@ -14,9 +14,9 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+import ui2 from '/assets/ui2.svg';
+const { t } = useI18n()
 const items = [
-  { image: "https://fakeimg.pl/300/", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" },
-  { image: "https://fakeimg.pl/300/", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" },
-  { image: "https://fakeimg.pl/300/", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" }
-];
+  { image: ui2, text: t('home.featureShowCase.advancedSearch') },];
 </script>

@@ -6,7 +6,10 @@
   },
   "home":{
     "title":"Caffeing",
-    "description":"無論身處何處，透過 Caffeing 探索咖啡廳"
+    "description":"無論身處何處，透過 Caffeing 探索咖啡廳",
+    "featureShowCase": {
+    "advancedSearch": "有效的篩選出想去的咖啡廳"
+    }
   },
   "contact": 
   {
