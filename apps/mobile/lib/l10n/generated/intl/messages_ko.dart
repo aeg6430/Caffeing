@@ -50,6 +50,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "noResultsFound": MessageLookupByLibrary.simpleMessage("검색 결과가 없습니다"),
     "openInApp": MessageLookupByLibrary.simpleMessage("앱에서 열기"),
     "openWith": MessageLookupByLibrary.simpleMessage("앱 선택"),
+    "privacyPolicyAgreement": MessageLookupByLibrary.simpleMessage(
+      "개인정보 처리방침에 동의합니다",
+    ),
+    "privacyPolicyRequired": MessageLookupByLibrary.simpleMessage(
+      "계속하려면 개인정보 처리방침에 동의해 주세요",
+    ),
     "remove": MessageLookupByLibrary.simpleMessage("제거"),
     "search": MessageLookupByLibrary.simpleMessage("매장 검색"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("언어 선택"),

@@ -33,5 +33,7 @@
   "openWith": "選擇開啟方式",
   "appleMaps": "Apple 地圖",
   "googleMaps": "Google 地圖",
-  "openInApp": "在 Caffeing 中開啟"
+  "openInApp": "在 Caffeing 中開啟",
+  "privacyPolicyRequired": "請同意隱私權政策以繼續",
+  "privacyPolicyAgreement": "我同意隱私權政策"
 }

@@ -50,6 +50,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "noResultsFound": MessageLookupByLibrary.simpleMessage("沒有符合的結果"),
     "openInApp": MessageLookupByLibrary.simpleMessage("在 Caffeing 中開啟"),
     "openWith": MessageLookupByLibrary.simpleMessage("選擇開啟方式"),
+    "privacyPolicyAgreement": MessageLookupByLibrary.simpleMessage("我同意隱私權政策"),
+    "privacyPolicyRequired": MessageLookupByLibrary.simpleMessage(
+      "請同意隱私權政策以繼續",
+    ),
     "remove": MessageLookupByLibrary.simpleMessage("移除"),
     "search": MessageLookupByLibrary.simpleMessage("搜尋店家"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("選擇語言"),

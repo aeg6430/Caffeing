@@ -33,5 +33,7 @@
     "openWith": "앱 선택",
     "appleMaps": "애플 지도",
     "googleMaps": "구글 지도",
-    "openInApp": "앱에서 열기"
+    "openInApp": "앱에서 열기",
+    "privacyPolicyRequired": "계속하려면 개인정보 처리방침에 동의해 주세요",
+    "privacyPolicyAgreement": "개인정보 처리방침에 동의합니다"
 }

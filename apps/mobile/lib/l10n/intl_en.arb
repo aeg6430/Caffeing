@@ -33,6 +33,8 @@
     "openWith":"Open with",
     "appleMaps":"Apple Maps",
     "googleMaps":"Google Maps",
-    "openInApp":"Open in app"
+    "openInApp":"Open in app",
+    "privacyPolicyRequired": "Please agree to the Privacy Policy to continue",
+    "privacyPolicyAgreement":"I agree to the Privacy Policy"
   }
   

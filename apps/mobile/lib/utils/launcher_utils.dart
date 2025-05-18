@@ -200,6 +200,26 @@ class LauncherUtils {
       ).showSnackBar(SnackBar(content: Text('Something went wrong.')));
     }
   }
+
+  static Future<void> openAppPrivacy({required BuildContext context}) async {
+    final uri = Uri.parse("https://caffeing.com/app-privacy");
+    try {
+      final launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+      if (!launched) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Could not open the link.')));
+      }
+    } catch (e) {
+      debugPrint('Error opening URL: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Something went wrong.')));
+    }
+  }
 }
 
 class LauncherChoiceItem {

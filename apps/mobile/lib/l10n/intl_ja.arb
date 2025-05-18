@@ -33,5 +33,7 @@
     "openWith": "アプリで開く",
     "appleMaps": "Appleマップ",
     "googleMaps": "Googleマップ",
-    "openInApp": "アプリで開く"
+    "openInApp": "アプリで開く",
+    "privacyPolicyRequired": "続行するにはプライバシーポリシーに同意してください",
+    "privacyPolicyAgreement": "プライバシーポリシーに同意します"
 }

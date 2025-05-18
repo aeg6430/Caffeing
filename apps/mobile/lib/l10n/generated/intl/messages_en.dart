@@ -54,6 +54,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "noResultsFound": MessageLookupByLibrary.simpleMessage("No results found"),
     "openInApp": MessageLookupByLibrary.simpleMessage("Open in app"),
     "openWith": MessageLookupByLibrary.simpleMessage("Open with"),
+    "privacyPolicyAgreement": MessageLookupByLibrary.simpleMessage(
+      "I agree to the Privacy Policy",
+    ),
+    "privacyPolicyRequired": MessageLookupByLibrary.simpleMessage(
+      "Please agree to the Privacy Policy to continue",
+    ),
     "remove": MessageLookupByLibrary.simpleMessage("Remove"),
     "search": MessageLookupByLibrary.simpleMessage("Search for stores"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),

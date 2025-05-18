@@ -50,6 +50,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "noResultsFound": MessageLookupByLibrary.simpleMessage("一致する検索結果がありません"),
     "openInApp": MessageLookupByLibrary.simpleMessage("アプリで開く"),
     "openWith": MessageLookupByLibrary.simpleMessage("アプリで開く"),
+    "privacyPolicyAgreement": MessageLookupByLibrary.simpleMessage(
+      "プライバシーポリシーに同意します",
+    ),
+    "privacyPolicyRequired": MessageLookupByLibrary.simpleMessage(
+      "続行するにはプライバシーポリシーに同意してください",
+    ),
     "remove": MessageLookupByLibrary.simpleMessage("削除"),
     "search": MessageLookupByLibrary.simpleMessage("店舗を検索"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("言語を選択"),

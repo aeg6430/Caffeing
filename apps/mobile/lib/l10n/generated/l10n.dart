@@ -289,6 +289,26 @@ class S {
   String get openInApp {
     return Intl.message('Open in app', name: 'openInApp', desc: '', args: []);
   }
+
+  /// `Please agree to the Privacy Policy to continue`
+  String get privacyPolicyRequired {
+    return Intl.message(
+      'Please agree to the Privacy Policy to continue',
+      name: 'privacyPolicyRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I agree to the Privacy Policy`
+  String get privacyPolicyAgreement {
+    return Intl.message(
+      'I agree to the Privacy Policy',
+      name: 'privacyPolicyAgreement',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
