@@ -16,7 +16,10 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 import ui2 from '/assets/ui2.svg';
+import highlightSearchResults from '/assets/highlight_search_results.svg';
 const { t } = useI18n()
 const items = [
-  { image: ui2, text: t('home.featureShowCase.advancedSearch') },];
+  { image: ui2, text: t('home.featureShowCase.advancedSearch') },
+  { image: highlightSearchResults, text: t('home.featureShowCase.highlightSearchResults') },
+];
 </script>

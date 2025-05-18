@@ -8,7 +8,8 @@
     "title":"Caffeing",
     "description":"無論身處何處，透過 Caffeing 探索咖啡廳",
     "featureShowCase": {
-    "advancedSearch": "有效的篩選出想去的咖啡廳"
+    "advancedSearch": "有效的篩選出想去的咖啡廳",
+    "highlightSearchResults": "快速找到符合搜尋條件的咖啡廳所在區域"
     }
   },
   "contact": 

@@ -8,7 +8,8 @@
     "title":"Caffeing",
     "description":"Explore cafes with Caffeing",
     "featureShowCase": {
-      "advancedSearch":"Easily find the cafes you're looking for"
+      "advancedSearch":"Easily find the cafes you're looking for",
+      "highlightSearchResults": "Quickly find areas with coffee shops that match your search"
     }
   },
   "contact": 

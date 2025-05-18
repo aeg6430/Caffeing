@@ -8,7 +8,8 @@
     "title":"Caffeing",
     "description": "旅先でもCaffeingと一緒にカフェを探そう",
     "featureShowCase": {
-      "advancedSearch": "探しているカフェを簡単に見つけよう"
+      "advancedSearch": "探しているカフェを簡単に見つけよう",
+      "highlightSearchResults": "検索条件に合うカフェのあるエリアを素早く見つけましょう"
     }
   },
   "contact": 
