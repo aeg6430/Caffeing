@@ -26,8 +26,6 @@ class SearchBarWidget extends StatefulWidget {
 class _SearchBarWidgetState extends State<SearchBarWidget> {
   final TextEditingController _controller = TextEditingController();
   List<String> _selectedKeywords = [];
-
-  List<StoreSummaryResponseModel> _searchResults = [];
   bool _showSuggestions = false;
   bool _isLoading = false;
 
@@ -42,8 +40,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     final hasKeywords = _selectedKeywords.isNotEmpty;
 
     if (!hasQuery && !hasKeywords) {
+      widget.searchViewModel.clearSearchResults();
       setState(() {
-        _searchResults = [];
         _showSuggestions = false;
       });
       return;
@@ -59,10 +57,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         query: query,
         keywordIds: _selectedKeywords,
       );
-      final result = await widget.searchViewModel.search(request);
-      setState(() {
-        _searchResults = result.search?.stores ?? [];
-      });
+
+      await widget.searchViewModel.search(request);
     } finally {
       setState(() {
         _isLoading = false;
@@ -74,7 +70,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     widget.onSelected(store);
     _controller.clear();
     setState(() {
-      _searchResults = [];
       _showSuggestions = false;
     });
   }
@@ -217,7 +212,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                     onPressed: () {
                       _controller.clear();
                       setState(() {
-                        _searchResults = [];
                         _showSuggestions = false;
                       });
                     },
@@ -229,7 +223,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         if (_showSuggestions)
           SearchSuggestionList(
             isLoading: _isLoading,
-            searchResults: _searchResults,
+            searchResults: widget.searchViewModel.searchResults,
             onStoreSelected: _onStoreSelected,
           ),
       ],
