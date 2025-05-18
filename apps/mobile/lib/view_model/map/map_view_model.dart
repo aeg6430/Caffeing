@@ -8,10 +8,12 @@ class MapViewModel extends ChangeNotifier {
   final Completer<GoogleMapController> mapController = Completer();
 
   List<StoreResponseModel> _mapStores = [];
+  List<StoreSummaryResponseModel> _searchResults = [];
   StoreSummaryResponseModel? _selectedStore;
   String? _pendingStoreId;
 
   List<StoreResponseModel> get mapStores => _mapStores;
+  List<StoreSummaryResponseModel> get searchResults => _searchResults;
   StoreSummaryResponseModel? get selectedStore => _selectedStore;
 
   void updateMapStores(List<StoreResponseModel> stores) {
@@ -23,6 +25,11 @@ class MapViewModel extends ChangeNotifier {
       _selectStoreById(_pendingStoreId!);
       _pendingStoreId = null;
     }
+  }
+
+  void updateSearchResults(List<StoreSummaryResponseModel> results) {
+    _searchResults = results;
+    notifyListeners();
   }
 
   void updateSelectedStore(StoreSummaryResponseModel? store) {

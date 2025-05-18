@@ -13,13 +13,15 @@ import 'package:caffeing/models/response/store/store_response_model.dart';
 import 'package:caffeing/view_model/map/map_view_model.dart';
 
 class MapContent extends StatefulWidget {
-  final List<StoreResponseModel>? storeList;
   final double zoom;
+  final List<StoreResponseModel>? storeList;
+  final List<StoreSummaryResponseModel>? searchResults;
   final void Function(StoreSummaryResponseModel)? onStoreSelected;
   const MapContent({
     Key? key,
-    this.storeList,
     this.zoom = 10,
+    this.storeList,
+    this.searchResults,
     this.onStoreSelected,
   }) : super(key: key);
 
@@ -38,6 +40,7 @@ class _MapContentState extends State<MapContent> {
   LatLng? _userLocation;
   StreamSubscription<Position>? _positionStream;
   BitmapDescriptor? _defaultMarkerIcon;
+  BitmapDescriptor? _searchMarkerIcon;
   BitmapDescriptor? _selectedMarkerIcon;
   bool _isLoading = true;
   double _currentZoom = 12.5;
@@ -56,6 +59,11 @@ class _MapContentState extends State<MapContent> {
   @override
   void didUpdateWidget(covariant MapContent oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    if (widget.searchResults != oldWidget.searchResults) {
+      _clusterManager?.updateMap();
+    }
+
     if (widget.storeList != null &&
         widget.storeList != oldWidget.storeList &&
         _defaultMarkerIcon != null &&
@@ -140,6 +148,9 @@ class _MapContentState extends State<MapContent> {
 
   Future<void> _loadCustomMarkerIcons() async {
     _defaultMarkerIcon = await MapHelper.createCircleMarker(Colors.orange);
+    _searchMarkerIcon = await await MapHelper.createCircleMarker(
+      Colors.lightGreen,
+    );
     _selectedMarkerIcon = await await MapHelper.createCircleMarker(Colors.red);
     if (mounted && widget.storeList != null) {
       _initializeClusterManager();
@@ -198,11 +209,27 @@ class _MapContentState extends State<MapContent> {
       (item) => (item as StoreClusterModel).storeId == _selectedMarkerId,
     );
 
+    final containsSearchResult = cluster.items.any(
+      (item) =>
+          widget.searchResults?.any(
+            (s) => s.storeId == (item as StoreClusterModel).storeId,
+          ) ??
+          false,
+    );
+
     if (cluster.isMultiple) {
+      final color =
+          containsSelected
+              ? Colors.red
+              : containsSearchResult
+              ? Colors.lightGreen
+              : Colors.orange;
+
       final icon = await MapHelper.createCircleMarker(
-        containsSelected ? Colors.red : Colors.orange,
+        color,
         count: cluster.count,
       );
+
       return Marker(
         markerId: MarkerId(cluster.getId()),
         position: cluster.location,
@@ -219,12 +246,24 @@ class _MapContentState extends State<MapContent> {
       );
     } else {
       final storeCluster = cluster.items.first as StoreClusterModel;
+      final isSearchResult =
+          widget.searchResults?.any((s) => s.storeId == storeCluster.storeId) ??
+          false;
       final isSelected = _selectedMarkerId == storeCluster.storeId;
+
+      BitmapDescriptor icon;
+      if (isSelected) {
+        icon = _selectedMarkerIcon!;
+      } else if (isSearchResult) {
+        icon = _searchMarkerIcon!;
+      } else {
+        icon = _defaultMarkerIcon!;
+      }
 
       return Marker(
         markerId: MarkerId(storeCluster.storeId),
         position: cluster.location,
-        icon: isSelected ? _selectedMarkerIcon! : _defaultMarkerIcon!,
+        icon: icon,
         onTap: () {
           final summary = StoreSummaryResponseModel(
             storeId: storeCluster.storeId,
@@ -242,6 +281,7 @@ class _MapContentState extends State<MapContent> {
       );
     }
   };
+
   Future<void> _goToCurrentLocation() async {
     final controller = await _controller.future;
     _positionStream?.cancel();

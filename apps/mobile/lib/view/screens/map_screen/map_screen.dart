@@ -43,11 +43,16 @@ class _MapScreenState extends State<MapScreen> {
                 Selector<MapViewModel, List<StoreResponseModel>>(
                   selector: (context, mapVM) => mapVM.mapStores,
                   builder: (context, mapStores, _) {
-                    return Consumer2<StoreViewModel, MapViewModel>(
-                      builder: (context, storeVM, mapVM, _) {
+                    return Consumer3<
+                      StoreViewModel,
+                      MapViewModel,
+                      SearchViewModel
+                    >(
+                      builder: (context, storeVM, mapVM, searchVM, _) {
                         return Center(
                           child: MapContent(
                             storeList: mapStores,
+                            searchResults: searchVM.searchResults,
                             onStoreSelected: (store) async {
                               mapVM.updateSelectedStore(store);
                               await storeVM.getStoreByRequest(
