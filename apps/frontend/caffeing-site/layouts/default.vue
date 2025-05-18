@@ -53,10 +53,20 @@
 
     <!-- Footer -->
     <footer class="bg-[#030712]/60 text-white py-4 mt-16 text-center">
-      <div class="max-w-screen-lg mx-auto px-4 sm:px-8">
+      <div class="max-w-screen-lg mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
         <p>&copy; {{ currentYear }} Caffeing. All rights reserved.</p>
+        <nav>
+          <ul class="flex space-x-4 text-sm">
+            <li>
+              <NuxtLink to="/privacy" class="hover:underline">
+                {{ $t('nav.privacy') }}
+              </NuxtLink>
+            </li>
+          </ul>
+        </nav>
       </div>
     </footer>
+
   </div>
 </template>
 

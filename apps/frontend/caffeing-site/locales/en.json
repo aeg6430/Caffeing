@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "contact": "Contact",
-    "suggest": "Recommend cafe"
+    "suggest": "Recommend cafe",
+    "privacy":"Privacy Policy"
   },
   "home":{
     "title":"Caffeing",

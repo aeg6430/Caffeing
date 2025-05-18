@@ -2,7 +2,8 @@
   "nav": {
     "home": "首頁",
     "contact": "聯絡我們",
-    "suggest": "推薦店家"
+    "suggest": "推薦店家",
+    "privacy":"隱私權政策"
   },
   "home":{
     "title":"Caffeing",

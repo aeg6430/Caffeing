@@ -2,7 +2,8 @@
   "nav": {
     "home": "ホーム",
     "contact": "お問い合わせ",
-    "suggest": "カフェ推薦"
+    "suggest": "カフェ推薦",
+    "privacy":"プライバシーポリシー"
   },
   "home":{
     "title":"Caffeing",
