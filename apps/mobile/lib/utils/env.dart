@@ -1,13 +1,12 @@
 class Env {
-  static late String _apiUrl;
-  static late String _updateServerUrl;
+  static late String _api_endpoint;
 
   static Future<void> load() async {
-    _apiUrl = const String.fromEnvironment('API_URL', defaultValue: '');
-    _updateServerUrl =
-        const String.fromEnvironment('UPDATE_SERVER_URL', defaultValue: '');
+    _api_endpoint = const String.fromEnvironment(
+      'APP_API_ENDPOINT',
+      defaultValue: '',
+    );
   }
 
-  static String get apiUrl => _apiUrl;
-  static String get updateServerUrl => _updateServerUrl;
+  static String get apiEndpoint => _api_endpoint;
 }

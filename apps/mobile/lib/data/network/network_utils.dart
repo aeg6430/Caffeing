@@ -5,9 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:caffeing/utils/env.dart';
 
 class NetworkUtils {
-  static String? get baseApiUrl => "${Env.apiUrl}/api";
-  static String? get _testApiUrl => "${baseApiUrl}/connections/test";
-  static String? get updateServerUrl => "${Env.updateServerUrl}/api";
+  static String? get baseApiUrl => "${Env.apiEndpoint}";
+  static String? get _testApiUrl => "${baseApiUrl}/test";
 
   static Future<bool> isInternetConnected() async {
     try {
