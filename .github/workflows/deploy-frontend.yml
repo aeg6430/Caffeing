@@ -1,0 +1,45 @@
+name: Deploy Frontend to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main 
+    paths:
+      - 'apps/frontend/caffeing-site/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: ./apps/frontend/caffeing-site
+        run: npm install
+
+      - name: Build Nuxt app
+        working-directory: ./apps/frontend/caffeing-site
+        run: npm run build
+        env:
+          VUE_APP_CLOUDFLARE_TURNSTILE_SITE_KEY: ${{ vars.VUE_APP_CLOUDFLARE_TURNSTILE_SITE_KEY }}
+          NUXT_PUBLIC_SUGGESTION_API: ${{ vars.NUXT_PUBLIC_SUGGESTION_API }}
+          NUXT_PUBLIC_CONTACT_THREADS: ${{ vars.NUXT_PUBLIC_CONTACT_THREADS }}
+          NUXT_PUBLIC_CONTACT_INSTAGRAM: ${{ vars.NUXT_PUBLIC_CONTACT_INSTAGRAM }}
+          NUXT_PUBLIC_CONTACT_EMAIL: ${{ vars.NUXT_PUBLIC_CONTACT_EMAIL }}
+          NUXT_PUBLIC_APPSTORE_URL: ${{ vars.NUXT_PUBLIC_APPSTORE_URL }}
+          NUXT_PUBLIC_PLAYSTORE_URL: ${{ vars.NUXT_PUBLIC_PLAYSTORE_URL }}
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: caffeing
+          directory: ./apps/frontend/caffeing-site/.output/public
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

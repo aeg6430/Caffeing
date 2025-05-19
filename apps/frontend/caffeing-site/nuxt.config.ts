@@ -1,5 +1,9 @@
 import i18n from '@nuxtjs/i18n';
 export default defineNuxtConfig({
+  ssr: true,
+  nitro: {
+    preset: 'cloudflare-pages'
+  },
   modules: ['@nuxtjs/i18n'],
   i18n: {
     langDir: '../locales',
