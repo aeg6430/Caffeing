@@ -49,6 +49,11 @@ export default defineNuxtConfig({
     public: {
       suggestionApi: process.env.NUXT_PUBLIC_SUGGESTION_API || '',
       turnstileSiteKey: process.env.VUE_APP_CLOUDFLARE_TURNSTILE_SITE_KEY || '',
+      contactThreads: process.env.NUXT_PUBLIC_CONTACT_THREADS || '',
+      contactInstagram: process.env.NUXT_PUBLIC_CONTACT_INSTAGRAM || '',
+      contactEmail: process.env.NUXT_PUBLIC_CONTACT_EMAIL || '',
+      appStoreUrl: process.env.NUXT_PUBLIC_APPSTORE_URL || '',
+      playStoreUrl: process.env.NUXT_PUBLIC_PLAYSTORE_URL || '',
     },
   },
   app: {

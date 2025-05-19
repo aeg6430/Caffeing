@@ -19,12 +19,12 @@
             <!-- Download Buttons Wrapper -->
             <div class="flex space-x-6 mt-6 sm:space-x-8">
                 <!-- iOS Download -->
-                <a href="https://apps.apple.com/app/caffeing" target="_blank" class="flex items-center">
+                <a :href="appStoreUrl" target="_blank" class="flex items-center">
                     <img src="/assets/third_party_icons/apple_store.svg" alt="Download on iOS" class="h-8" />
                 </a>
+
                 <!-- Android Download -->
-                <a href="https://play.google.com/store/apps/details?id=caffeing" target="_blank"
-                    class="flex items-center">
+                <a :href="playStoreUrl" target="_blank" class="flex items-center">
                     <img src="/assets/third_party_icons/google_play.png" alt="Download on Android" class="h-8" />
                 </a>
             </div>
@@ -42,4 +42,8 @@ defineProps({
         required: true,
     },
 });
+
+const config = useRuntimeConfig();
+const appStoreUrl = config.public.appStoreUrl;
+const playStoreUrl = config.public.playStoreUrl;
 </script>
