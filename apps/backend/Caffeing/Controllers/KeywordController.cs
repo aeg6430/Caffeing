@@ -1,11 +1,12 @@
 ﻿using Caffeing.Application.IServices.Caffeing.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
     [Route("api/keywords")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class KeywordController : ControllerBase
     {
         private readonly ILogger<KeywordController> _logger;

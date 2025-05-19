@@ -1,12 +1,13 @@
 ﻿using Caffeing.Application.Contracts.Search;
 using Caffeing.Application.IServices.Caffeing.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
     [Route("api/search")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class SearchController : ControllerBase
     {
         private readonly ILogger<SearchController> _logger;

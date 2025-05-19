@@ -1,12 +1,13 @@
 ﻿using Caffeing.Application.Contracts.Stores;
 using Caffeing.Application.IServices.Caffeing.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
     [Route("api/stores")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class StoreController : ControllerBase
     {
         private readonly ILogger<StoreController> _logger;
