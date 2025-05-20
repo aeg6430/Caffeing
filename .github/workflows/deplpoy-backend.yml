@@ -65,7 +65,7 @@ jobs:
           ASPNETCORE_ENVIRONMENT=Production
           Logging__LogLevel__Default=Information
           Logging__LogLevel__Microsoft.AspNetCore=Warning
-          Cors__AllowedOrigins__0=https://api.caffeing.com
+          Cors__AllowedOrigins__0=${{ secrets.BACKEND_CORS_ORIGIN_0 }}
           Cors__AllowedMethods__0=GET
           Cors__AllowedMethods__1=POST
           Cors__AllowedMethods__2=PUT
