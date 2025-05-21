@@ -1,11 +1,9 @@
 name: Deploy .NET WebAPI to GCP Cloud Run
-
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-
 env:
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GCP_REGION: us-central1
@@ -13,29 +11,23 @@ env:
   SOLUTION_PATH: apps/backend/Caffeing/Caffeing.sln
   WEBAPI_PROJECT_PATH: apps/backend/Caffeing/Caffeing.WebAPI.csproj
   PUBLISH_DIR: ./publish_output
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'
       id-token: 'write'
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.16'
-
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.SOLUTION_PATH }}
-
     - name: Build solution
       run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
-
     - name: Publish WebAPI project
       # Publishes the Caffeing.WebAPI project.
       # --configuration Release: Builds in Release mode.
@@ -45,15 +37,12 @@ jobs:
       # --runtime linux-x64: Targets a Linux x64 runtime, suitable for Cloud Run.
       # /p:UseAppHost=true: Ensures an executable is created.
       run: dotnet publish ${{ env.WEBAPI_PROJECT_PATH }} --configuration Release --output ${{ env.PUBLISH_DIR }} --no-build --self-contained true --runtime linux-x64 /p:UseAppHost=true
-
     - name: Google Auth
       # Authenticates with Google Cloud using Workload Identity Federation
       uses: google-github-actions/auth@v2
       with:
         workload_identity_provider: projects/671405420443/locations/global/workloadIdentityPools/github-pool/providers/github-provider
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
-
-
     - name: Deploy to Cloud Run
       # Deploys the published application to Google Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2
@@ -89,7 +78,5 @@ jobs:
           Database__Connection__ConnectTimeout=30
           Turnstile__SecretKey=${{ secrets.TURNSTILE_SECRET_KEY }}
           Keystone__Endpoint=${{ secrets.KEYSTONE_ENDPOINT_URL }}
-
-
     - name: Show Cloud Run service URL
       run: echo "Cloud Run service URL: https://${{ env.GCP_REGION }}-run.googleapis.com/v1/projects/${{ env.GCP_PROJECT_ID }}/locations/${{ env.GCP_REGION }}/services/${{ env.SERVICE_NAME }}"
