@@ -81,4 +81,5 @@ jobs:
           Keystone__Endpoint=${{ secrets.KEYSTONE_ENDPOINT_URL }}
 
     - name: Cloud Run service URL
-      run: echo "Cloud Run service URL: https://${{ env.GCP_REGION }}-run.googleapis.com/v1/projects/${{ env.GCP_PROJECT_ID }}/locations/${{ env.GCP_REGION }}/services/${{ env.SERVICE_NAME }}"
+      run: |
+        echo "Cloud Run service URL: https://${{ env.GCP_REGION }}-run.googleapis.com/v1/projects/${{ env.GCP_PROJECT_ID }}/locations/${{ env.GCP_REGION }}/services/${{ env.SERVICE_NAME }}"
