@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main 
-    paths:
-      - 'apps/frontend/caffeing-site/**'
 permissions:
   contents: read
   deployments: write
