@@ -42,5 +42,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: caffeing
-          directory: ./apps/frontend/caffeing-site/.output/public
+          directory: ./apps/frontend/caffeing-site/dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
