@@ -30,6 +30,10 @@ jobs:
       with:
         dotnet-version: '8.0.409'
 
+    - name: Check .NET SDK
+      run: dotnet --list-sdks
+
+
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.SOLUTION_PATH }}
 
