@@ -11,7 +11,7 @@ env:
   GCP_REGION: us-central1
   SERVICE_NAME: caffeing-webapi
   SOLUTION_PATH: apps/backend/Caffeing/Caffeing.sln
-  WEBAPI_PROJECT_PATH: apps/backend/Caffeing/Caffeing.WebAPI.csproj
+  WEBAPI_PROJECT_PATH: ${{ github.workspace }}/apps/backend/Caffeing/Caffeing.WebAPI.csproj
   PUBLISH_DIR: ./publish_output
 
 jobs:

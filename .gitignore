@@ -129,7 +129,7 @@ apps/backend/**/*.user
 apps/backend/**/*.suo
 apps/backend/**/*.userosscache
 apps/backend/**/*.sln.docstates
-
+apps/backend/**/publish_output
 # Rider
 apps/backend/**/.idea/
 
