@@ -37,11 +37,12 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.SOLUTION_PATH }}
 
-    - name: Build solution
+    - name: Build Solution
       run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
 
-    - name: Publish WebAPI project
-      run: dotnet publish ${{ env.WEBAPI_PROJECT_PATH }} --configuration Release --output ${{ env.PUBLISH_DIR }} --no-build --self-contained true --runtime linux-x64 /p:UseAppHost=true
+    - name: Publish Solution
+      run: dotnet publish ${{ env.SOLUTION_PATH }} --configuration Release --output ${{ env.PUBLISH_DIR }} --self-contained true --runtime linux-x64
+
 
     - name: Google Auth
       uses: google-github-actions/auth@v2
