@@ -28,7 +28,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.16'
+        dotnet-version: '8.0.5'
 
     - name: Restore NuGet packages
       run: dotnet restore ${{ env.SOLUTION_PATH }}
