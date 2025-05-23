@@ -8,7 +8,7 @@ on:
       - 'apps/mobile/**' 
       - '.github/workflows/android_build.yml'
     
-    pull_request:
+  pull_request:  
     paths:
       - 'apps/mobile/**' 
       - '.github/workflows/android_build.yml'
@@ -17,7 +17,7 @@ on:
 
 jobs:
   build_android:
-    runs-on: ubuntu-latest # Use an Ubuntu runner for building Android
+    runs-on: ubuntu-latest 
 
     steps:
       - name: Checkout code
@@ -28,22 +28,22 @@ jobs:
         with:
           channel: stable 
 
-      - name: Navigate to project directory
-        run: cd apps/mobile
-
       - name: Get dependencies
-        run: |
-          cd apps/mobile 
-          flutter pub get
+        working-directory: apps/mobile
+        run: flutter pub get
 
       - name: Build Production APK
+        working-directory: apps/mobile
         run: |
-          cd apps/mobile 
           flutter build apk --release \
             --dart-define=APP_API_ENDPOINT=${{ secrets.APP_PROD_API_ENDPOINT }}
+
+      - name: Verify APK Exists
+        working-directory: apps/mobile
+        run: test -f build/app/outputs/apk/release/app-release.apk || exit 1
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: production-apk
-          path: apps/mobile/build/app/outputs/apk/release/app-release.apk 
+          path: apps/mobile/build/app/outputs/apk/release/app-release.apk
