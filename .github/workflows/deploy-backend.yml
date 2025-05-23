@@ -1,4 +1,4 @@
-name: Deploy .NET WebAPI to GCP Cloud Run
+name: Build and Deploy .NET WebAPI to Cloud Run
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'apps/backend/**'
-
   pull_request:
     paths:
       - 'apps/backend/**'
@@ -14,11 +13,10 @@ on:
 
 env:
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  GCP_REGION: us-central1
+  GCP_REGION: asia-east1
   SERVICE_NAME: caffeing-webapi
-  SOLUTION_PATH: apps/backend/Caffeing/Caffeing.sln
-  WEBAPI_PROJECT_PATH: ${{ github.workspace }}/apps/backend/Caffeing/Caffeing.WebAPI.csproj
-  PUBLISH_DIR: ./publish_output
+  IMAGE_NAME: caffeing-webapi
+  REPO_NAME: caffeing-api
 
 jobs:
   build-and-deploy:
@@ -28,7 +26,7 @@ jobs:
       id-token: write
 
     steps:
-    - name: Checkout code
+    - name: Checkout source code
       uses: actions/checkout@v4
 
     - name: Setup .NET SDK
@@ -36,32 +34,30 @@ jobs:
       with:
         dotnet-version: '8.0.409'
 
-    - name: Check .NET SDK
-      run: dotnet --list-sdks
-
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{ env.SOLUTION_PATH }}
-
-    - name: Build Solution
-      run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
-
-    - name: Publish Solution
-      run: dotnet publish ${{ env.SOLUTION_PATH }} --configuration Release --output ${{ env.PUBLISH_DIR }} --self-contained true --runtime linux-x64
-
-
-    - name: Google Auth
+    - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
         workload_identity_provider: projects/671405420443/locations/global/workloadIdentityPools/github-pool/providers/github-provider
         service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+    - name: Configure Docker to use gcloud
+      run: gcloud auth configure-docker asia-east1-docker.pkg.dev --quiet
+
+    - name: Set IMAGE_URI environment variable
+      run: echo "IMAGE_URI=${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.IMAGE_NAME }}" >> $GITHUB_ENV
+
+    - name: Build and push Docker image to Artifact Registry
+      run: |
+        echo "Building Docker image: $IMAGE_URI"
+        docker build -t $IMAGE_URI -f apps/backend/Caffeing/Dockerfile .
+        docker push $IMAGE_URI
 
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2
       with:
         service: ${{ env.SERVICE_NAME }}
         region: ${{ env.GCP_REGION }}
-        source: ${{ env.PUBLISH_DIR }}
+        image: ${{ env.IMAGE_URI }}
         env_vars: |
           ASPNETCORE_ENVIRONMENT=Production
           Logging__LogLevel__Default=Information
@@ -91,6 +87,6 @@ jobs:
           Turnstile__SecretKey=${{ secrets.TURNSTILE_SECRET_KEY }}
           Keystone__Endpoint=${{ secrets.KEYSTONE_ENDPOINT_URL }}
 
-    - name: Cloud Run service URL
+    - name: Output deployed service URL
       run: |
-        echo "Cloud Run service URL: https://${{ env.GCP_REGION }}-run.googleapis.com/v1/projects/${{ env.GCP_PROJECT_ID }}/locations/${{ env.GCP_REGION }}/services/${{ env.SERVICE_NAME }}"
+        echo "Deployed to: https://${{ env.GCP_REGION }}-run.googleapis.com/v1/projects/${{ env.GCP_PROJECT_ID }}/locations/${{ env.GCP_REGION }}/services/${{ env.SERVICE_NAME }}"
