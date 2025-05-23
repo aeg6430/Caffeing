@@ -6,7 +6,12 @@ on:
       - main 
     paths:
       - 'apps/mobile/**' 
-      - '.github/workflows/android_build.yml' 
+      - '.github/workflows/android_build.yml'
+    
+    pull_request:
+    paths:
+      - 'apps/mobile/**' 
+      - '.github/workflows/android_build.yml'
 
   workflow_dispatch:
 

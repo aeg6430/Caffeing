@@ -3,7 +3,13 @@ name: Deploy Frontend to Cloudflare Pages via Wrangler
 on:
   push:
     branches:
-      - main 
+      - main
+    paths:
+      - 'apps/frontend/**'
+
+  pull_request:
+    paths:
+      - 'apps/frontend/**' 
 permissions:
   contents: read
   deployments: write
