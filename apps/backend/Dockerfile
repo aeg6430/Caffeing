@@ -15,7 +15,7 @@ COPY Caffeing.Domain/*.csproj Caffeing.Domain/
 COPY Caffeing.IntakeService/*.csproj Caffeing.IntakeService/
 
 # Restore using the solution
-RUN dotnet restore ./Caffeing.sln
+RUN dotnet restore ./Caffeing/Caffeing.sln
 
 # Copy the full source and build
 COPY . ./
