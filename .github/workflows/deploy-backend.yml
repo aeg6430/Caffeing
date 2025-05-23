@@ -50,7 +50,7 @@ jobs:
     - name: Build and push Docker image to Artifact Registry
       run: |
         echo "Building Docker image: $IMAGE_URI"
-        docker build -t $IMAGE_URI -f apps/backend/Caffeing/Dockerfile .
+        docker build -t $IMAGE_URI -f apps/backend/Dockerfile apps/backend
         docker push $IMAGE_URI
 
     - name: Deploy to Cloud Run
