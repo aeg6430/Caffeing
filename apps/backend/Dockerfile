@@ -7,15 +7,15 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy everything in Caffeing directory, preserving structure
-COPY Caffeing/ Caffeing/
+# Copy project files
+COPY Caffeing.WebAPI/ Caffeing.WebAPI/
 COPY Caffeing.Application/*.csproj Caffeing.Application/
 COPY Caffeing.Infrastructure/*.csproj Caffeing.Infrastructure/
 COPY Caffeing.Domain/*.csproj Caffeing.Domain/
 COPY Caffeing.IntakeService/*.csproj Caffeing.IntakeService/
 
 # Restore using the solution
-RUN dotnet restore ./Caffeing/Caffeing.sln
+RUN dotnet restore ./Caffeing.WebAPI/Caffeing.sln
 
 # Copy the full source and build
 COPY . ./
