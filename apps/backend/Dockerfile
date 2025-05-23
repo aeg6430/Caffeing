@@ -20,7 +20,7 @@ RUN dotnet restore ./Caffeing.WebAPI/Caffeing.sln
 # Copy the full source and build
 COPY . ./
 WORKDIR /src/Caffeing.WebAPI
-RUN dotnet publish -c Release -o /app/publish --no-restore --self-contained true --runtime linux-x64
+RUN dotnet publish Caffeing.WebAPI.csproj -c Release -o /app/publish --no-restore --self-contained true --runtime linux-x64
 
 # Final image
 FROM base AS final
