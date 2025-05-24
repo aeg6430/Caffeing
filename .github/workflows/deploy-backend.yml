@@ -56,27 +56,27 @@ jobs:
     - name: Write env vars to file
       run: |
         cat <<EOF > env.yaml
-        ASPNETCORE_ENVIRONMENT: Production
-        Logging__LogLevel__Default: Information
-        Logging__LogLevel__Microsoft.AspNetCore: Warning
-        Cors__AllowedOrigins__0: ${{ secrets.BACKEND_CORS_ORIGIN_0 }}
-        Cors__AllowedMethods__0: GET
-        Cors__AllowedMethods__1: POST
-        Cors__AllowedMethods__2: PUT
-        Cors__AllowedMethods__3: DELETE
-        Cors__AllowedHeaders__0: Content-Type
-        Cors__AllowedHeaders__1: Authorization
-        Serilog__MinimumLevel__Default: Information
-        Serilog__MinimumLevel__Override__Microsoft: Warning
-        Serilog__MinimumLevel__Override__System: Warning
-        Jwt__Key: ${{ secrets.JWT_KEY }}
-        Jwt__Issuer: com.caffeing
-        Jwt__Audience: com.caffeing.app
-        Jwt__ExpiresInMinutes: 60
-        Database__Provider: PostgreSql
-        Database__ConnectionString: ${{ secrets.DB_CONNECTION_STRING }}
-        Turnstile__SecretKey: ${{ secrets.TURNSTILE_SECRET_KEY }}
-        Keystone__Endpoint: ${{ secrets.KEYSTONE_ENDPOINT_URL }}
+        ASPNETCORE_ENVIRONMENT: "Production"
+        Logging__LogLevel__Default: "Information"
+        Logging__LogLevel__Microsoft.AspNetCore: "Warning"
+        Cors__AllowedOrigins__0: "${{ secrets.BACKEND_CORS_ORIGIN_0 }}"
+        Cors__AllowedMethods__0: "GET"
+        Cors__AllowedMethods__1: "POST"
+        Cors__AllowedMethods__2: "PUT"
+        Cors__AllowedMethods__3: "DELETE"
+        Cors__AllowedHeaders__0: "Content-Type"
+        Cors__AllowedHeaders__1: "Authorization"
+        Serilog__MinimumLevel__Default: "Information"
+        Serilog__MinimumLevel__Override__Microsoft: "Warning"
+        Serilog__MinimumLevel__Override__System: "Warning"
+        Jwt__Key: "${{ secrets.JWT_KEY }}"
+        Jwt__Issuer: "com.caffeing"
+        Jwt__Audience: "com.caffeing.app"
+        Jwt__ExpiresInMinutes: "60"
+        Database__Provider: "PostgreSql"
+        Database__ConnectionString: "${{ secrets.DB_CONNECTION_STRING }}"
+        Turnstile__SecretKey: "${{ secrets.TURNSTILE_SECRET_KEY }}"
+        Keystone__Endpoint: "${{ secrets.KEYSTONE_ENDPOINT_URL }}"
         EOF
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2
