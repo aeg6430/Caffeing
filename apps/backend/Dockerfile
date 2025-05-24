@@ -26,4 +26,5 @@ RUN dotnet publish Caffeing.WebAPI.csproj -c Release -o /app/publish --no-restor
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["./Caffeing.WebAPI"]
+ENTRYPOINT ["dotnet", "Caffeing.WebAPI.dll"]
+
