@@ -24,11 +24,6 @@ try
     var builder = WebApplication.CreateBuilder(args);
     builder.Host.UseSerilog();
 
-    if (builder.Environment.IsDevelopment())
-    {
-        builder.WebHost.UseUrls("http://0.0.0.0:5195");
-    }
-
     var startup = new Startup(builder.Configuration);
     startup.ConfigureServices(builder.Services);
 
