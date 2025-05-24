@@ -3,18 +3,13 @@ using Caffeing;
 using System.Reflection;
 
 var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables()
     .Build();
 
 Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(configuration)
-    .Enrich.FromLogContext()
-    .Enrich.WithEnvironmentName()
-    .Enrich.WithThreadId()
-    .Enrich.WithProcessId()
     .WriteTo.Console()
-    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day) // for dev
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day) 
     .CreateLogger();
 
 try
@@ -30,7 +25,13 @@ try
         builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
     }
 
-    builder.Host.UseSerilog();
+    builder.Host.UseSerilog((context, services, config) =>
+    {
+        config
+            .ReadFrom.Configuration(configuration)
+            .Enrich.FromLogContext()
+            .WriteTo.Console();
+    });
 
 
     var startup = new Startup(builder.Configuration);
