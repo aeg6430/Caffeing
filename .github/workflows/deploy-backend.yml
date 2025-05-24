@@ -53,7 +53,7 @@ jobs:
         docker push $IMAGE_URI
     
     - name: Debug Cloud SQL Connection Name
-      run: echo "Cloud SQL Connection Name: ${{ secrets.CLOUD_SQL_CONNECTION_NAME }}"
+      run: echo "Cloud SQL Connection Name : ${{ secrets.CLOUD_SQL_CONNECTION_NAME }}"
 
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2
