@@ -21,8 +21,17 @@ try
 {
     Log.Information("Starting up");
 
+
     var builder = WebApplication.CreateBuilder(args);
+
+    if (Environment.GetEnvironmentVariable("USE_CUSTOM_PORT") == "true")
+    {
+        var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+        builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+    }
+
     builder.Host.UseSerilog();
+
 
     var startup = new Startup(builder.Configuration);
     startup.ConfigureServices(builder.Services);

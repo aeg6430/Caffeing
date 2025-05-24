@@ -25,7 +25,10 @@ RUN dotnet publish Caffeing.WebAPI.csproj -c Release -o /app/publish --no-restor
 # Final image
 FROM base AS final
 WORKDIR /app
+
+ENV USE_CUSTOM_PORT=true
+ENV PORT=8080
+
 COPY --from=build /app/publish .
-ENV ASPNETCORE_URLS=http://0.0.0.0:8080
 ENTRYPOINT ["dotnet", "Caffeing.WebAPI.dll"]
 
