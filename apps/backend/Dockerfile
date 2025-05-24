@@ -26,9 +26,6 @@ RUN dotnet publish Caffeing.WebAPI.csproj -c Release -o /app/publish --no-restor
 FROM base AS final
 WORKDIR /app
 
-ENV USE_CUSTOM_PORT=true
-ENV PORT=8080
-
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "Caffeing.WebAPI.dll"]
 
