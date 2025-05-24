@@ -6,7 +6,6 @@ namespace Caffeing.WebAPI.Controllers
 {
     [Route("api/test")]
     [ApiController]
-    [Authorize]
     public class TestController : ControllerBase
     {
         private readonly ILogger<TestController> _logger;
