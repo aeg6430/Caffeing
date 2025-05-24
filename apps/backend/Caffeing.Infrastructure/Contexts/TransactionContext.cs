@@ -26,7 +26,7 @@ public class TransactionContext : IDisposable
             ? parsedProvider
             : throw new NotSupportedException($"Invalid provider: {_settings.Provider}");
 
-        var connectionString = BuildConnectionString(_settings, provider);
+        var connectionString = _settings.ConnectionString;
 
         switch (provider)
         {
@@ -40,29 +40,7 @@ public class TransactionContext : IDisposable
                 throw new NotSupportedException($"Provider {provider} is not supported.");
         }
     }
-
-    private string BuildConnectionString(DatabaseSettings settings, DbProvider provider)
-    {
-        var connect = settings.Connection;
-        switch (provider)
-        {
-            case DbProvider.SqlServer:
-                return $"Data Source={connect.DataSource};Initial Catalog={connect.InitialCatalog};User ID={connect.UserId};Password={connect.Password};" +
-                       $"Pooling={connect.Pooling};Max Pool Size={connect.MaxPoolSize};Connect Timeout={connect.ConnectTimeout};";
-
-            case DbProvider.PostgreSql:
-                return $"Host={connect.DataSource};Database={connect.InitialCatalog};Username={connect.UserId};Password={connect.Password};" +
-                       $"Pooling={connect.Pooling};Command Timeout={connect.ConnectTimeout};";
-
-            case DbProvider.MySql:
-                return $"Server={connect.DataSource};Database={connect.InitialCatalog};User={connect.UserId};Password={connect.Password};" +
-                       $"Pooling={connect.Pooling};Max Pool Size={connect.MaxPoolSize};Connect Timeout={connect.ConnectTimeout};";
-
-            default:
-                throw new NotSupportedException($"Provider {provider} is not supported.");
-        }
-    }
-
+ 
     /// <summary>
     /// Executes a database operation inside a transaction.
     /// This method opens a connection, begins a transaction, executes the operation, and commits the transaction.

@@ -78,13 +78,7 @@ jobs:
           Jwt__Audience=com.caffeing.app
           Jwt__ExpiresInMinutes=60
           Database__Provider=PostgreSql
-          Database__Connection__DataSource=${{ secrets.DB_DATA_SOURCE }}
-          Database__Connection__InitialCatalog=${{ secrets.DB_INITIAL_CATALOG }}
-          Database__Connection__UserId=${{ secrets.DB_USER_ID }}
-          Database__Connection__Password=${{ secrets.DB_PASSWORD }}
-          Database__Connection__Pooling=true
-          Database__Connection__MaxPoolSize=100
-          Database__Connection__ConnectTimeout=30
+          Database__ConnectionString=${{ secrets.DB_CONNECTION_STRING }}
           Turnstile__SecretKey=${{ secrets.TURNSTILE_SECRET_KEY }}
           Keystone__Endpoint=${{ secrets.KEYSTONE_ENDPOINT_URL }}
 
