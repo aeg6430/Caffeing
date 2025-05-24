@@ -80,7 +80,7 @@ jobs:
         EOF
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2
-            with:
+      with:
         service: ${{ env.SERVICE_NAME }}
         region: ${{ env.GCP_REGION }}
         image: ${{ env.IMAGE_URI }}
