@@ -48,11 +48,10 @@ jobs:
 
     - name: Build and push Docker image to Artifact Registry
       run: |
+        set -e
         echo "Building Docker image: $IMAGE_URI"
         docker build -t $IMAGE_URI -f apps/backend/Dockerfile apps/backend
         docker push $IMAGE_URI
-    - name: Debug Cloud SQL Connection Name
-      run: echo "Cloud SQL Connection Name:${{ secrets.CLOUD_SQL_CONNECTION_NAME }}"
     - name: Write env vars to file
       run: |
         cat <<EOF > env.yaml
@@ -80,6 +79,7 @@ jobs:
         EOF
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2
+      continue-on-error: false
       with:
         service: ${{ env.SERVICE_NAME }}
         region: ${{ env.GCP_REGION }}
