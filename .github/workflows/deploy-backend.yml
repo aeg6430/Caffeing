@@ -68,6 +68,7 @@ jobs:
         Serilog__MinimumLevel__Default: "Information"
         Serilog__MinimumLevel__Override__Microsoft: "Warning"
         Serilog__MinimumLevel__Override__System: "Warning"
+        Firebase__ProjectId: "${{ secrets.FIREBASE_PROJECT_ID }}"
         Jwt__Key: "${{ secrets.JWT_KEY }}"
         Jwt__Issuer: "com.caffeing"
         Jwt__Audience: "com.caffeing.app"

@@ -11,8 +11,8 @@ namespace Caffeing.WebAPI
             if (FirebaseApp.DefaultInstance == null)
             {
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
                 GoogleCredential credential;
+                AppOptions options = new();
 
                 if (env == "Development")
                 {
@@ -27,16 +27,22 @@ namespace Caffeing.WebAPI
                     }
 
                     credential = GoogleCredential.FromFile(path);
+                    options.Credential = credential;
                 }
                 else
                 {
                     credential = GoogleCredential.GetApplicationDefault();
+                    var projectId = configuration["Firebase:ProjectId"];
+                    if (string.IsNullOrWhiteSpace(projectId))
+                    {
+                        throw new InvalidOperationException("Firebase:ProjectId is not set in production.");
+                    }
+
+                    options.Credential = credential;
+                    options.ProjectId = projectId;
                 }
 
-                FirebaseApp.Create(new AppOptions
-                {
-                    Credential = credential
-                });
+                FirebaseApp.Create(options);
             }
 
             services.AddSingleton(FirebaseApp.DefaultInstance);
