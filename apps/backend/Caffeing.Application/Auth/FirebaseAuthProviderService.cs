@@ -34,19 +34,22 @@ namespace Caffeing.Application.Auth
                     Provider = "firebase"
                 };
             }
-            catch (FirebaseAuthException e) when (e.AuthErrorCode == AuthErrorCode.ExpiredIdToken)
-            {
-                throw new InvalidOperationException("Token has expired.", e);
-            }
             catch (FirebaseAuthException e)
             {
-                throw new InvalidOperationException($"Firebase authentication failed: {e.AuthErrorCode}", e);
+                Console.WriteLine($"[FirebaseAuth Error] Code: {e.AuthErrorCode}, Message: {e.Message}");
+
+                return e.AuthErrorCode switch
+                {
+                    AuthErrorCode.ExpiredIdToken => throw new InvalidOperationException("Token has expired.", e),
+                    AuthErrorCode.RevokedIdToken => throw new InvalidOperationException("Token has been revoked.", e),
+                    _ => throw new InvalidOperationException($"Firebase authentication failed: {e.AuthErrorCode}", e)
+                };
             }
             catch (Exception e)
             {
+                Console.WriteLine($"[FirebaseAuth Unexpected Error] {e}");
                 throw new InvalidOperationException("Invalid or expired token.", e);
             }
         }
     }
-
 }

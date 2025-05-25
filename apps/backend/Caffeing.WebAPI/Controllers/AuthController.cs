@@ -33,6 +33,16 @@ namespace Caffeing.WebAPI.Controllers
                 _logger.LogInformation("User successfully logged in with provider request: {@Request}", request);
                 return Ok(userDto);
             }
+            catch (InvalidOperationException ex) when (ex.InnerException is FirebaseAdmin.Auth.FirebaseAuthException)
+            {
+                _logger.LogWarning(ex, "Authentication failed due to invalid or expired token.");
+                return Unauthorized("Invalid or expired token.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Authentication failed: {Message}", ex.Message);
+                return Unauthorized(ex.Message);
+            }
             catch (Exception e)
             {
                 _logger.LogError(e, "Login failed due to unexpected error.");
