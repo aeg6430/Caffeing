@@ -1,0 +1,73 @@
+name: Build and Deploy CMS to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/cms/**'
+  pull_request:
+    paths:
+      - 'apps/cms/**'
+  workflow_dispatch:
+
+env:
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GCP_REGION: asia-east1
+  SERVICE_NAME: caffeing-cms
+  IMAGE_NAME: caffeing-cms
+  REPO_NAME: caffeing-cms
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js 22
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: projects/671405420443/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+        service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+    - name: Configure Docker to use gcloud
+      run: gcloud auth configure-docker asia-east1-docker.pkg.dev --quiet
+
+    - name: Set IMAGE_URI environment variable
+      run: echo "IMAGE_URI=${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.IMAGE_NAME }}" >> $GITHUB_ENV
+
+    - name: Build and push Docker image to Artifact Registry
+      run: |
+        set -e
+        echo "Building Docker image: $IMAGE_URI"
+        docker build -t $IMAGE_URI -f apps/cms/Dockerfile apps/cms
+        docker push $IMAGE_URI
+
+    - name: Write .env file
+      run: |
+        cat <<EOF > apps/cms/.env
+        DATABASE_URL=${{ secrets.DB_CONNECTION_STRING_CMS }}
+        CORS_ORIGIN=${{ secrets.CMS_CORS_ORIGINS }}
+        EOF
+
+    - name: Deploy to Cloud Run
+      uses: google-github-actions/deploy-cloudrun@v2
+      continue-on-error: false
+      with:
+        service: ${{ env.SERVICE_NAME }}
+        region: ${{ env.GCP_REGION }}
+        image: ${{ env.IMAGE_URI }}
+
+    - name: Output deployed service URL
+      run: |
+        echo "Deployed to: https://${{ env.GCP_REGION }}-run.googleapis.com/v1/projects/${{ env.GCP_PROJECT_ID }}/locations/${{ env.GCP_REGION }}/services/${{ env.SERVICE_NAME }}"
