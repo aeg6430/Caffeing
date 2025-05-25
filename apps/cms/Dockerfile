@@ -17,7 +17,7 @@ COPY package*.json ./
 RUN npm install --omit=dev
 
 COPY --from=builder /app .
-
-EXPOSE 3000
+ENV PORT=8080
+EXPOSE 8080
 
 CMD ["npm", "start"]
