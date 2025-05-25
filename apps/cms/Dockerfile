@@ -1,5 +1,6 @@
 FROM node:22-slim AS builder
 
+RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
 
 COPY package*.json ./
