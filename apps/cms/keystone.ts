@@ -18,7 +18,7 @@ export default withAuth(
         origin: allowedOrigins, 
         credentials: true, 
       },
-      port: Number(process.env.PORT) || 3000,
+      port: parseInt(process.env.PORT || "3000", 10),
       maxFileSize: 200 * 1024 * 1024,
       extendExpressApp,
     },
