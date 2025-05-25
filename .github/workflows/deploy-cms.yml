@@ -53,13 +53,6 @@ jobs:
         docker build -t $IMAGE_URI -f apps/cms/Dockerfile apps/cms
         docker push $IMAGE_URI
 
-    - name: Write .env file
-      run: |
-        cat <<EOF > apps/cms/.env
-        DATABASE_URL=${{ secrets.DB_CONNECTION_STRING_CMS }}
-        CORS_ORIGIN=${{ secrets.CMS_CORS_ORIGINS }}
-        EOF
-
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2
       continue-on-error: false
@@ -67,6 +60,9 @@ jobs:
         service: ${{ env.SERVICE_NAME }}
         region: ${{ env.GCP_REGION }}
         image: ${{ env.IMAGE_URI }}
+        env_vars: |
+          DATABASE_URL=${{ secrets.DB_CONNECTION_STRING_CMS }}
+          CORS_ORIGIN=${{ secrets.CMS_CORS_ORIGINS }}
 
     - name: Output deployed service URL
       run: |
