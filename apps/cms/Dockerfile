@@ -1,18 +1,26 @@
 FROM node:22-slim AS builder
 
-RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app
+
+# Install system dependencies (needed for Prisma + OpenSSL)
+RUN apt-get update && apt-get install -y openssl
 
 COPY package*.json ./
 RUN npm install
 
 COPY . .
 
+# Generate Prisma client
+RUN npx prisma generate
+
 RUN npm run build
 
 FROM node:22-slim
 
 WORKDIR /app
+
+# Install OpenSSL again (for runtime Prisma engine)
+RUN apt-get update && apt-get install -y openssl
 
 COPY package*.json ./
 RUN npm install --omit=dev
