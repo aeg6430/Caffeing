@@ -31,7 +31,13 @@ namespace Caffeing.WebAPI
                 }
                 else
                 {
-                    credential = GoogleCredential.GetApplicationDefault();
+                    credential = GoogleCredential.GetApplicationDefault()
+                            .CreateScoped(new[]
+                            {
+                                "https://www.googleapis.com/auth/firebase",
+                                "https://www.googleapis.com/auth/identitytoolkit"
+                            });
+
                     var projectId = configuration["Firebase:ProjectId"];
                     if (string.IsNullOrWhiteSpace(projectId))
                     {
