@@ -38,7 +38,7 @@ jobs:
       uses: google-github-actions/auth@v2
       with:
         workload_identity_provider: projects/671405420443/locations/global/workloadIdentityPools/github-pool/providers/github-provider
-        service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+        service_account: ${{ secrets.CMS_SERVICE_ACCOUNT }}
 
     - name: Configure Docker to use gcloud
       run: gcloud auth configure-docker asia-east1-docker.pkg.dev --quiet
