@@ -1,35 +1,45 @@
 import { Request, Response, NextFunction } from "express";
-import { OAuth2Client, TokenPayload } from "google-auth-library";
+import jwt, { JwtHeader, SigningKeyCallback } from "jsonwebtoken";
+import jwksClient from "jwks-rsa";
 
 const IAP_JWT_HEADER = "x-goog-iap-jwt-assertion";
 const IAP_CLIENT_ID = process.env.IAP_CLIENT_ID || "";
 
-const oauthClient = new OAuth2Client();
+const client = jwksClient({
+  jwksUri: "https://www.gstatic.com/iap/verify/public_key-jwk",
+});
 
-export async function validateIapJwt(req: Request, res: Response, next: NextFunction) {
+function getKey(header: JwtHeader, callback: SigningKeyCallback) {
+  client.getSigningKey(header.kid!, (err, key) => {
+    const signingKey = key?.getPublicKey();
+    callback(err, signingKey);
+  });
+}
+
+export function validateIapJwt(req: Request, res: Response, next: NextFunction) {
   const jwtAssertion = req.header(IAP_JWT_HEADER);
-  if (!jwtAssertion) {
-    return res.status(401).send("No IAP JWT found");
-  }
+  if (!jwtAssertion) return res.status(401).send("No IAP JWT found");
 
-  try {
-    const ticket = await oauthClient.verifyIdToken({
-      idToken: jwtAssertion,
+  jwt.verify(
+    jwtAssertion,
+    getKey,
+    {
       audience: IAP_CLIENT_ID,
-    });
+      issuer: "https://cloud.google.com/iap",
+      algorithms: ["ES256"],
+    },
+    (err, decoded: any) => {
+      if (err) {
+        console.error("IAP JWT validation failed:", err);
+        return res.status(403).send("Forbidden - Invalid JWT");
+      }
 
-    const payload: TokenPayload | undefined = ticket.getPayload();
-    if (!payload) throw new Error("Invalid payload");
+      (req as any).user = {
+        email: decoded.email,
+        sub: decoded.sub,
+      };
 
-    (req as any).user = {
-      email: payload.email,
-      name: payload.name,
-      sub: payload.sub,
-    };
-
-    next();
-  } catch (err) {
-    console.error("IAP JWT validation failed:", err);
-    res.status(403).send("Forbidden - Invalid JWT");
-  }
+      next();
+    }
+  );
 }
