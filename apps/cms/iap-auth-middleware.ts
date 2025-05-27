@@ -1,38 +1,35 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
-import axios from "axios";
+import { OAuth2Client, TokenPayload } from "google-auth-library";
 
 const IAP_JWT_HEADER = "x-goog-iap-jwt-assertion";
-const IAP_ISSUER = "https://cloud.google.com/iap";
-const IAP_CLIENT_ID = process.env.IAP_CLIENT_ID || ""; 
+const IAP_CLIENT_ID = process.env.IAP_CLIENT_ID || "";
 
-async function getGooglePublicKeys(): Promise<Record<string, string>> {
-  const response = await axios.get("https://www.gstatic.com/iap/verify/public_key");
-  return response.data;
-}
+const oauthClient = new OAuth2Client();
 
 export async function validateIapJwt(req: Request, res: Response, next: NextFunction) {
   const jwtAssertion = req.header(IAP_JWT_HEADER);
-  if (!jwtAssertion) return res.status(401).send("No IAP JWT found");
+  if (!jwtAssertion) {
+    return res.status(401).send("No IAP JWT found");
+  }
 
   try {
-    const keys = await getGooglePublicKeys();
-    const decodedHeader = jwt.decode(jwtAssertion, { complete: true }) as any;
-    const keyId = decodedHeader.header.kid;
-    const publicKey = keys[keyId];
-
-    if (!publicKey) throw new Error("Public key not found for JWT");
-
-    const payload = jwt.verify(jwtAssertion, publicKey, {
-      algorithms: ["ES256"],
+    const ticket = await oauthClient.verifyIdToken({
+      idToken: jwtAssertion,
       audience: IAP_CLIENT_ID,
-      issuer: IAP_ISSUER,
     });
 
-    (req as any).user = payload;
+    const payload: TokenPayload | undefined = ticket.getPayload();
+    if (!payload) throw new Error("Invalid payload");
+
+    (req as any).user = {
+      email: payload.email,
+      name: payload.name,
+      sub: payload.sub,
+    };
+
     next();
   } catch (err) {
-    console.error("IAP JWT validation failed", err);
-    return res.status(403).send("Forbidden - Invalid JWT");
+    console.error("IAP JWT validation failed:", err);
+    res.status(403).send("Forbidden - Invalid JWT");
   }
 }
