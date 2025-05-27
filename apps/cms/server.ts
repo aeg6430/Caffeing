@@ -7,7 +7,7 @@ export function extendExpressApp(app: Express, context: KeystoneContext) {
   const isDev = process.env.NODE_ENV === "development";
   app.use(express.json());
   if (!isDev) {
-    app.use(validateIapJwt); 
+    //app.use(validateIapJwt); 
   }
   registerSuggestStoreRoute(app, context);
 }
