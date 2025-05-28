@@ -1,6 +1,6 @@
 import i18n from '@nuxtjs/i18n';
 export default defineNuxtConfig({
-  ssr: true,
+  ssr: false,
   nitro: {
     preset: 'cloudflare-pages'
   },
