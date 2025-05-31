@@ -58,7 +58,7 @@ jobs:
         cat <<EOF > env.yaml
         DATABASE_URL: "${{ secrets.DB_CONNECTION_STRING_CMS }}"
         CORS_ORIGIN: "${{ secrets.CMS_CORS_ORIGINS }}"
-        IAP_AUDIENCE: ${{secrets.IAP_AUDIENCE}}
+        IAP_AUDIENCE: "${{secrets.IAP_AUDIENCE}}"
         EOF
 
     - name: Deploy to Cloud Run
