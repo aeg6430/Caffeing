@@ -37,6 +37,8 @@ namespace Caffeing.IntakeService
                 {
                     GoogleCredential credential = await GoogleCredential.GetApplicationDefaultAsync();
 
+                    Console.WriteLine($"Credential Type: {credential.UnderlyingCredential?.GetType().FullName}");
+
                     if (credential.UnderlyingCredential is not ServiceAccountCredential sac) 
                     {
                         throw new InvalidOperationException("Expected a service account credential.");
