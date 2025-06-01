@@ -12,6 +12,9 @@ namespace Caffeing.WebAPI
 
             var keystoneEndpoint = configuration["Keystone:Endpoint"]
                                    ?? throw new InvalidOperationException("Missing Keystone:Endpoint");
+
+            var serviceAccountEmail = configuration["ServiceAccountEmail"]
+                                   ?? throw new InvalidOperationException("Missing ServiceAccountEmail");
             services.AddHttpClient<Verifier>();
             services.AddScoped<Verifier>(provider =>
             {
@@ -23,7 +26,7 @@ namespace Caffeing.WebAPI
             {
                 var environment = provider.GetRequiredService<IHostEnvironment>();
                 var httpClient = provider.GetRequiredService<HttpClient>();
-                return new KeystoneForwarder(httpClient, keystoneEndpoint, environment); 
+                return new KeystoneForwarder(httpClient, keystoneEndpoint, environment, serviceAccountEmail); 
             });
 
             services.AddScoped<IntakeHandler>();

@@ -76,6 +76,7 @@ jobs:
         Database__ConnectionString: "${{ secrets.DB_CONNECTION_STRING_BACKEND }}"
         Turnstile__SecretKey: "${{ secrets.TURNSTILE_SECRET_KEY }}"
         Keystone__Endpoint: "${{ secrets.KEYSTONE_ENDPOINT_URL }}"
+        ServiceAccountEmail: "${{ secrets.API_SERVICE_ACCOUNT_EMAIL }}"
         EOF
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v2

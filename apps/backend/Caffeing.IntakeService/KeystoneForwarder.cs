@@ -14,23 +14,27 @@ namespace Caffeing.IntakeService
         private readonly HttpClient _httpClient;
         private readonly string _endpoint;
         private readonly IHostEnvironment _env;
+        private readonly string _serviceAccountEmail;  
 
-        public KeystoneForwarder(HttpClient httpClient, string endpoint, IHostEnvironment env)
+        public KeystoneForwarder(HttpClient httpClient, string endpoint, IHostEnvironment env, string serviceAccountEmail)
         {
             _httpClient = httpClient;
             _endpoint = endpoint;
             _env = env;
+            _serviceAccountEmail = serviceAccountEmail;
         }
 
         public async Task<bool> ForwardAsync(SuggestionData suggestionData)
         {
             try
             {
-                string idToken = await GetIdentityTokenAsync(_endpoint);
+                if (!_env.IsDevelopment())
+                {
+                    string idToken = await GetIdentityTokenAsync(_endpoint);
 
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", idToken);
-
+                    _httpClient.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", idToken);
+                }
                 var json = JsonSerializer.Serialize(suggestionData);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync(_endpoint, content);
@@ -46,24 +50,17 @@ namespace Caffeing.IntakeService
 
         private async Task<string> GetIdentityTokenAsync(string audience)
         {
-            GoogleCredential credential = await GoogleCredential.GetApplicationDefaultAsync();
+            var client = new IAMCredentialsClientBuilder().Build();
 
-            if (credential.UnderlyingCredential is ServiceAccountCredential sac)
+            var request = new GenerateIdTokenRequest
             {
-                var client = new IAMCredentialsClientBuilder().Build();
+                Name = $"projects/-/serviceAccounts/{_serviceAccountEmail}",
+                Audience = audience,
+                IncludeEmail = true
+            };
 
-                var request = new GenerateIdTokenRequest
-                {
-                    Name = $"projects/-/serviceAccounts/{sac.Id}",
-                    Audience = audience,
-                    IncludeEmail = true
-                };
-
-                var response = await client.GenerateIdTokenAsync(request);
-                return response.Token;
-            }
-
-            throw new InvalidOperationException("Could not obtain a valid Service Account Credential.");
+            var response = await client.GenerateIdTokenAsync(request);
+            return response.Token;
         }
     }
 }
