@@ -10,9 +10,10 @@ export const SuggestedStore: ListConfig<any> = list({
   },
   fields: {
     name: text({ validation: { isRequired: true } }),
-    location: text(),
-    description: text(),
+    businessHours: text(),
+    address:text(),
+    googleMapsLink: text(),
     website: text(),
-    businessHour: text(),
+    description: text(),
   },
 });

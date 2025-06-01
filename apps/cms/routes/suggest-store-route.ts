@@ -8,10 +8,11 @@ export function registerSuggestStoreRoute(app: Express, context: any) {
       const result = await context.query.SuggestedStore.createOne({
         data: {
           name: data.name,
-          location: data.location,
-          description: data.description,
+          businessHours: data.businessHours,
+          address: data.address,
+          googleMapsLink:data.googleMapsLink,
           website: data.website,
-          businessHour: data.businessHour,
+          description: data.description,
         },
       });
 

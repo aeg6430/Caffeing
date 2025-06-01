@@ -82,12 +82,13 @@ model Store {
 }
 
 model SuggestedStore {
-  id           String @id @default(cuid())
-  name         String @default("")
-  location     String @default("")
-  description  String @default("")
-  website      String @default("")
-  businessHour String @default("")
+  id             String @id @default(cuid())
+  name           String @default("")
+  businessHours  String @default("")
+  address        String @default("")
+  googleMapsLink String @default("")
+  website        String @default("")
+  description    String @default("")
 
   @@map("suggested_store")
 }

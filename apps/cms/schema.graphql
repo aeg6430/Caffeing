@@ -451,10 +451,11 @@ input StoreCreateInput {
 type SuggestedStore {
   id: ID!
   name: String
-  location: String
-  description: String
+  businessHours: String
+  address: String
+  googleMapsLink: String
   website: String
-  businessHour: String
+  description: String
 }
 
 input SuggestedStoreWhereUniqueInput {
@@ -467,27 +468,30 @@ input SuggestedStoreWhereInput {
   NOT: [SuggestedStoreWhereInput!]
   id: IDFilter
   name: StringFilter
-  location: StringFilter
-  description: StringFilter
+  businessHours: StringFilter
+  address: StringFilter
+  googleMapsLink: StringFilter
   website: StringFilter
-  businessHour: StringFilter
+  description: StringFilter
 }
 
 input SuggestedStoreOrderByInput {
   id: OrderDirection
   name: OrderDirection
-  location: OrderDirection
-  description: OrderDirection
+  businessHours: OrderDirection
+  address: OrderDirection
+  googleMapsLink: OrderDirection
   website: OrderDirection
-  businessHour: OrderDirection
+  description: OrderDirection
 }
 
 input SuggestedStoreUpdateInput {
   name: String
-  location: String
-  description: String
+  businessHours: String
+  address: String
+  googleMapsLink: String
   website: String
-  businessHour: String
+  description: String
 }
 
 input SuggestedStoreUpdateArgs {
@@ -497,10 +501,11 @@ input SuggestedStoreUpdateArgs {
 
 input SuggestedStoreCreateInput {
   name: String
-  location: String
-  description: String
+  businessHours: String
+  address: String
+  googleMapsLink: String
   website: String
-  businessHour: String
+  description: String
 }
 
 """
