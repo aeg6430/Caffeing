@@ -1,10 +1,10 @@
-﻿using Google.Apis.Auth.OAuth2;
-using Google.Cloud.Iam.Credentials.V1;
+﻿using Google.Cloud.Iam.Credentials.V1;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Caffeing.IntakeService
@@ -39,20 +39,22 @@ namespace Caffeing.IntakeService
                 if (!_env.IsDevelopment())
                 {
                     string idToken = await GetIdentityTokenAsync();
-                    Console.WriteLine($"Identity Token Retrieved: {idToken.Substring(0, 20)}..."); 
                     _httpClient.DefaultRequestHeaders.Authorization =
                         new AuthenticationHeaderValue("Bearer", idToken);
                 }
-                var json = JsonSerializer.Serialize(suggestionData);
-
-                Console.WriteLine($"Sending Request to: {_endpoint}");
-                Console.WriteLine($"Request Payload: {json}");
+                var json = JsonSerializer.Serialize(suggestionData, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.Never, 
+                    WriteIndented = true
+                });
 
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync(_endpoint, content);
 
                 Console.WriteLine($"Response Status Code: {response.StatusCode}");
-                Console.WriteLine($"Response Content: {await response.Content.ReadAsStringAsync()}");
+                string responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Full Response Content: {responseString}");
 
                 return response.IsSuccessStatusCode;
             }
