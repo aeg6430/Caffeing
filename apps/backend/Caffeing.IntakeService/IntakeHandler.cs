@@ -17,7 +17,7 @@ namespace Caffeing.IntakeService
             _forwarder = forwarder;
         }
 
-        public async Task<bool> HandleAsync(Request request)
+        public async Task<bool> HandleAsync(SuggestionRequest request)
         {
             var isValid = await _verifier.VerifyAsync(request.Token);
             if (!isValid) 

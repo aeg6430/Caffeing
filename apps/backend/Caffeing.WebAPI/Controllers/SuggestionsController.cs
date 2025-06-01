@@ -16,7 +16,7 @@ namespace Caffeing.WebAPI.Controllers
         }
 
         [HttpPost("submit")]
-        public async Task<IActionResult> SubmitSuggestion([FromBody] Request request)
+        public async Task<IActionResult> SubmitSuggestion([FromBody] SuggestionRequest request)
         {
 
             var success = await _intakeHandler.HandleAsync(request);

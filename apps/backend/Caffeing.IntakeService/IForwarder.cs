@@ -9,6 +9,6 @@ namespace Caffeing.IntakeService
 {
     public interface IForwarder
     {
-        Task<bool> ForwardAsync(string jsonData);
+        Task<bool> ForwardAsync(SuggestionData suggestionData);
     }
 }
