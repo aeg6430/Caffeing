@@ -31,13 +31,20 @@ namespace Caffeing.IntakeService
                 if (!_env.IsDevelopment())
                 {
                     string idToken = await GetIdentityTokenAsync(_endpoint);
-
+                    Console.WriteLine($"Identity Token Retrieved: {idToken.Substring(0, 20)}..."); 
                     _httpClient.DefaultRequestHeaders.Authorization =
                         new AuthenticationHeaderValue("Bearer", idToken);
                 }
                 var json = JsonSerializer.Serialize(suggestionData);
+
+                Console.WriteLine($"Sending Request to: {_endpoint}");
+                Console.WriteLine($"Request Payload: {json}");
+
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync(_endpoint, content);
+
+                Console.WriteLine($"Response Status Code: {response.StatusCode}");
+                Console.WriteLine($"Response Content: {await response.Content.ReadAsStringAsync()}");
 
                 return response.IsSuccessStatusCode;
             }
@@ -50,6 +57,8 @@ namespace Caffeing.IntakeService
 
         private async Task<string> GetIdentityTokenAsync(string audience)
         {
+
+            Console.WriteLine($"Generating Identity Token for Audience: {audience}");
             var client = new IAMCredentialsClientBuilder().Build();
 
             var request = new GenerateIdTokenRequest
