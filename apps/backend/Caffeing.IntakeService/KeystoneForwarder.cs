@@ -14,14 +14,22 @@ namespace Caffeing.IntakeService
         private readonly HttpClient _httpClient;
         private readonly string _endpoint;
         private readonly IHostEnvironment _env;
-        private readonly string _serviceAccountEmail;  
+        private readonly string _serviceAccountEmail;
+        private readonly string _iapClientId;
 
-        public KeystoneForwarder(HttpClient httpClient, string endpoint, IHostEnvironment env, string serviceAccountEmail)
+        public KeystoneForwarder(
+            HttpClient httpClient,
+            string endpoint,
+            IHostEnvironment env,
+            string serviceAccountEmail,
+            string iapClientId
+         )
         {
             _httpClient = httpClient;
             _endpoint = endpoint;
             _env = env;
             _serviceAccountEmail = serviceAccountEmail;
+            _iapClientId = iapClientId;
         }
 
         public async Task<bool> ForwardAsync(SuggestionData suggestionData)
@@ -30,7 +38,7 @@ namespace Caffeing.IntakeService
             {
                 if (!_env.IsDevelopment())
                 {
-                    string idToken = await GetIdentityTokenAsync(_endpoint);
+                    string idToken = await GetIdentityTokenAsync();
                     Console.WriteLine($"Identity Token Retrieved: {idToken.Substring(0, 20)}..."); 
                     _httpClient.DefaultRequestHeaders.Authorization =
                         new AuthenticationHeaderValue("Bearer", idToken);
@@ -55,16 +63,13 @@ namespace Caffeing.IntakeService
             }
         }
 
-        private async Task<string> GetIdentityTokenAsync(string audience)
+        private async Task<string> GetIdentityTokenAsync()
         {
-
-            Console.WriteLine($"Generating Identity Token for Audience: {audience}");
             var client = new IAMCredentialsClientBuilder().Build();
-
             var request = new GenerateIdTokenRequest
             {
                 Name = $"projects/-/serviceAccounts/{_serviceAccountEmail}",
-                Audience = audience,
+                Audience = _iapClientId,  
                 IncludeEmail = true
             };
 

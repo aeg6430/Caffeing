@@ -13,8 +13,10 @@ namespace Caffeing.WebAPI
             var keystoneEndpoint = configuration["Keystone:Endpoint"]
                                    ?? throw new InvalidOperationException("Missing Keystone:Endpoint");
 
-            var serviceAccountEmail = configuration["ServiceAccountEmail"]
-                                   ?? throw new InvalidOperationException("Missing ServiceAccountEmail");
+            var serviceAccountEmail = configuration["GCP:ServiceAccountEmail"]
+                                   ?? throw new InvalidOperationException("Missing GCP:ServiceAccountEmail");
+            var iapClientId = configuration["GCP:IapClientId"]
+                                   ?? throw new InvalidOperationException("Missing GCP:IapClientId");
             services.AddHttpClient<Verifier>();
             services.AddScoped<Verifier>(provider =>
             {
@@ -26,7 +28,13 @@ namespace Caffeing.WebAPI
             {
                 var environment = provider.GetRequiredService<IHostEnvironment>();
                 var httpClient = provider.GetRequiredService<HttpClient>();
-                return new KeystoneForwarder(httpClient, keystoneEndpoint, environment, serviceAccountEmail); 
+                return new KeystoneForwarder(
+                    httpClient,
+                    keystoneEndpoint, 
+                    environment, 
+                    serviceAccountEmail,
+                    iapClientId
+                ); 
             });
 
             services.AddScoped<IntakeHandler>();
