@@ -36,7 +36,8 @@ jobs:
         working-directory: apps/mobile
         run: |
           flutter build apk --release \
-            --dart-define=APP_API_ENDPOINT=${{ secrets.APP_PROD_API_ENDPOINT }}
+            --dart-define=APP_API_ENDPOINT=${{ secrets.APP_PROD_API_ENDPOINT }} \
+            -P GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}
 
       - name: Verify APK Exists
         working-directory: apps/mobile
