@@ -22,7 +22,7 @@ dependencies {
 
 android {
     namespace = "com.caffeing.caffeing"
-    compileSdk = 34
+    compileSdk = 35
     ndkVersion = "27.0.12077973"
 
     compileOptions {
