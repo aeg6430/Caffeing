@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Caffeing.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/favorites/stores")]
+    [Route("favorites/stores")]
     [Authorize] 
     public class FavoriteStoresController : ControllerBase
     {

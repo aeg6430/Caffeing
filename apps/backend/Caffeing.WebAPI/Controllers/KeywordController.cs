@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("api/keywords")]
+    [Route("keywords")]
     [ApiController]
     [Authorize]
     public class KeywordController : ControllerBase
@@ -21,7 +21,7 @@ namespace Caffeing.WebAPI.Controllers
             _keywordService = keywordService;
         }
 
-        // GET api/keywords
+        // GET keywords
         [HttpGet]
         public async Task<IActionResult> GetKeywordsAsync()
         {

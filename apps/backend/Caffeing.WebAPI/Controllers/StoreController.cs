@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("api/stores")]
+    [Route("stores")]
     [ApiController]
     [Authorize]
     public class StoreController : ControllerBase
@@ -21,7 +21,7 @@ namespace Caffeing.WebAPI.Controllers
             _logger = logger;
             _storeService = storeService;
         }
-        // GET api/stores
+        // GET stores
         [HttpGet]
         public async Task<IActionResult> GetAllStoresAsync()
         {

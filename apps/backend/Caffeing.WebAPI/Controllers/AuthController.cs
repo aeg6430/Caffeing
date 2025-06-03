@@ -6,7 +6,7 @@ using Caffeing.Domain.Enums;
 using System.Text.Json;
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("api/auth")]
+    [Route("auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace Caffeing.WebAPI.Controllers
             _authService = authService;
         }
 
-        // POST: api/auth/login
+        // POST: auth/login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] ProviderLoginRequest request)
         {

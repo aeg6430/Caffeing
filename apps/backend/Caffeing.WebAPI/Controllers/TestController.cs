@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("api/test")]
+    [Route("test")]
     [ApiController]
     public class TestController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace Caffeing.WebAPI.Controllers
             _logger = logger;
         }
 
-        // GET api/test
+        // GET test
         [HttpGet]
         public async Task<IActionResult> GetData()
         {

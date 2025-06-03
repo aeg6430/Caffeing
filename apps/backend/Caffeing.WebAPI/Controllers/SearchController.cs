@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("api/search")]
+    [Route("search")]
     [ApiController]
     [Authorize]
     public class SearchController : ControllerBase
@@ -22,7 +22,7 @@ namespace Caffeing.WebAPI.Controllers
             _searchService = searchService;
         }
 
-        // GET api/search
+        // GET search
         [HttpGet]
         public async Task<IActionResult> SearchStoresAsync([FromQuery] SearchRequest searchRequest)
         {
