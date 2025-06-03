@@ -32,6 +32,16 @@ jobs:
         working-directory: apps/mobile
         run: flutter pub get
 
+      - name: Decode Keystore and Configure Signing
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > /home/runner/work/release-keystore.jks
+          cat <<EOF > apps/mobile/android/key.properties
+          storeFile=/home/runner/work/release-keystore.jks
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          EOF
+          
       - name: Build Production APK
         working-directory: apps/mobile
         run: |
