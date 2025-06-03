@@ -36,6 +36,8 @@ jobs:
         working-directory: apps/mobile
         run: |
           flutter build apk --release \
+            --obfuscate \
+            --split-debug-info=build/app/debug-info \
             --dart-define=APP_API_ENDPOINT=${{ secrets.APP_PROD_API_ENDPOINT }} \
             -P GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}
 
