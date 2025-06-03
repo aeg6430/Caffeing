@@ -6,7 +6,7 @@ authors:
 version: 1.0.0
 
 environment:
-  sdk: "3.7.2"
+  sdk: ">=3.7.2 <3.9.0"
 
 dependencies:
   flutter:
