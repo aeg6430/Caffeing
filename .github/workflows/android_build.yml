@@ -33,6 +33,10 @@ jobs:
         working-directory: apps/mobile
         run: flutter pub get
 
+      - name: Flutter Clean
+        working-directory: apps/mobile
+        run: flutter clean
+
       - name: Ensure android/app exists
         working-directory: apps/mobile 
         run: mkdir -p android/app 
@@ -43,10 +47,6 @@ jobs:
           echo "${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}" | base64 --decode > android/app/google-services.json
           jq '.' android/app/google-services.json || { echo "Invalid JSON format!"; exit 1; }
         shell: bash 
- 
-      - name: Debug google-services.json
-        working-directory: apps/mobile
-        run: cat android/app/google-services.json
 
       - name: Decode Keystore and Configure Signing
         run: |
