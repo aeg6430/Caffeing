@@ -34,7 +34,8 @@ jobs:
         run: flutter pub get
 
       - name: Ensure android/app exists
-        run: mkdir -p android/app
+        working-directory: apps/mobile 
+        run: mkdir -p android/app 
 
       - name: Decode and Write google-services.json
         working-directory: apps/mobile
@@ -43,8 +44,8 @@ jobs:
           jq '.' android/app/google-services.json || { echo "Invalid JSON format!"; exit 1; }
         shell: bash 
  
-
       - name: Debug google-services.json
+        working-directory: apps/mobile
         run: cat android/app/google-services.json
 
       - name: Decode Keystore and Configure Signing
