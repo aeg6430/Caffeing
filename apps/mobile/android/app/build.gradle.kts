@@ -36,8 +36,8 @@ android {
 
     defaultConfig {
         applicationId = "com.caffeing.caffeing"
-        minSdk = 23
-        targetSdk = 30
+        minSdk = 28
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
 
