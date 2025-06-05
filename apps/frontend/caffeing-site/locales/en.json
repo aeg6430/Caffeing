@@ -34,7 +34,7 @@
       },
       "googleMapsLink": {
         "label": "Google Maps Link (optional)",
-        "placeholder": "https://goo.gl/maps/coffeing"
+        "placeholder": "https://goo.gl/maps/caffeing"
       },
       "website": {
         "label": "Website or Instagram (optional)",
@@ -45,9 +45,9 @@
         "placeholder": "Cat cafe with individual sockets and cozy seating"
       }
     },
+    "thankYou": "Thank You!",
     "buttons": {
       "submit": "Submit Recommendation",
-      "thankYou": "Thank You!",
       "submitAnother": "Submit Another"
     }
   }

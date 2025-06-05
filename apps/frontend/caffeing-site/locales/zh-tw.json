@@ -34,7 +34,7 @@
       },
       "googleMapsLink": {
         "label": "Google 地圖連結",
-        "placeholder": "https://goo.gl/maps/coffeing"
+        "placeholder": "https://goo.gl/maps/caffeing"
       },
       "website": {
         "label": "網站或Instagram",
@@ -45,9 +45,9 @@
         "placeholder": "擁有個別插座和舒適座位的貓咖"
       }
     },
+    "thankYou": "謝謝!",
     "buttons": {
       "submit": "提交推薦",
-      "thankYou": "謝謝!",
       "submitAnother": "提交另一個推薦店家"
     }
   }

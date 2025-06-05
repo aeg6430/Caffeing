@@ -34,7 +34,7 @@
       },
       "googleMapsLink": {
         "label": "구글 맵 링크 (선택 사항)",
-        "placeholder": "https://goo.gl/maps/coffeing"
+        "placeholder": "https://goo.gl/maps/caffeing"
       },
       "website": {
         "label": "웹사이트 또는 인스타그램 (선택 사항)",
@@ -45,9 +45,9 @@
         "placeholder": "개인 콘센트와 아늑한 좌석이 있는 고양이 카페"
       }
     },
+    "thankYou": "추천 감사합니다!",
     "buttons": {
       "submit": "카페 추천하기",
-      "thankYou": "추천 감사합니다!",
       "submitAnother": "또 다른 카페 추천하기"
     }
   }

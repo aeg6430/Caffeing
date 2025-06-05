@@ -45,9 +45,9 @@
         "placeholder": "個別のコンセントと快適な席のあるキャットカフェ"
       }
     },
+    "thankYou": "ありがとうございます！",
     "buttons": {
       "submit": "推薦を送信",
-      "thankYou": "ありがとうございます！",
       "submitAnother": "別の推薦を送信"
     }
   }

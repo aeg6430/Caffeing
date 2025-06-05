@@ -3,13 +3,10 @@
         <h1 class="text-2xl font-bold mb-6">{{ t('suggestForm.title') }}</h1>
 
         <div v-if="submitted">
-            <h2 class="text-xl font-semibold text-green-600">
-                {{ t('suggestForm.buttons.thank-you') }}
-            </h2>
-            <p class="mt-4">{{ t('suggestForm.thank-you-message') }}</p>
+            <p class="mt-4">{{ t('suggestForm.thankYou') }}</p>
             <button @click="resetForm"
                 class="mt-6 px-4 py-2 bg-amber-500 text-white font-semibold rounded-md shadow hover:bg-amber-600 transition">
-                {{ t('suggestForm.buttons.submit-another') }}
+                {{ t('suggestForm.buttons.submitAnother') }}
             </button>
         </div>
 
