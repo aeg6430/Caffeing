@@ -41,6 +41,8 @@ export default defineNuxtConfig({
       useCookie: true,
       cookieKey: 'i18n_redirected',
       redirectOn: 'root',
+      fallbackLocale: 'en',
+      alwaysRedirect: true, 
     },
   },
   devtools: { enabled: true },

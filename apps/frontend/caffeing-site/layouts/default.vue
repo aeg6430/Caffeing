@@ -58,7 +58,7 @@
         <nav>
           <ul class="flex space-x-4 text-sm">
             <li>
-              <NuxtLink to="/privacy" class="hover:underline">
+              <NuxtLink :to="localePath('/privacy')" class="hover:underline">
                 {{ $t('nav.privacy') }}
               </NuxtLink>
             </li>
@@ -71,9 +71,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-// Toggle mobile menu visibility
+import { useLocalePath } from '#i18n'
+
+const localePath = useLocalePath()
 const menuOpen = ref(false);
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value;
@@ -81,10 +83,16 @@ const toggleMenu = () => {
 
 const currentYear = new Date().getFullYear();
 
-// Navigation links
-const navLinks = [
+const rawLinks = [
   { labelKey: 'nav.home', to: '/' },
   { labelKey: 'nav.contact', to: '/contact' },
   { labelKey: 'nav.suggest', to: '/suggest' },
 ];
+
+const navLinks = computed(() =>
+  rawLinks.map(link => ({
+    ...link,
+    to: localePath(link.to),
+  }))
+);
 </script>
