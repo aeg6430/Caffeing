@@ -1,31 +1,51 @@
 <script setup>
-import { useI18n } from 'vue-i18n'
-import { ref, watchEffect } from 'vue'
-import MarkdownIt from 'markdown-it'
+import { useI18n } from 'vue-i18n';
+import { ref, watchEffect } from 'vue';
+import MarkdownIt from 'markdown-it';
 
-const { locale } = useI18n()
-const markdown = ref('')
-const mdParser = new MarkdownIt()
+const { locale } = useI18n();
+const markdown = ref('');
+const isLoading = ref(true);
+const mdParser = new MarkdownIt();
+let lastLoadedLang = '';
+const langToFileMap = {
+    'zh-tw': 'zh-tw',
+    'zh-cn': 'zh-tw',
+    en: 'en',
+    ja: 'ja',
+    ko: 'ko',
+};
 
-watchEffect(async () => {
+const loadMarkdown = async (lang) => {
+    const normalizedLang = lang.toLowerCase();
+    const mappedLang = langToFileMap[normalizedLang] || 'en';
+
     try {
-        let file
-        if (locale.value.toLowerCase() === 'zh-tw' || locale.value.toLowerCase() === 'zh-cn') {
-            file = await import('@/assets/app_privacy.zh-tw.md?raw')
-        } else {
-            file = await import('@/assets/app_privacy.en.md?raw')
-        }
+        isLoading.value = true;
 
-        markdown.value = mdParser.render(file.default)
+        const file = await import(`@/assets/app_privacy.${mappedLang}.md?raw`);
+        markdown.value = mdParser.render(file.default);
+        lastLoadedLang = lang;
     } catch (error) {
-        console.error('Markdown Import Error:', error)
-        markdown.value = '<p>Error loading privacy policy.</p>'
+        console.error('Markdown Import Error:', error);
+        markdown.value = '<p>Error loading privacy policy.</p>';
+    } finally {
+        isLoading.value = false;
     }
-})
+};
+
+watchEffect(() => {
+    if (locale.value && locale.value !== lastLoadedLang) {
+        loadMarkdown(locale.value);
+    }
+});
 </script>
 
 <template>
-    <div class="markdown-body markdown-wrapper" v-html="markdown"></div>
+    <div class="markdown-body markdown-wrapper">
+        <div v-if="isLoading">Loading...</div>
+        <div v-else v-html="markdown" />
+    </div>
 </template>
 
 <style>
