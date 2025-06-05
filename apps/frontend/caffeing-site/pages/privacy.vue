@@ -1,60 +1,68 @@
 <script setup>
-import { useI18n } from 'vue-i18n'
-import { ref, watchEffect } from 'vue'
-import MarkdownIt from 'markdown-it'
+import { useI18n } from 'vue-i18n';
+import { ref, watchEffect } from 'vue';
+import MarkdownIt from 'markdown-it';
 
-const { locale } = useI18n()
-const markdown = ref('')
-const mdParser = new MarkdownIt()
+const { locale } = useI18n();
+const markdown = ref('');
+const isLoading = ref(true);
+const mdParser = new MarkdownIt();
+let lastLoadedLang = '';
+const langToFileMap = {
+    'zh-tw': 'zh-tw',
+    'zh-cn': 'zh-tw',
+    en: 'en',
+    ja: 'ja',
+    ko: 'ko',
+};
 
-watchEffect(async () => {
+const loadMarkdown = async (lang) => {
+    const normalizedLang = lang.toLowerCase();
+    const mappedLang = langToFileMap[normalizedLang] || 'en';
+
     try {
-        let file
-        if (locale.value.toLowerCase() === 'zh-tw' || locale.value.toLowerCase() === 'zh-cn') {
-            file = await import('@/assets/privacy.zh-tw.md?raw')
-        } else {
-            file = await import('@/assets/privacy.en.md?raw')
-        }
+        isLoading.value = true;
 
-        markdown.value = mdParser.render(file.default)
+        const file = await import(`@/assets/privacy.${mappedLang}.md?raw`);
+        markdown.value = mdParser.render(file.default);
+        lastLoadedLang = lang;
     } catch (error) {
-        console.error('Markdown Import Error:', error)
-        markdown.value = '<p>Error loading privacy policy.</p>'
+        console.error('Markdown Import Error:', error);
+        markdown.value = '<p>Error loading privacy policy.</p>';
+    } finally {
+        isLoading.value = false;
     }
-})
+};
+
+watchEffect(() => {
+    if (locale.value && locale.value !== lastLoadedLang) {
+        loadMarkdown(locale.value);
+    }
+});
 </script>
 
+
 <template>
-    <div class="markdown-body markdown-wrapper" v-html="markdown"></div>
+    <div class="markdown-wrapper prose dark:prose-invert max-w-3xl mx-auto p-6">
+        <div v-if="isLoading">Loading...</div>
+        <div v-else v-html="markdown" />
+    </div>
 </template>
-
-<style>
-@import 'github-markdown-css/github-markdown.css';
-</style>
-
 <style scoped>
 .markdown-wrapper {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background-color: #030712;
     border-radius: 8px;
 }
 
-.markdown-body {
-    color: #ffffff;
-}
-
-.markdown-body a {
-    color: #3b82f6;
-}
-
-.markdown-body pre {
-    background-color: #1f2937;
-}
-
-.markdown-body code {
-    background-color: #374151;
-    color: #fbbf24;
+.prose {
+    --tw-prose-body: #f3f4f6;
+    --tw-prose-headings: #ffffff;
+    --tw-prose-bold: #ffffff;
+    --tw-prose-links: #60a5fa;
+    --tw-prose-code: #fbbf24;
+    --tw-prose-pre-bg: #1f2937;
 }
 </style>
