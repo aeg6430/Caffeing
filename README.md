@@ -56,7 +56,7 @@ Explore cafes with Caffeing
 
 
 
-- Infrastructure / Deployment
+### Infrastructure / Deployment
 
 - Uses Google Cloud Platform (GCP) for hosting and services:
 
