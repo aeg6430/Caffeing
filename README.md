@@ -88,4 +88,14 @@ Explore cafes with Caffeing
 
 ## Licenses
 
-This project uses third-party dependencies. See [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
+This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
+
+> You are free to use, share, or adapt this work **for non-commercial purposes only**, with proper attribution.
+>
+> See the full terms in the [LICENSE](./LICENSE) file.
+
+---
+
+### Third-Party Licenses
+
+This project uses third-party dependencies. For licensing details of those components, see [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
