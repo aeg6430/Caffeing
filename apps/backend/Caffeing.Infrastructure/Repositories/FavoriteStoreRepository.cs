@@ -1,7 +1,6 @@
 ﻿using Caffeing.Domain.ValueObjects;
 using Caffeing.Infrastructure.Contexts;
 using Caffeing.Infrastructure.Entities.FavoriteStores;
-using Caffeing.Infrastructure.Entities.UserFavoriteStores;
 using Caffeing.Infrastructure.Entities.Users;
 using Caffeing.Infrastructure.IRepositories;
 using Dapper;

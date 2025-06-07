@@ -1,5 +1,4 @@
 ﻿using Caffeing.Infrastructure.Entities.FavoriteStores;
-using Caffeing.Infrastructure.Entities.UserFavoriteStores;
 using Caffeing.Infrastructure.Entities.Users;
 using System;
 using System.Collections.Generic;

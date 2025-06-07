@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Caffeing.Infrastructure.Entities.UserFavoriteStores
+namespace Caffeing.Infrastructure.Entities.FavoriteStores
 {
     public class FavoriteStoreEntity
     {
