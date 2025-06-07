@@ -92,10 +92,10 @@ This project is licensed under the [Creative Commons Attribution-NonCommercial 4
 
 > You are free to use, share, or adapt this work **for non-commercial purposes only**, with proper attribution.
 >
-> See the full terms in the [LICENSE](./LICENSE) file.
+> See the full terms in the [LICENSE](./LICENSE.md).
 
 ---
 
 ### Third-Party Licenses
 
-This project uses third-party dependencies. For licensing details of those components, see [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
+This project uses third-party dependencies. For licensing details of these components, see [THIRD_PARTY_LICENSES](./THIRD_PARTY_LICENSES.md).
