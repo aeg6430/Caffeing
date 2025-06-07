@@ -39,6 +39,15 @@ watchEffect(() => {
         loadMarkdown(locale.value);
     }
 });
+
+const { t } = useI18n();
+useSeoMeta({
+    title: t('seo.privacy_title'),
+    description: t('seo.privacy_description'),
+    ogTitle: t('seo.privacy_title'),
+    ogDescription: t('seo.privacy_description'),
+    ogImage: 'https://caffeing.com/preview.jpg',
+});
 </script>
 
 

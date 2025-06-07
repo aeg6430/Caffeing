@@ -40,4 +40,14 @@ const config = useRuntimeConfig();
 const threadsUrl = config.public.contactThreads;
 const instagramUrl = config.public.contactInstagram;
 const email = config.public.contactEmail;
+
+const { t } = useI18n();
+useSeoMeta({
+  title: t('seo.contact_title'),
+  description: t('seo.contact_description'),
+  ogTitle: t('seo.contact_title'),
+  ogDescription: t('seo.contact_description'),
+  ogImage: 'https://caffeing.com/preview.jpg',
+});
+
 </script>

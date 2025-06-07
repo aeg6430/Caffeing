@@ -53,6 +53,12 @@
   },
   "seo": {
     "home_title": "Caffeing - 대만 최고의 카페 찾기 | 꼭 가봐야 할 카페 앱",
-    "home_description": "Caffeing 앱으로 대만의 지금 영업 중인 카페, Wi-Fi 및 콘센트 제공 카페, 사진 찍기 좋은 카페, Naver/YouTube/Instagram 추천 카페를 찾아보세요! 맛있는 디저트 맛집과 인생샷 명소까지, 최고의 대만 카페 시간을 경험하세요."
+    "home_description": "Caffeing 앱으로 대만의 지금 영업 중인 카페, Wi-Fi 및 콘센트 제공 카페, 사진 찍기 좋은 카페, Naver/YouTube/Instagram 추천 카페를 찾아보세요! 맛있는 디저트 맛집과 인생샷 명소까지, 최고의 대만 카페 시간을 경험하세요.",
+    "contact_title": "문의하기",
+    "contact_description": "Caffeing에 대해 질문이나 피드백이 있으신가요? 이메일 또는 SNS를 통해 언제든지 저희 팀에 문의해주세요. 기꺼이 도와드리겠습니다!",
+    "form_title": "커피숍 제안하기",
+    "form_description": "새로운 커피숍 추천을 제출해 주세요.",
+    "privacy_title": "개인정보처리방침",
+    "privacy_description": "Caffeing이 고객님의 개인 데이터를 어떻게 수집, 사용, 보호하는지, 그리고 고객님의 개인정보 권리에 대해 알아보세요."
   }
 }

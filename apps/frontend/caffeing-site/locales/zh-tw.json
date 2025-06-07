@@ -53,6 +53,12 @@
   },
   "seo": {
     "home_title": "Caffeing - 尋找附近咖啡廳 | 咖啡控必備APP",
-    "home_description": "下載Caffeing APP 尋找營業中咖啡店、不限時咖啡店、聊天咖啡店、Dcard Threads IG推薦咖啡廳與特色甜點。探索附近好店，找到適合的咖啡店"
+    "home_description": "下載Caffeing APP 尋找營業中咖啡店、不限時咖啡店、聊天咖啡店、Dcard Threads IG推薦咖啡廳與特色甜點。探索附近好店，找到適合的咖啡店",
+    "contact_title": "聯絡我們",
+    "contact_description": "有任何疑問或提供意見回饋嗎？透過電子郵件或社群媒體聯繫我們的團隊",
+    "form_title": "推薦店家",
+    "form_description": "提交推薦店家",
+    "privacy_title": "隱私權政策",
+    "privacy_description": "了解 Caffeing 如何收集、使用和保護您的個人資料，並了解您的隱私權利。"
   }
 }

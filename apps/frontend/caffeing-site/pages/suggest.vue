@@ -12,4 +12,13 @@ import SuggestForm from '@/components/suggest_form.vue';
 definePageMeta({
     layout: 'default',
 });
+
+const { t } = useI18n();
+useSeoMeta({
+    title: t('seo.form_title'),
+    description: t('seo.form_description'),
+    ogTitle: t('seo.form_title'),
+    ogDescription: t('seo.form_description'),
+    ogImage: 'https://caffeing.com/preview.jpg',
+});
 </script>
