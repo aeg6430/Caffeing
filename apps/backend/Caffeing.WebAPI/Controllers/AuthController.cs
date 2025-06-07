@@ -6,8 +6,9 @@ using Caffeing.Domain.Enums;
 using System.Text.Json;
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("auth")]
     [ApiController]
+    [Route("auth")]
+
     public class AuthController : ControllerBase
     {
         private readonly ILogger<AuthController> _logger;

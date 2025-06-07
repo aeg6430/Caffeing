@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("test")]
     [ApiController]
+    [Route("test")]
+
     public class TestController : ControllerBase
     {
         private readonly ILogger<TestController> _logger;

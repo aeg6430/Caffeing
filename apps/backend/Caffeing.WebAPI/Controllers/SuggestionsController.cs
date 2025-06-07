@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("suggestions")]
     [ApiController]
+    [Route("suggestions")]
     public class SuggestionsController : ControllerBase
     {
         private readonly IntakeHandler _intakeHandler;

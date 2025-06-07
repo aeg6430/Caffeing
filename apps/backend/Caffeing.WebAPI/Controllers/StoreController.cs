@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("stores")]
     [ApiController]
+    [Route("stores")]
     [Authorize]
     public class StoreController : ControllerBase
     {

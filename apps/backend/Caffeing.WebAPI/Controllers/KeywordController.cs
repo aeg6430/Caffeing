@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Caffeing.WebAPI.Controllers
 {
-    [Route("keywords")]
     [ApiController]
+    [Route("keywords")]
     [Authorize]
     public class KeywordController : ControllerBase
     {
