@@ -12,8 +12,6 @@ const langToFileMap = {
     'zh-tw': 'zh-tw',
     'zh-cn': 'zh-tw',
     en: 'en',
-    ja: 'ja',
-    ko: 'ko',
 };
 
 const loadMarkdown = async (lang) => {
