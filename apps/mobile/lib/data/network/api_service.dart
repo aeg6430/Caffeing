@@ -54,12 +54,13 @@ class ApiService {
         '$_apiUrl/search?query=${Uri.encodeComponent(search.query ?? '')}'
         '${(search.keywordIds ?? []).map((id) => '&keywordIds=${Uri.encodeComponent(id)}').join()}',
       );
-
+      final token = await loadToken();
       final response = await http.get(
         uri,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
         },
       );
       if (response.statusCode == 200 || response.statusCode == 401) {
@@ -74,11 +75,13 @@ class ApiService {
 
   Future<List<KeywordResponseModel>?> keywords() async {
     try {
+      final token = await loadToken();
       final response = await http.get(
         Uri.parse('$_apiUrl/keywords'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
         },
       );
 
@@ -99,11 +102,13 @@ class ApiService {
 
   Future<List<KeywordResponseModel>?> keywordsOptions() async {
     try {
+      final token = await loadToken();
       final response = await http.get(
         Uri.parse('$_apiUrl/keywords/options'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
         },
       );
 
@@ -124,11 +129,13 @@ class ApiService {
 
   Future<List<StoreResponseModel>> getAllStore() async {
     try {
+      final token = await loadToken();
       final response = await http.get(
         Uri.parse('$_apiUrl/stores'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
         },
       );
 
@@ -147,11 +154,13 @@ class ApiService {
 
   Future<StoreResponseModel?> getStoreByRequest(StoreRequestModel store) async {
     try {
+      final token = await loadToken();
       final response = await http.get(
         Uri.parse('$_apiUrl/stores/search?storeid=${store.storeId}'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
         },
       );
 
