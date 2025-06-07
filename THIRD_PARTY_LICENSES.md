@@ -157,6 +157,10 @@ https://github.com/markdown-it/markdown-it/blob/master/LICENSE
 https://github.com/FortAwesome/Font-Awesome/blob/6.x/LICENSE.txt  
 > Icons by [Font Awesome](https://fontawesome.com), used under [CC BY 4.0 License](https://creativecommons.org/licenses/by/4.0/)
 
+### @nuxtjs/seo (Nuxt SEO)
+**License:** MIT  
+https://github.com/harlan-zw/nuxt-seo/blob/main/LICENSE.md
+
 ---
 
 ## Backend (ASP.NET Core)
