@@ -58,6 +58,11 @@
         <nav>
           <ul class="flex space-x-4 text-sm">
             <li>
+              <a href="https://github.com/aeg6430/Caffeing" target="_blank" rel="noopener" aria-label="GitHub">
+                <i class="fab fa-github mr-2 text-white"></i>
+              </a>
+            </li>
+            <li>
               <NuxtLink :to="localePath('/privacy')" class="hover:underline">
                 {{ $t('nav.privacy') }}
               </NuxtLink>
