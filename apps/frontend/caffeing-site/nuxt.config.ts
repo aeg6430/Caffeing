@@ -1,10 +1,12 @@
-import i18n from '@nuxtjs/i18n';
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   nitro: {
     preset: 'cloudflare-pages'
   },
-  modules: ['@nuxtjs/i18n'],
+  modules: [
+    '@nuxtjs/i18n',
+    '@nuxtjs/seo',
+  ],
   i18n: {
     langDir: '../locales',
     lazy: true,
@@ -45,6 +47,12 @@ export default defineNuxtConfig({
       alwaysRedirect: true, 
     },
   },
+  site: { 
+    url: 'https://caffeing.com', 
+    name: 'Caffeing', 
+    description: 'Easily find the cafes you are looking for.',
+    defaultLocale: 'zh-tw',
+  },
   devtools: { enabled: true },
   css: [
     '@fortawesome/fontawesome-free/css/all.css',
@@ -66,23 +74,7 @@ export default defineNuxtConfig({
     head: {
       title: 'Caffeing',
       meta: [
-        {
-          name: 'description',
-          content: 'Discover the best coffee shops near you with Caffeing.',
-        },
-        { name: 'keywords', content: 'coffee shops, coffee finder' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
-        { name: 'robots', content: 'index, follow' },
-        {
-          property: 'og:title',
-          content: 'Find the Best Coffee Shops - Caffeing',
-        },
-        {
-          property: 'og:description',
-          content: 'Looking for the perfect coffee spot? Download Caffeing!',
-        },
-        { property: 'og:image', content: 'https://caffeing.com/preview.jpg' },
-        { property: 'og:url', content: 'https://caffeing.com' },
       ],
       script: [
         {

@@ -22,4 +22,12 @@ import FeatureShowcase from '@/components/feature_showcase.vue';
 definePageMeta({
   layout: 'default',
 });
+const { t } = useI18n();
+useSeoMeta({
+  title: t('seo.home_title'),
+  description: t('seo.home_description'),
+  ogTitle: t('seo.home_title'),
+  ogDescription: t('seo.home_description'),
+  ogImage: 'https://caffeing.com/preview.jpg',
+});
 </script>

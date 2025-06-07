@@ -50,5 +50,9 @@
       "submit": "Submit Recommendation",
       "submitAnother": "Submit Another"
     }
+  },
+  "seo": {
+    "home_title": "Caffeing - Find Best Cafes in Taiwan | Must-Visit Coffee App",
+    "home_description": "Download the Caffeing app to discover Taiwan's best cafes: open now, classic, specialty, or unique themed spots. Find foreigner-friendly cafes, Wi-Fi & power outlets, and top recommendations from Google Maps, YouTube, & Instagram. Enjoy your perfect coffee time in Taiwan."
   }
 }

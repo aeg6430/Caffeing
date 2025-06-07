@@ -50,5 +50,9 @@
       "submit": "提交推薦",
       "submitAnother": "提交另一個推薦店家"
     }
+  },
+  "seo": {
+    "home_title": "Caffeing - 尋找附近咖啡廳 | 咖啡控必備APP",
+    "home_description": "下載Caffeing APP 尋找營業中咖啡店、不限時咖啡店、聊天咖啡店、Dcard Threads IG推薦咖啡廳與特色甜點。探索附近好店，找到適合的咖啡店"
   }
 }
