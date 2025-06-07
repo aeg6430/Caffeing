@@ -30,7 +30,7 @@ Explore cafes with Caffeing
 - Features:
   - Public-facing website
   - Coffee store recommendation form
-  - Multi-language support (EN, ZH, JP, KO)
+  - Multi-language support (EN, ZH, JP, KO) with i18n-based SEO optimization
   - Protected using **Cloudflare Turnstile**
 
 ### Backend (ASP.NET Core)
