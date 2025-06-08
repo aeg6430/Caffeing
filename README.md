@@ -12,7 +12,6 @@ Explore cafes with Caffeing
   - Google Maps integration with clustering
   - Authenticated users can save favorite stores remotely
   - Launch navigation to selected store in Google Maps
-  - Deep linking support for sharing coffee store links
   - Persistent bottom navigation
   - Multi-language support (EN, ZH, JP, KO)
   - Theming (dark/light)
@@ -84,6 +83,16 @@ Explore cafes with Caffeing
 
 > **Security Note**: This project integrates with Firebase and Google Maps. Always keep your API keys and service credentials secure. Never commit real credentials or secrets to version control.
 
+---
+
+## Roadmap
+
+* **Deep Linking Support for Store Pages:** Enable sharable links (`https://caffeing.com/store/{storeId}`) that directly open specific coffee store pages within the app. Upon opening, the app will display the store's details, including its location on the integrated map, just as if it were selected from a search result.
+    * *Status: In progress, pending backend API endpoint implementation for retrieving store details by ID.*
+* **Advanced Search with Full i18n Support:** Enhance the search functionality to include more advanced filtering options, with all search parameters and results fully localized for all supported languages (EN, ZH, JP, KO).
+* **Store Details with Full i18n Support:** Ensure all store details (e.g., name, description, address, amenities) are fully localized and displayed correctly in all supported languages (EN, ZH, JP, KO).
+
+---
 
 
 ## Licenses
