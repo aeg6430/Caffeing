@@ -42,28 +42,57 @@ class _MapContentState extends State<MapContent> {
   BitmapDescriptor? _defaultMarkerIcon;
   BitmapDescriptor? _searchMarkerIcon;
   BitmapDescriptor? _selectedMarkerIcon;
-  bool _isLoading = true;
   double _currentZoom = 12.5;
   bool _isMovingCamera = false;
   final double defaultLatitude = 25.05291553866105;
   final double defaultLongitude = 121.52035694040113;
   Offset? _pulsePosition;
 
+  late Future<void> _initializationFuture;
+
   @override
   void initState() {
     super.initState();
-    _loadMapStyle();
-    _loadCustomMarkerIcons();
+    _initializationFuture = _initializeAppContent();
+  }
+
+  Future<void> _initializeAppContent() async {
+    print('MapContent: _initializeAppContent started.');
+    try {
+      await Future.wait([_loadMapStyle(), _loadCustomMarkerIcons()]);
+
+      print('MapContent: Map style and custom marker icons loaded.');
+
+      // Initialize cluster manager only if storeList is provided and not empty
+      if (widget.storeList != null && widget.storeList!.isNotEmpty) {
+        _initializeClusterManager();
+        print('MapContent: ClusterManager initialized.');
+      } else {
+        print(
+          'MapContent: No storeList provided or storeList is empty. ClusterManager not initialized.',
+        );
+      }
+    } catch (e) {
+      print('MapContent: Error during _initializeAppContent: $e');
+      rethrow; // Propagate the error to FutureBuilder
+    }
   }
 
   @override
   void didUpdateWidget(covariant MapContent oldWidget) {
     super.didUpdateWidget(oldWidget);
+    print('MapContent: didUpdateWidget called.');
 
+    // If search results change, trigger map update for existing cluster manager
     if (widget.searchResults != oldWidget.searchResults) {
+      print(
+        'MapContent: searchResults changed. Updating map via cluster manager.',
+      );
       _clusterManager?.updateMap();
     }
 
+    // If store list changes, re-initialize the cluster manager.
+    // Ensure icons are loaded, which _initializeAppContent should guarantee.
     if (widget.storeList != null &&
         widget.storeList != oldWidget.storeList &&
         _defaultMarkerIcon != null &&
@@ -75,91 +104,130 @@ class _MapContentState extends State<MapContent> {
   @override
   void dispose() {
     _positionStream?.cancel();
+    _controller.future.then((controller) => controller.dispose());
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Selector<MapViewModel, StoreSummaryResponseModel?>(
-      selector: (_, vm) => vm.selectedStore,
-      builder: (context, selectedStore, _) {
-        if (selectedStore != null) {
-          if (_selectedMarkerId != selectedStore?.storeId) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              _updateMarkerPosition();
-            });
-          }
-        }
+    return FutureBuilder<void>(
+      future: _initializationFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            print('MapContent: FutureBuilder error: ${snapshot.error}');
+            return Center(child: Text('Error loading map: ${snapshot.error}'));
+          } else {
+            return Selector<MapViewModel, StoreSummaryResponseModel?>(
+              selector: (_, vm) => vm.selectedStore,
+              builder: (context, selectedStore, _) {
+                if (selectedStore != null) {
+                  if (_selectedMarkerId != selectedStore.storeId) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _updateMarkerPosition();
+                    });
+                  }
+                }
 
-        final lat = selectedStore?.latitude ?? defaultLatitude;
-        final lng = selectedStore?.longitude ?? defaultLongitude;
+                final lat = selectedStore?.latitude ?? defaultLatitude;
+                final lng = selectedStore?.longitude ?? defaultLongitude;
 
-        return _isLoading
-            ? Center(child: CircularProgressIndicator())
-            : Stack(
-              children: [
-                GoogleMap(
-                  mapType: MapType.normal,
-                  style: _mapStyle,
-                  initialCameraPosition: CameraPosition(
-                    target: _markerPosition ?? LatLng(lat, lng),
-                    zoom: widget.zoom,
-                  ),
-                  markers: _mapMarkers,
-                  zoomControlsEnabled: false,
-                  onMapCreated: (controller) {
-                    if (!_controller.isCompleted) {
-                      _controller.complete(controller);
-                    }
-                    _clusterManager?.setMapId(controller.mapId);
-                    _clusterManager?.updateMap();
-                  },
-                  onCameraMove: (CameraPosition position) {
-                    _currentZoom = position.zoom;
-                    _clusterManager?.onCameraMove(position);
-                  },
-                  onCameraIdle: _clusterManager?.updateMap,
-                ),
-                Positioned(
-                  bottom: MediaQuery.of(context).size.height * 0.25,
-                  right: MediaQuery.of(context).size.width * 0.05,
-                  child: FloatingActionButton(
-                    onPressed: _goToCurrentLocation,
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    child: Icon(
-                      Icons.my_location,
-                      color:
-                          Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Theme.of(context).colorScheme.primary,
+                return Stack(
+                  children: [
+                    GoogleMap(
+                      mapType: MapType.normal,
+                      style: _mapStyle,
+                      initialCameraPosition: CameraPosition(
+                        target: _markerPosition ?? LatLng(lat, lng),
+                        zoom: widget.zoom,
+                      ),
+                      markers: _mapMarkers,
+                      zoomControlsEnabled: false,
+                      onMapCreated: (controller) {
+                        print('MapContent: onMapCreated called.');
+                        if (!_controller.isCompleted) {
+                          _controller.complete(controller);
+                          // Get and set the initial actual zoom level of the map
+                          controller.getZoomLevel().then((zoom) {
+                            if (mounted) {
+                              setState(() {
+                                _currentZoom = zoom;
+                                print(
+                                  'MapContent: _currentZoom set to $zoom after map created.',
+                                );
+                              });
+                            }
+                          });
+                        }
+                        // Ensure cluster manager gets map ID and updates its markers after map creation
+                        _clusterManager?.setMapId(controller.mapId);
+                        _clusterManager?.updateMap();
+                        print(
+                          'MapContent: ClusterManager mapId set and map updated after creation.',
+                        );
+                      },
+                      onCameraMove: (CameraPosition position) {
+                        _currentZoom = position.zoom;
+                        _clusterManager?.onCameraMove(position);
+                      },
+                      onCameraIdle: () {
+                        _clusterManager?.updateMap();
+                      },
                     ),
-                  ),
-                ),
-              ],
+                    Positioned(
+                      bottom: MediaQuery.of(context).size.height * 0.25,
+                      right: MediaQuery.of(context).size.width * 0.05,
+                      child: FloatingActionButton(
+                        onPressed: _goToCurrentLocation,
+                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        child: Icon(
+                          Icons.my_location,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             );
+          }
+        } else {
+          print(
+            'MapContent: FutureBuilder connectionState: ${snapshot.connectionState}. Showing CircularProgressIndicator.',
+          );
+          return const Center(child: CircularProgressIndicator());
+        }
       },
     );
   }
 
   Future<void> _loadMapStyle() async {
+    print('MapContent: _loadMapStyle called.');
     _mapStyle = await rootBundle.loadString('assets/map_style_light.json');
-    setState(() {});
+    print('MapContent: Map style loaded.');
   }
 
   Future<void> _loadCustomMarkerIcons() async {
+    print('MapContent: _loadCustomMarkerIcons called.');
     _defaultMarkerIcon = await MapHelper.createCircleMarker(Colors.orange);
-    _searchMarkerIcon = await await MapHelper.createCircleMarker(
-      Colors.lightGreen,
-    );
-    _selectedMarkerIcon = await await MapHelper.createCircleMarker(Colors.red);
-    if (mounted && widget.storeList != null) {
-      _initializeClusterManager();
-    }
-    setState(() => _isLoading = false);
+    _searchMarkerIcon = await MapHelper.createCircleMarker(Colors.lightGreen);
+    _selectedMarkerIcon = await MapHelper.createCircleMarker(Colors.red);
+    print('MapContent: Custom marker icons loaded.');
   }
 
   void _initializeClusterManager() {
-    if (widget.storeList == null || widget.storeList!.isEmpty) return;
+    print('MapContent: _initializeClusterManager called.');
+    if (widget.storeList == null || widget.storeList!.isEmpty) {
+      print(
+        'MapContent: storeList is null or empty, not initializing ClusterManager.',
+      );
+      _clusterManager = null; // Ensure no old manager is lingering
+      return;
+    }
+
     final items =
         widget.storeList?.map((store) {
           return StoreClusterModel(
@@ -170,23 +238,49 @@ class _MapContentState extends State<MapContent> {
         }).toList() ??
         [];
 
+    // Defensive check (should be true if _initializeAppContent completed)
+    if (_defaultMarkerIcon == null ||
+        _selectedMarkerIcon == null ||
+        _searchMarkerIcon == null) {
+      print(
+        "MapContent: ERROR: Marker icons are null during ClusterManager initialization! This should not happen.",
+      );
+      return;
+    }
+
     _clusterManager = cluster_manager.ClusterManager(
       items,
       _updateMarkers,
       markerBuilder: _markerBuilder,
-      levels: [1, 5.5, 7.5, 9.5, 11.5, 13.5, 15, 16, 17, 18],
+      levels: const [1, 5.5, 7.5, 9.5, 11.5, 13.5, 15, 16, 17, 18],
       stopClusteringZoom: 17.5,
       extraPercent: 0.3,
     );
+    print('MapContent: ClusterManager instance created.');
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _clusterManager?.updateMap();
-    });
+    // Attempt to update map using the new cluster manager if controller is already complete.
+    // This handles cases where _initializeClusterManager is called *after* map creation.
+    _controller.future
+        .then((controller) {
+          _clusterManager?.setMapId(controller.mapId);
+          _clusterManager?.updateMap();
+          print(
+            'MapContent: ClusterManager mapId set and map updated (post-init).',
+          );
+        })
+        .catchError((error) {
+          print(
+            "MapContent: Error getting map controller for _initializeClusterManager's updateMap: $error",
+          );
+        });
   }
 
   void _updateMarkers(Set<Marker> markers) {
+    if (!mounted) {
+      print('MapContent: _updateMarkers called, but widget is unmounted.');
+      return;
+    }
     setState(() {
-      // Retain the user marker if available
       final newMarkers = Set<Marker>.from(markers);
       if (_userMarker != null) {
         newMarkers.add(_userMarker!);
@@ -194,13 +288,21 @@ class _MapContentState extends State<MapContent> {
       _mapMarkers = newMarkers;
     });
 
-    final vm = Provider.of<MapViewModel>(context, listen: false);
-    final selectedStore = vm.selectedStore;
-    if (selectedStore != null && _selectedMarkerId == null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    // This part should be safe now that the map is guaranteed to be built
+    // Use `WidgetsBinding.instance.addPostFrameCallback` for UI updates like this
+    // to avoid triggering setState during build.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final vm = Provider.of<MapViewModel>(context, listen: false);
+      final selectedStore = vm.selectedStore;
+      // Only call _updateMarkerPosition if a store is selected and we haven't already marked it
+      if (selectedStore != null && _selectedMarkerId != selectedStore.storeId) {
+        print(
+          'MapContent: _updateMarkers: selectedStore is available, calling _updateMarkerPosition.',
+        );
         _updateMarkerPosition();
-      });
-    }
+      }
+    });
   }
 
   Future<Marker> Function(cluster_manager.Cluster<cluster_manager.ClusterItem>)
@@ -225,18 +327,20 @@ class _MapContentState extends State<MapContent> {
               ? Colors.lightGreen
               : Colors.orange;
 
+      // Make sure MapHelper.createCircleMarker doesn't return null
       final icon = await MapHelper.createCircleMarker(
         color,
         count: cluster.count,
       );
-
       return Marker(
         markerId: MarkerId(cluster.getId()),
         position: cluster.location,
         icon: icon,
         onTap: () {
+          print('MapContent: Cluster tapped at zoom: $_currentZoom');
           final currentZoomLevel = _currentZoom;
-          final targetZoom = currentZoomLevel < 18.5 ? 19.0 : currentZoomLevel;
+          // Zoom in more aggressively if current zoom is low, otherwise to a fixed high zoom
+          final targetZoom = currentZoomLevel < 17.5 ? 17.5 : 19.0;
           _controller.future.then((controller) {
             controller.animateCamera(
               CameraUpdate.newLatLngZoom(cluster.location, targetZoom),
@@ -265,6 +369,9 @@ class _MapContentState extends State<MapContent> {
         position: cluster.location,
         icon: icon,
         onTap: () {
+          print(
+            'MapContent: Store marker tapped: ${storeCluster.name} (ID: ${storeCluster.storeId})',
+          );
           final summary = StoreSummaryResponseModel(
             storeId: storeCluster.storeId,
             name: storeCluster.name,
@@ -273,50 +380,74 @@ class _MapContentState extends State<MapContent> {
           );
 
           widget.onStoreSelected?.call(summary);
-          setState(() {
-            _selectedMarkerId = storeCluster.storeId;
-            _markerPosition = cluster.location;
-          });
+          if (mounted) {
+            setState(() {
+              _selectedMarkerId = storeCluster.storeId;
+              _markerPosition = cluster.location;
+            });
+          }
         },
       );
     }
   };
 
   Future<void> _goToCurrentLocation() async {
+    if (!mounted) return;
+    print('MapContent: _goToCurrentLocation called.');
     final controller = await _controller.future;
-    _positionStream?.cancel();
+    _positionStream?.cancel(); // Cancel any existing stream
 
     _positionStream = await MapHelper.trackUserLocation(
       controller: controller,
       markerSet: _mapMarkers,
-      updateMarkers: (updated) => setState(() => _mapMarkers = updated),
+      updateMarkers: (updated) {
+        if (mounted) {
+          setState(() => _mapMarkers = updated);
+          print(
+            'MapContent: _goToCurrentLocation: _mapMarkers updated with user marker.',
+          );
+        }
+      },
       onLocationUpdate: (latLng, marker) {
-        setState(() {
-          _userLocation = latLng;
-          _userMarker = marker;
-        });
+        if (mounted) {
+          setState(() {
+            _userLocation = latLng;
+            _userMarker = marker;
+            print(
+              'MapContent: _goToCurrentLocation: User location updated to $latLng',
+            );
+          });
+        }
       },
     );
   }
 
   Future<void> _updateMarkerPosition() async {
+    if (!mounted) return;
+
     final vm = Provider.of<MapViewModel>(context, listen: false);
     final store = vm.selectedStore;
 
-    // If there's no store to select/move to in the ViewModel, do nothing.
     if (store == null) {
+      print('MapContent: _updateMarkerPosition: No selected store, returning.');
       return;
     }
 
-    // If camera is already moving or map controller isn't ready, defer.
     if (_isMovingCamera || !_controller.isCompleted) {
+      print(
+        'MapContent: _updateMarkerPosition: Camera already moving or controller not ready. Deferring.',
+      );
       return;
     }
 
     final newPosition = LatLng(store.latitude, store.longitude);
     final GoogleMapController controller = await _controller.future;
 
-    _isMovingCamera = true;
+    setState(() {
+      // Set _isMovingCamera before starting animation
+      _isMovingCamera = true;
+      print('MapContent: _isMovingCamera set to true.');
+    });
 
     final LatLng? previousMarkerPosition = _markerPosition;
 
@@ -345,13 +476,16 @@ class _MapContentState extends State<MapContent> {
       );
     }
 
-    setState(() {
-      _markerPosition = newPosition;
-      _selectedMarkerId = store.storeId;
-    });
+    if (mounted) {
+      setState(() {
+        _markerPosition = newPosition;
+        _selectedMarkerId = store.storeId;
+        _isMovingCamera = false;
+      });
+    }
 
     // After state is updated, markers need to be rebuilt to reflect the new selection.
+    // Call updateMap on cluster manager after camera movement is complete and state is updated.
     _clusterManager?.updateMap();
-    _isMovingCamera = false;
   }
 }
