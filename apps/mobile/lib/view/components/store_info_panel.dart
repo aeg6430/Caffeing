@@ -94,6 +94,7 @@ class _StoreInfoPanelState extends State<StoreInfoPanel> {
                             softWrap: true,
                           ),
                         ),
+                        /*
                         IconButton(
                           icon: Icon(Icons.ios_share, color: Colors.blue),
                           onPressed: () {
@@ -104,6 +105,14 @@ class _StoreInfoPanelState extends State<StoreInfoPanel> {
                             );
                           },
                         ),
+                        */
+
+                        // TODO: [Deep Link Feature - API Dependency]
+                        // Still currently handling deep link URLs for store pages,
+                        // but the functionality to display the actual store content is pending.
+                        // This is because the necessary API endpoint to fetch store details by ID
+                        // on api.caffeing.com is not yet available. This feature will be enabled
+                        // once the API integration is complete.
                         IconButton(
                           icon: Icon(Icons.near_me_rounded, color: Colors.blue),
                           onPressed: () {

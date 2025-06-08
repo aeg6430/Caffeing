@@ -128,7 +128,7 @@ class _FavoriteStoreScreenState extends State<FavoriteStoreScreen> {
       },
       itemBuilder: (BuildContext context) {
         return [
-          PopupMenuItem<String>(
+          /*PopupMenuItem<String>(
             value: 'share',
             child: Row(
               children: [
@@ -137,7 +137,14 @@ class _FavoriteStoreScreenState extends State<FavoriteStoreScreen> {
                 Text(S.of(context).share),
               ],
             ),
-          ),
+          ),*/
+
+          // TODO: [Deep Link Feature - API Dependency]
+          // Still currently handling deep link URLs for store pages,
+          // but the functionality to display the actual store content is pending.
+          // This is because the necessary API endpoint to fetch store details by ID
+          // on api.caffeing.com is not yet available. This feature will be enabled
+          // once the API integration is complete.
           PopupMenuItem<String>(
             value: 'delete',
             child: Row(
