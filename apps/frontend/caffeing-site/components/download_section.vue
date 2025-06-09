@@ -1,23 +1,23 @@
 <template>
-    <div class="flex flex-col items-center text-center px-6 sm:px-6 mt-8">
-        <div class="flex flex-col space-y-8 mt-6">
-            <div class="flex items-center space-x-4">
+    <div class="mt-10 md:mt-14 md:px-6">
+        <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-4 md:gap-8 md:flex-col xl:flex-row">
                 <!-- App Icon on the Left -->
-                <img src="/assets/app_icon.png" alt="App Icon" class="w-24 h-24 sm:w-32 sm:h-32 mr-4" />
+                <img src="/assets/app_icon.png" alt="App Icon" class="w-24 h-24 sm:w-32 sm:h-32" />
 
                 <!-- Title and Description -->
-                <div class="flex flex-col items-start text-left">
-                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold">
+                <div class="flex flex-col text-left">
+                    <h1 class="font-semibold text-3xl sm:text-4xl md:text-center xl:text-5xl xl:text-left">
                         {{ $t('home.title') }}
                     </h1>
-                    <p class="mt-4 text-base sm:text-lg lg:text-xl text-left">
+                    <p class="mt-4 text-base sm:text-lg lg:text-xl">
                         {{ $t('home.description') }}
                     </p>
                 </div>
             </div>
 
             <!-- Download Buttons Wrapper -->
-            <div class="flex space-x-6 mt-6 sm:space-x-8">
+            <div class="flex justify-center gap-6 mt-6 xl:justify-start">
                 <!-- iOS Download -->
                 <a :href="appStoreUrl" target="_blank" class="flex items-center">
                     <img src="/assets/third_party_icons/apple_store.svg" alt="Download on iOS" class="h-8" />
