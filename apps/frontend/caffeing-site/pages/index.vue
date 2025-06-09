@@ -7,8 +7,8 @@
       </div>
 
       <!-- Image on Right -->
-      <div class="flex flex-col lg:flex-row items-center justify-center px-6 md:px-6 w-full md:w-1/2 mt-8">
-        <img src="/assets/map_screen.svg" alt="App UI" class="w-72 md:w-96 rounded-lg shadow-lg" />
+      <div class="flex flex-col lg:flex-row items-center justify-center px-4 md:px-6 w-full md:w-1/2 mt-8">
+        <img src="/assets/map_screen.svg" alt="App UI" class="w-72 md:w-auto rounded-lg shadow-lg" />
       </div>
     </div>
   </div>

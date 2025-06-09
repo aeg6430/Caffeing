@@ -17,7 +17,7 @@
             </div>
 
             <!-- Download Buttons Wrapper -->
-            <div class="flex justify-center gap-6 mt-6 xl:justify-start">
+            <div class="flex justify-center gap-4 mt-6 xl:justify-start">
                 <!-- iOS Download -->
                 <a :href="appStoreUrl" target="_blank" class="flex items-center">
                     <img src="/assets/third_party_icons/apple_store.svg" alt="Download on iOS" class="h-8" />
