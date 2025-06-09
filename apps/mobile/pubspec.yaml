@@ -3,7 +3,7 @@ description: "Caffeing"
 publish_to: "none"
 authors:
   - "Kyle Chang"
-version: 1.0.0
+version: 1.0.1+2
 
 environment:
   sdk: ">=3.7.2 <3.9.0"
