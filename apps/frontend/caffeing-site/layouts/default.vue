@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen bg-brandBg">
     <!-- Header -->
-    <header class="bg-[#030712]/60 text-white py-4">
+    <header class="bg-[#030712]/60 text-white w-screen py-4">
       <div class="container mx-auto flex items-center justify-between px-4 sm:px-8">
         <!-- Clickable Logo -->
         <NuxtLink to="/" class="text-3xl font-bold">Caffeing</NuxtLink>
