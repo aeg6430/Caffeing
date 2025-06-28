@@ -7,20 +7,15 @@ using System.Threading.Tasks;
 
 namespace Caffeing.Domain.Models
 {
-
-    namespace Caffeing.Infrastructure.Entities
+    public class User
     {
-        public class User
-        {
-            public Guid UserId { get; set; }  
-            public string Provider { get; set; }
-            public string ProviderId { get; set; }
-            public string? Email { get; set; }
-            public string? Name { get; set; }
-            public string Role { get; set; }  
-            public DateTime CreatedTime { get; set; }
-            public DateTime ModifiedTime { get; set; }
-        }
+        public Guid UserId { get; set; }
+        public string Provider { get; set; }
+        public string ProviderId { get; set; }
+        public string? Email { get; set; }
+        public string? Name { get; set; }
+        public string Role { get; set; }
+        public DateTime CreatedTime { get; set; }
+        public DateTime ModifiedTime { get; set; }
     }
-
 }
