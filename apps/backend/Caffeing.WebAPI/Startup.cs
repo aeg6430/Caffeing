@@ -1,14 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using Caffeing.WebAPI;
 using Caffeing.Infrastructure;
-using Google.Protobuf.WellKnownTypes;
 using Caffeing.Application.Jwt;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Caffeing.Application.Jwt.Caffeing.Application.Jwt;
 
 public class Startup
 {
